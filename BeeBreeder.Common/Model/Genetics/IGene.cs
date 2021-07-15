@@ -1,3 +1,5 @@
+using System;
+
 namespace BeeBreeder.Common.Model.Genetics
 {
     public interface IGene
@@ -5,8 +7,8 @@ namespace BeeBreeder.Common.Model.Genetics
         bool Dominant { get; set; }
     }
     
-    public interface IGene<T> : IGene
+    public interface IGene<out T> : IGene where T : struct
     {
-        T Property { get; set; }
+        T Value { get; }
     }
 }

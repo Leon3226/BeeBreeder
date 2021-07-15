@@ -3,15 +3,28 @@ using System.Text.RegularExpressions;
 
 namespace BeeBreeder.Common.Model.Genetics
 {
-    public class Chromosome<T> : ICrossable
+    public class Chromosome<T> : ICrossable, IChromosome, IChromosome<T> where T : struct
     {
-        public string Property = "Unnamed";
-        public Gene<T> Primary;
-        public Gene<T> Secondary;
+        public string Property { get; set; } = "Unnamed";
+        public IGene<T> Primary { get; set; }
+        public IGene<T> Secondary { get; set; }
+
+        public T ResultantAttribute
+        {
+            get
+            {
+                if (Primary.Dominant && !Secondary.Dominant)
+                    return Primary.Value;
+                if (!Primary.Dominant && Secondary.Dominant)
+                    return Secondary.Value;
+
+                return Primary.Value;
+            }
+        }
 
         private Random _rand;
 
-        public Gene<T> Random(Random random = null)
+        public IGene<T> Random(Random random = null)
         {
             if (random == null)
                 random = EnsureRandom();
@@ -36,7 +49,7 @@ namespace BeeBreeder.Common.Model.Genetics
             };
         }
 
-        protected (Gene<T>, Gene<T>) GenesFromCrossing(Chromosome<T> secondPair, Random random = null)
+        protected (IGene<T>, IGene<T>) GenesFromCrossing(Chromosome<T> secondPair, Random random = null)
         {
             random ??= new Random();
             var first = Random(random);
@@ -50,12 +63,16 @@ namespace BeeBreeder.Common.Model.Genetics
 
         public override string ToString()
         {
-            return $"{Primary} {Secondary}";
+            return $"{Primary} {Secondary} ({ResultantAttribute})";
         }
 
         public virtual ICrossable Cross(ICrossable second, Random random = null)
         {
             return Cross((Chromosome<T>)second, random);
         }
+
+        IGene IChromosome.Primary => Primary;
+
+        IGene IChromosome.Secondary => Secondary;
     }
 }

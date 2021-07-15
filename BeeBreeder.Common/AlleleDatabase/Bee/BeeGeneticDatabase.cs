@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using BeeBreeder.Common.Model.Genetics;
 
 namespace BeeBreeder.Common.AlleleDatabase.Bee
 {
@@ -13,19 +15,32 @@ namespace BeeBreeder.Common.AlleleDatabase.Bee
             public const string Flowers = "Flowers";
             public const string Fertility = "Fertility";
             public const string Area = "Area";
+            public const string TempTolerance = "Temperature Tolerance";
+            public const string HumidTolerance = "Humidity Tolerance";
+            public const string Diurnal  = "Diurnal";
+            public const string Nocturnal = "Nocturnal";
+            public const string Flyer = "Flyer";
+            public const string Cave = "Cave";
+            public const string Effect = "Effect";
+
         }
         
-        public static List<SpecieCombination> SpecieCombinations = new();
-        public static Dictionary<Species, BeeInitialStats> SpecieStats = new();
+        public static readonly List<SpecieCombination> SpecieCombinations = new();
+        public static Dictionary<string, Type> StatTypes = new();
+        public static readonly Dictionary<Species, BeeInitialStats> SpecieStats = new();
+        public static Dictionary<Species, int> DefaultSpeciePriorities = new();
+        public static Dictionary<Effect, int> DefaultEffectPriorities = new();
         public static Dictionary<string, Dictionary<object, bool>> GenesDominancies;
 
         static BeeGeneticDatabase()
         {
             //TODO: Move all of this to the configs
             InitMutationTree();
+            InitStatTypes();
             InitBeeStats();
             InitStatDominancyTree();
-            
+            InitDefaultSpeciePriorities();
+            InitDefaultEffectPriorities();
         }
 
         private static void InitMutationTree()
@@ -39,7 +54,11 @@ namespace BeeBreeder.Common.AlleleDatabase.Bee
             SpecieCombinations.Add(new SpecieCombination(Species.Common, Species.Cultivated, 0.10, Species.Diligent));
             SpecieCombinations.Add(new SpecieCombination(Species.Diligent, Species.Cultivated, 0.08, Species.Unweary));
             SpecieCombinations.Add(new SpecieCombination(Species.Diligent, Species.Unweary, 0.08, Species.Industrious));
-        }
+            SpecieCombinations.Add(new SpecieCombination(Species.Valiant, Species.Steadfast, 0.06, Species.Heroic));
+            SpecieCombinations.Add(new SpecieCombination(Species.Austere, Species.Tropical, 0.12, Species.Exotic));
+            SpecieCombinations.Add(new SpecieCombination(Species.Exotic, Species.Tropical, 0.08, Species.Edenic));
+            SpecieCombinations.Add(new SpecieCombination(Species.Diligent, Species.Meadows, 0.12, Species.Rural));
+        }   
         private static void InitBeeStats()
         {
             SpecieStats.Add(Species.Forest, new BeeInitialStats()
@@ -52,7 +71,14 @@ namespace BeeBreeder.Common.AlleleDatabase.Bee
                     {StatNames.Pollination, 2},
                     {StatNames.Flowers, Flowers.Flowers},
                     {StatNames.Fertility, 3},
-                    {StatNames.Area, 1}
+                    {StatNames.Area, 1},
+                    {StatNames.TempTolerance, new Adaptation(0, 0)},
+                    {StatNames.HumidTolerance, new Adaptation(0, 0)},
+                    {StatNames.Diurnal, 1},
+                    {StatNames.Nocturnal, 0},
+                    {StatNames.Flyer, 0},
+                    {StatNames.Cave, 0},
+                    {StatNames.Effect, Effect.None}
                 }
             });
             
@@ -66,7 +92,14 @@ namespace BeeBreeder.Common.AlleleDatabase.Bee
                     {StatNames.Pollination, 2},
                     {StatNames.Flowers, Flowers.Flowers},
                     {StatNames.Fertility, 2},
-                    {StatNames.Area, 1}
+                    {StatNames.Area, 1},
+                    {StatNames.TempTolerance, new Adaptation(0, 0)},
+                    {StatNames.HumidTolerance, new Adaptation(0, 0)},
+                    {StatNames.Diurnal, 1},
+                    {StatNames.Nocturnal, 0},
+                    {StatNames.Flyer, 0},
+                    {StatNames.Cave, 0},
+                    {StatNames.Effect, Effect.None}
                 }
             });
             
@@ -80,7 +113,14 @@ namespace BeeBreeder.Common.AlleleDatabase.Bee
                     {StatNames.Pollination, 1},
                     {StatNames.Flowers, Flowers.Flowers},
                     {StatNames.Fertility, 2},
-                    {StatNames.Area, 1}
+                    {StatNames.Area, 1},
+                    {StatNames.TempTolerance, new Adaptation(0, 0)},
+                    {StatNames.HumidTolerance, new Adaptation(0, 0)},
+                    {StatNames.Diurnal, 1},
+                    {StatNames.Nocturnal, 0},
+                    {StatNames.Flyer, 0},
+                    {StatNames.Cave, 0},
+                    {StatNames.Effect, Effect.None}
                 }
             });
             
@@ -94,7 +134,14 @@ namespace BeeBreeder.Common.AlleleDatabase.Bee
                     {StatNames.Pollination, 1},
                     {StatNames.Flowers, Flowers.Flowers},
                     {StatNames.Fertility, 2},
-                    {StatNames.Area, 1}
+                    {StatNames.Area, 1},
+                    {StatNames.TempTolerance, new Adaptation(0, 0)},
+                    {StatNames.HumidTolerance, new Adaptation(0, 0)},
+                    {StatNames.Diurnal, 1},
+                    {StatNames.Nocturnal, 0},
+                    {StatNames.Flyer, 0},
+                    {StatNames.Cave, 0},
+                    {StatNames.Effect, Effect.None}
                 }
             });
             
@@ -108,7 +155,14 @@ namespace BeeBreeder.Common.AlleleDatabase.Bee
                     {StatNames.Pollination, 1},
                     {StatNames.Flowers, Flowers.Flowers},
                     {StatNames.Fertility, 2},
-                    {StatNames.Area, 1}
+                    {StatNames.Area, 1},
+                    {StatNames.TempTolerance, new Adaptation(0, 0)},
+                    {StatNames.HumidTolerance, new Adaptation(0, 0)},
+                    {StatNames.Diurnal, 1},
+                    {StatNames.Nocturnal, 0},
+                    {StatNames.Flyer, 0},
+                    {StatNames.Cave, 0},
+                    {StatNames.Effect, Effect.None}
                 }
             });
             
@@ -122,7 +176,14 @@ namespace BeeBreeder.Common.AlleleDatabase.Bee
                     {StatNames.Pollination, 1},
                     {StatNames.Flowers, Flowers.Flowers},
                     {StatNames.Fertility, 4},
-                    {StatNames.Area, 1}
+                    {StatNames.Area, 1},
+                    {StatNames.TempTolerance, new Adaptation(0, 0)},
+                    {StatNames.HumidTolerance, new Adaptation(0, 0)},
+                    {StatNames.Diurnal, 1},
+                    {StatNames.Nocturnal, 0},
+                    {StatNames.Flyer, 0},
+                    {StatNames.Cave, 0},
+                    {StatNames.Effect, Effect.None}
                 }
             });
             
@@ -136,7 +197,14 @@ namespace BeeBreeder.Common.AlleleDatabase.Bee
                     {StatNames.Pollination, 1},
                     {StatNames.Flowers, Flowers.Flowers},
                     {StatNames.Fertility, 2},
-                    {StatNames.Area, 1}
+                    {StatNames.Area, 1},
+                    {StatNames.TempTolerance, new Adaptation(0, 0)},
+                    {StatNames.HumidTolerance, new Adaptation(0, 0)},
+                    {StatNames.Diurnal, 1},
+                    {StatNames.Nocturnal, 0},
+                    {StatNames.Flyer, 0},
+                    {StatNames.Cave, 0},
+                    {StatNames.Effect, Effect.Beatific}
                 }
             });
             
@@ -150,7 +218,14 @@ namespace BeeBreeder.Common.AlleleDatabase.Bee
                     {StatNames.Pollination, 3},
                     {StatNames.Flowers, Flowers.Flowers},
                     {StatNames.Fertility, 2},
-                    {StatNames.Area, 1}
+                    {StatNames.Area, 1},
+                    {StatNames.TempTolerance, new Adaptation(0, 0)},
+                    {StatNames.HumidTolerance, new Adaptation(0, 0)},
+                    {StatNames.Diurnal, 1},
+                    {StatNames.Nocturnal, 0},
+                    {StatNames.Flyer, 0},
+                    {StatNames.Cave, 0},
+                    {StatNames.Effect, Effect.None}
                 }
             });
             
@@ -164,7 +239,14 @@ namespace BeeBreeder.Common.AlleleDatabase.Bee
                     {StatNames.Pollination, 1},
                     {StatNames.Flowers, Flowers.Flowers},
                     {StatNames.Fertility, 2},
-                    {StatNames.Area, 1}
+                    {StatNames.Area, 1},
+                    {StatNames.TempTolerance, new Adaptation(0, 0)},
+                    {StatNames.HumidTolerance, new Adaptation(0, 0)},
+                    {StatNames.Diurnal, 1},
+                    {StatNames.Nocturnal, 0},
+                    {StatNames.Flyer, 0},
+                    {StatNames.Cave, 0},
+                    {StatNames.Effect, Effect.None}
                 }
             });
             
@@ -178,7 +260,161 @@ namespace BeeBreeder.Common.AlleleDatabase.Bee
                     {StatNames.Pollination, 5},
                     {StatNames.Flowers, Flowers.Flowers},
                     {StatNames.Fertility, 2},
-                    {StatNames.Area, 1}
+                    {StatNames.Area, 1},
+                    {StatNames.TempTolerance, new Adaptation(0, 0)},
+                    {StatNames.HumidTolerance, new Adaptation(0, 0)},
+                    {StatNames.Diurnal, 1},
+                    {StatNames.Nocturnal, 0},
+                    {StatNames.Flyer, 0},
+                    {StatNames.Cave, 0},
+                    {StatNames.Effect, Effect.None}
+                }
+            });
+            
+            SpecieStats.Add(Species.Steadfast, new BeeInitialStats()
+            {
+                Characteristics = new Dictionary<string, object>()
+                {
+                    {StatNames.Specie, Species.Steadfast},
+                    {StatNames.Lifespan, 5},
+                    {StatNames.Speed, 2},
+                    {StatNames.Pollination, 1},
+                    {StatNames.Flowers, Flowers.Flowers},
+                    {StatNames.Fertility, 2},
+                    {StatNames.Area, 1},
+                    {StatNames.TempTolerance, new Adaptation(0, 0)},
+                    {StatNames.HumidTolerance, new Adaptation(0, 0)},
+                    {StatNames.Diurnal, 1},
+                    {StatNames.Nocturnal, 1},
+                    {StatNames.Flyer, 0},
+                    {StatNames.Cave, 1},
+                    {StatNames.Effect, Effect.None}
+                }
+            });
+            
+            SpecieStats.Add(Species.Valiant, new BeeInitialStats()
+            {
+                Characteristics = new Dictionary<string, object>()
+                {
+                    {StatNames.Specie, Species.Valiant},
+                    {StatNames.Lifespan, 7},
+                    {StatNames.Speed, 3},
+                    {StatNames.Pollination, 1},
+                    {StatNames.Flowers, Flowers.Flowers},
+                    {StatNames.Fertility, 2},
+                    {StatNames.Area, 1},
+                    {StatNames.TempTolerance, new Adaptation(0, 0)},
+                    {StatNames.HumidTolerance, new Adaptation(0, 0)},
+                    {StatNames.Diurnal, 1},
+                    {StatNames.Nocturnal, 1},
+                    {StatNames.Flyer, 0},
+                    {StatNames.Cave, 1},
+                    {StatNames.Effect, Effect.None}
+                }
+            });
+            
+            SpecieStats.Add(Species.Heroic, new BeeInitialStats()
+            {
+                Characteristics = new Dictionary<string, object>()
+                {
+                    {StatNames.Specie, Species.Heroic},
+                    {StatNames.Lifespan, 7},
+                    {StatNames.Speed, 3},
+                    {StatNames.Pollination, 1},
+                    {StatNames.Flowers, Flowers.Flowers},
+                    {StatNames.Fertility, 2},
+                    {StatNames.Area, 1},
+                    {StatNames.TempTolerance, new Adaptation(0, 0)},
+                    {StatNames.HumidTolerance, new Adaptation(0, 0)},
+                    {StatNames.Diurnal, 1},
+                    {StatNames.Nocturnal, 1},
+                    {StatNames.Flyer, 0},
+                    {StatNames.Cave, 1},
+                    {StatNames.Effect, Effect.None}
+                }
+            });
+            
+            SpecieStats.Add(Species.Tropical, new BeeInitialStats()
+            {
+                Characteristics = new Dictionary<string, object>()
+                {
+                    {StatNames.Specie, Species.Tropical},
+                    {StatNames.Lifespan, 3},
+                    {StatNames.Speed, 2},
+                    {StatNames.Pollination, 1},
+                    {StatNames.Flowers, Flowers.Jungle},
+                    {StatNames.Fertility, 2},
+                    {StatNames.Area, 1},
+                    {StatNames.TempTolerance, new Adaptation(1, 1)},
+                    {StatNames.HumidTolerance, new Adaptation(0, 1)},
+                    {StatNames.Diurnal, 1},
+                    {StatNames.Nocturnal, 0},
+                    {StatNames.Flyer, 0},
+                    {StatNames.Cave, 0},
+                    {StatNames.Effect, Effect.Poison}
+                }
+            });
+            
+            SpecieStats.Add(Species.Exotic, new BeeInitialStats()
+            {
+                Characteristics = new Dictionary<string, object>()
+                {
+                    {StatNames.Specie, Species.Exotic},
+                    {StatNames.Lifespan, 7},
+                    {StatNames.Speed, 4},
+                    {StatNames.Pollination, 1},
+                    {StatNames.Flowers, Flowers.Jungle},
+                    {StatNames.Fertility, 2},
+                    {StatNames.Area, 1},
+                    {StatNames.TempTolerance, new Adaptation(1, 1)},
+                    {StatNames.HumidTolerance, new Adaptation(0, 1)},
+                    {StatNames.Diurnal, 1},
+                    {StatNames.Nocturnal, 0},
+                    {StatNames.Flyer, 0},
+                    {StatNames.Cave, 0},
+                    {StatNames.Effect, Effect.Poison}
+                }
+            });
+            
+            SpecieStats.Add(Species.Edenic, new BeeInitialStats()
+            {
+                Characteristics = new Dictionary<string, object>()
+                {
+                    {StatNames.Specie, Species.Edenic},
+                    {StatNames.Lifespan, 8},
+                    {StatNames.Speed, 1},
+                    {StatNames.Pollination, 1},
+                    {StatNames.Flowers, Flowers.Jungle},
+                    {StatNames.Fertility, 2},
+                    {StatNames.Area, 1},
+                    {StatNames.TempTolerance, new Adaptation(2, 2)},
+                    {StatNames.HumidTolerance, new Adaptation(0, 1)},
+                    {StatNames.Diurnal, 1},
+                    {StatNames.Nocturnal, 0},
+                    {StatNames.Flyer, 0},
+                    {StatNames.Cave, 0},
+                    {StatNames.Effect, Effect.Explorer}
+                }
+            });
+            
+            SpecieStats.Add(Species.Rural, new BeeInitialStats()
+            {
+                Characteristics = new Dictionary<string, object>()
+                {
+                    {StatNames.Specie, Species.Rural},
+                    {StatNames.Lifespan, 2},
+                    {StatNames.Speed, 2},
+                    {StatNames.Pollination, 6},
+                    {StatNames.Flowers, Flowers.Wheat},
+                    {StatNames.Fertility, 2},
+                    {StatNames.Area, 1},
+                    {StatNames.TempTolerance, new Adaptation(0, 0)},
+                    {StatNames.HumidTolerance, new Adaptation(0, 0)},
+                    {StatNames.Diurnal, 1},
+                    {StatNames.Nocturnal, 0},
+                    {StatNames.Flyer, 0},
+                    {StatNames.Cave, 0},
+                    {StatNames.Effect, Effect.None}
                 }
             });
         }
@@ -199,6 +435,14 @@ namespace BeeBreeder.Common.AlleleDatabase.Bee
                         {Species.Diligent, false},
                         {Species.Unweary, true},
                         {Species.Industrious, false},
+                        {Species.Steadfast, false},
+                        {Species.Valiant, true},
+                        {Species.Heroic, false},
+                        {Species.Tropical, false},
+                        {Species.Exotic, true},
+                        {Species.Edenic, false},
+                        {Species.Rural,false},
+                        {Species.Austere, false}
                     }
                 },
                 {
@@ -268,7 +512,124 @@ namespace BeeBreeder.Common.AlleleDatabase.Bee
                         {3, false},
                         {4, false},
                     }
+                },
+                {
+                    StatNames.TempTolerance, new Dictionary<object, bool>()
+                    {
+                        {new Adaptation(0, 0), false},
+                        {new Adaptation(1, 1), true},
+                        {new Adaptation(2, 2), false},
+                        {new Adaptation(1, 0), true},
+                        {new Adaptation(2, 0), false},
+                        {new Adaptation(0, 1), true},
+                        {new Adaptation(0, 2), false},
+                    }
+                },
+                {
+                    StatNames.HumidTolerance, new Dictionary<object, bool>()
+                    {
+                        {new Adaptation(0, 0), false},
+                        {new Adaptation(1, 1), true},
+                        {new Adaptation(2, 2), false},
+                        {new Adaptation(1, 0), true},
+                        {new Adaptation(2, 0), false},
+                        {new Adaptation(0, 1), true},
+                        {new Adaptation(0, 2), false},
+                    }
+                },
+                {
+                    StatNames.Nocturnal, new Dictionary<object, bool>()
+                    {
+                        {0, false},
+                        {1, false}
+                    }
+                },
+                {
+                    StatNames.Diurnal, new Dictionary<object, bool>()
+                    {
+                        {0, false},
+                        {1, false}
+                    }
+                },
+                {
+                    StatNames.Flyer, new Dictionary<object, bool>()
+                    {
+                        {0, false},
+                        {1, false}
+                    }
+                },
+                {
+                    StatNames.Cave, new Dictionary<object, bool>()
+                    {
+                        {0, false},
+                        {1, false}
+                    }
+                },
+                {
+                    StatNames.Effect, new Dictionary<object, bool>()
+                    {
+                        {Effect.None, true},
+                        {Effect.Beatific, false},
+                        {Effect.Explorer, false},
+                        {Effect.Poison, false}
+                    }
                 }
+                
+            };
+        }
+        private static void InitDefaultSpeciePriorities()
+        {
+            DefaultSpeciePriorities = new Dictionary<Species, int>()
+            {
+                {Species.Forest, 0},
+                {Species.Meadows, 0},
+                {Species.Common, 1},
+                {Species.Cultivated, 2},
+                {Species.Noble, 2},
+                {Species.Majestic, 2},
+                {Species.Imperial, 4},
+                {Species.Diligent, 2},
+                {Species.Unweary, 2},
+                {Species.Industrious, 3},
+                {Species.Steadfast,1},
+                {Species.Valiant,1},
+                {Species.Heroic,2},
+                {Species.Tropical,0},
+                {Species.Exotic,2},
+                {Species.Edenic,3},
+                {Species.Rural,1},
+                {Species.Austere,1}
+            };
+        }
+        private static void InitDefaultEffectPriorities()
+        {
+            DefaultEffectPriorities = new Dictionary<Effect, int>()
+            {
+                {Effect.None, 0},
+                {Effect.Poison, -1},
+                {Effect.Explorer, 2},
+                {Effect.Beatific, 2}
+            };
+        }
+
+        private static void InitStatTypes()
+        {
+            StatTypes = new Dictionary<string, Type>()
+            {
+                {StatNames.Specie, typeof(Species)},
+                {StatNames.Lifespan, typeof(int)},
+                {StatNames.Speed, typeof(int)},
+                {StatNames.Pollination, typeof(int)},
+                {StatNames.Flowers, typeof(Flowers)},
+                {StatNames.Fertility, typeof(int)},
+                {StatNames.Area, typeof(int)},
+                {StatNames.TempTolerance, typeof(Adaptation)},
+                {StatNames.HumidTolerance, typeof(Adaptation)},
+                {StatNames.Diurnal, typeof(int)},
+                {StatNames.Nocturnal, typeof(int)},
+                {StatNames.Flyer, typeof(int)},
+                {StatNames.Cave, typeof(int)},
+                {StatNames.Effect, typeof(Effect)}
             };
         }
     }

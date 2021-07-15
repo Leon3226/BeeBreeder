@@ -11,6 +11,14 @@ namespace BeeBreeder.Common.AlleleDatabase.Bee
         Imperial,
         Diligent,
         Unweary,
-        Industrious
+        Industrious,
+        Steadfast,
+        Valiant,
+        Heroic,
+        Tropical,
+        Exotic,
+        Edenic,
+        Rural,
+        Austere
     }
 }

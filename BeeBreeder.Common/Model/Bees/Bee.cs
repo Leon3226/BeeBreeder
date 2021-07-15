@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using BeeBreeder.Common.AlleleDatabase.Bee;
 using BeeBreeder.Common.Model.Genetics;
 
 namespace BeeBreeder.Common.Model.Bees
@@ -14,7 +15,8 @@ namespace BeeBreeder.Common.Model.Bees
                 return null;
 
             List<Bee> child = new List<Bee>();
-            var fertility = 2; //TODO: add fertility logic
+            var princess = Gender == Gender.Drone ? secondBee : this;
+            var fertility = ((IChromosome<int>)princess.Genotype[BeeGeneticDatabase.StatNames.Fertility]).ResultantAttribute;
             for (int i = 0; i < fertility + 1; i++)
             {
                 child.Add(new Bee()

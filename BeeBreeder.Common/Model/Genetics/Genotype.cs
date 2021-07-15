@@ -11,9 +11,9 @@ namespace BeeBreeder.Common.Model.Genetics
     {
         private const string UnnamedGeneStringRegex = @"(\S+)\s+(\S+)";
 
-        public readonly Dictionary<string, ICrossable> Genes = new();
+        public readonly Dictionary<string, IChromosome> Genes = new();
         
-        public ICrossable this[string key]
+        public IChromosome this[string key]
         {
             get => Genes[key];
             set => Genes[key] = value;
@@ -39,7 +39,7 @@ namespace BeeBreeder.Common.Model.Genetics
             foreach (var gene in firstGenotype.Genes)
             {
                 if (secondGenotype.Genes.TryGetValue(gene.Key, out var secondGene))
-                    newGenotype.Genes.Add(gene.Key, gene.Value.Cross(secondGene, random));
+                    newGenotype.Genes.Add(gene.Key, (IChromosome)gene.Value.Cross(secondGene, random));
                 else
                     throw new Exception("Corresponded gene not found");
             }
@@ -62,35 +62,9 @@ namespace BeeBreeder.Common.Model.Genetics
 
             foreach (var stat in stats.Characteristics)
             {
-                if (stat.Key == BeeGeneticDatabase.StatNames.Specie)
-                {
-                    var gene = new Gene<Species>
-                        { Property = (Species) stats.Characteristics[stat.Key]};
-                    gene.Dominant =
-                        BeeGeneticDatabase.GenesDominancies[stat.Key][stat.Value];
-                
-                    newGenotype.Genes.Add(BeeGeneticDatabase.StatNames.Specie, new SpecieChromosome()
-                    {
-                        Property = stat.Key,
-                        Primary = gene,
-                        Secondary = gene,
-                    });
-                }
-                else
-                {
-                    var gene = new Gene<object>
-                        {Property = stats.Characteristics[stat.Key]};
-                    gene.Dominant =
-                        BeeGeneticDatabase.GenesDominancies[stat.Key][stat.Value];
-                
-                    newGenotype.Genes.Add(stat.Key, new Chromosome<object>
-                    {
-                        Property = stat.Key,
-                        Primary = gene,
-                        Secondary = gene,
-                    });
-                }
-                
+                var gene = GeneHelper.GetGene(stat.Key, stat.Value, BeeGeneticDatabase.GenesDominancies[stat.Key][stat.Value]);
+                var chromosome = GeneHelper.GetChromosome(stat.Key, stat.Value.GetType(), gene, gene);
+                newGenotype.Genes.Add(stat.Key, chromosome);
             }
 
             return newGenotype;
@@ -103,19 +77,37 @@ namespace BeeBreeder.Common.Model.Genetics
             var i = 1;
             foreach (Match match in matches)
             {
-                var groups = match.Groups;
-                newGenotype.Genes.Add(i.ToString(), new Chromosome<object>()
-                {
-                    Primary = new Gene<object> {Property = groups[1].Value},
-                    Secondary = new Gene<object> {Property = groups[2].Value}
-                } );
-                i++;
+                //var groups = match.Groups;
+                //newGenotype.Genes.Add(i.ToString(), new Chromosome<int>()
+                //{
+                //    Primary = new Gene<int> {Value = groups[1].Value},
+                //    Secondary = new Gene<int> {Value = groups[2].Value}
+                //} );
+                //i++;
             }
 
             return newGenotype;
         }
 
         #endregion
+        
+        public override bool Equals(object? obj)
+        {
+            var secondGenotype = obj as Genotype;
+            if (secondGenotype == null)
+                return false;
+            foreach (var gene in Genes)
+            {
+                var secondGene = secondGenotype.Genes[gene.Key];
+                var isEqual =
+                    (gene.Value.Primary.Equals(secondGene.Primary) && gene.Value.Secondary.Equals(secondGene.Secondary)) ||
+                    (gene.Value.Primary.Equals(secondGene.Secondary) && gene.Value.Secondary.Equals(secondGene.Primary));
+                if (!isEqual)
+                    return false;
+            }
+
+            return true;
+        }
 
         public override string ToString()
         {

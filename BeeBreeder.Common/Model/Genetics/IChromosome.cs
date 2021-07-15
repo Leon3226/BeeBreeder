@@ -2,11 +2,17 @@ using System;
 
 namespace BeeBreeder.Common.Model.Genetics
 {
-    public interface IChromosome<T> 
+    public interface IChromosome<T>  where T: struct
     {
-        string Property { get; set; }
-        IGene<T> Gene1 { get; set; }
-        IGene<T> Gene2 { get; set; }
-        Chromosome<T> Cross(Chromosome<T> secondPair, Random random = null);
+        IGene<T> Primary { get; set; }
+        IGene<T> Secondary { get; set; }
+        T ResultantAttribute { get; }
+
+    }
+    
+    public interface IChromosome : ICrossable
+    {
+        IGene Primary { get; }
+        IGene Secondary { get; }
     }
 }
