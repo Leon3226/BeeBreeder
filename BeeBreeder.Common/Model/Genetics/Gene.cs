@@ -7,6 +7,8 @@ namespace BeeBreeder.Common.Model.Genetics
     {
         public T Value { get; init; }
 
+        object IGene.Value => Value;
+
         public bool Dominant { get; set; }
 
         public override string ToString()

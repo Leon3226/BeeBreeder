@@ -1,50 +1,128 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Paretho;
+using BeeBreeder.Common.AlleleDatabase.Bee;
 using BeeBreeder.Common.Model.Bees;
+using BeeBreeder.Common.Model.Data;
+using BeeBreeder.Common.Model.Genetics;
 
 namespace BeeBreeder.Breeding.Breeder
 {
     public class NaturalSelectionBreeder : IBeeBreeder
     {
         readonly Random _rand = new();
+        private MutationTree _tree = MutationTree.FromSpecieCombinations(BeeGeneticDatabase.SpecieCombinations);
 
-        public int IterationsBetweenNaturalSelectionClears = 50;
+        public int IterationsBetweenNaturalSelectionClears = 10;
         public bool ClearDuplicates = true;
         public int IterationsBetweenDuplicatesClears = 50;
-        public int AllowedDuplicatesCount = 3;
+        public int AllowedDuplicatesCount = 2;
+        public List<Species> TargetSpecies = new() {Species.Imperial};
+
+        private int _iterationsFromPrevNatSelection = 0;
+        private int _iterationsFromPrevDuplClear = 0;
+
+        private bool NeedToDuplClear => ClearDuplicates && Iterations - _iterationsFromPrevDuplClear > IterationsBetweenDuplicatesClears;
+        private bool NeedToNatSelection => Iterations - _iterationsFromPrevNatSelection > IterationsBetweenNaturalSelectionClears;
+        public int Iterations = 0;
         public BeePool Pool { get; set; }
 
         public void Breed(int iterations)
         {
             if (iterations < 0) return;
-            for (int i = 0; i < iterations; i++)
+            for (int i = 0; i < iterations;)
             {
-                if (i != 0 && i % IterationsBetweenDuplicatesClears == 0)
-                {
-                    Pool.RemoveDroneDuplicates(AllowedDuplicatesCount);
-                }
-                if (i != 0 && i % IterationsBetweenNaturalSelectionClears == 0)
-                {
-                    NaturalSelection();
-                }
-                var princesses = Pool.Princesses.ToArray();
-                if (princesses.Length == 0)
+                var pairs = GetBreedingPairs();
+                if (pairs.Count == 0)
                     break;
-                var drones = Pool.Drones.ToArray();
-                if (drones.Length == 0)
-                    break;
+                
+                i += pairs.Count;
 
-                Pool.Cross(princesses[_rand.Next(0, princesses.Length)],
-                    drones[_rand.Next(0, drones.Length)]);
+                ToFlush();
+                pairs.ForEach(x => Pool.Cross(x.Item1, x.Item2));
             }
         }
 
-        public int NaturalSelection()
+        public List<(Bee, Bee)> GetBreedingPairs(int count = 0)
         {
-            var optimalDrones = Pool.Drones.ParethoOptimal();
+            if (count < 0)
+                return new List<(Bee, Bee)>();
+
+            var princesses = Pool.Princesses.ToList();
+            if (princesses.Count == 0)
+                return new List<(Bee, Bee)>();
+            ;
+            var drones = Pool.Drones.ToList();
+            if (drones.Count == 0)
+                return new List<(Bee, Bee)>();
+
+            count = count == 0 ? princesses.Count : count;
+
+            List<(Bee, Bee)> toReturn = new List<(Bee, Bee)>();
+
+            for (int i = 0; i < count; i++)
+            {
+                if (princesses.Count == 0 || drones.Count == 0)
+                    break;
+                var princess = princesses[_rand.Next(0, princesses.Count)];
+                var drone = drones[_rand.Next(0, drones.Count)];
+                princesses.Remove(princess);
+                drones.Remove(drone);
+                toReturn.Add((princess, drone));
+            }
+
+            Iterations += toReturn.Count;
+            return toReturn;
+        }
+
+        private IEnumerable<Bee> ParetoFromNecessary()
+        {
+            var necessarySpecies = _tree.OnlyNecessaryForGetting(
+                TargetSpecies, Pool.Drones.Select(x =>
+                        ((Chromosome<Species>) x.Genotype[BeeGeneticDatabase.StatNames.Specie]).ResultantAttribute)
+                    .Distinct()
+                    .ToList());
+
+            var paretoBees = new List<Bee>();
+            foreach (var specie in necessarySpecies)
+            {
+                var bees = Pool.Drones.Except(paretoBees).Where(x =>
+                        x.Genotype[BeeGeneticDatabase.StatNames.Specie].Primary.Value.Equals(specie) ||
+                        x.Genotype[BeeGeneticDatabase.StatNames.Specie].Secondary.Value.Equals(specie)).ToList()
+                    .ParethoOptimal();
+                paretoBees.AddRange(bees);
+            }
+
+            return paretoBees.Distinct();
+        }
+
+        public IEnumerable<Bee> ToFlush()
+        {
+            var res = new List<Bee>();
+            if (NeedToDuplClear)
+            {
+                _iterationsFromPrevDuplClear = Iterations;
+                res.AddRange(Pool.RemoveDroneDuplicates(AllowedDuplicatesCount));
+            }
+            
+            if (NeedToNatSelection)
+            {
+                _iterationsFromPrevNatSelection = Iterations;
+                res.AddRange(NaturalSelection());
+            }
+
+            return res;
+        }
+        public List<Bee> NaturalSelection()
+        {
+            var paretoNecessary = ParetoFromNecessary().ToList();
+            var optimalDrones = Pool.Drones.Except(paretoNecessary).ToList().ParethoOptimal().Distinct().ToList();
             var count = Pool.Drones.Count - optimalDrones.Count;
-            Pool.Drones = optimalDrones;
-            return count;
+            var survivors = optimalDrones.Concat(paretoNecessary).ToList();
+            var toRemove = Pool.Drones.Except(survivors).ToList();
+            Pool.Drones = survivors;
+            return toRemove;
         }
     }
 }

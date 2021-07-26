@@ -21,13 +21,15 @@ namespace BeeBreeder.Common.Model.Data
             do
             {
                 toAdd.Clear();
-                toAdd = Links.Where(x => possible.Contains(x.Parent1.Specie) && possible.Contains(x.Parent2.Specie)).Select(x=>x.Child.Specie).ToList();
+                toAdd = Links.Where(x => possible.Contains(x.Parent1.Specie) && possible.Contains(x.Parent2.Specie))
+                    .Select(x => x.Child.Specie).ToList();
                 toAdd = toAdd.Except(possible).ToList();
                 possible.AddRange(toAdd);
             } while (toAdd.Count != 0);
 
             return possible;
         }
+
         public bool IsEssentialForGetting(List<Species> targets, List<Species> existing, Species inspectable)
         {
             var include = existing.ToList();
@@ -39,7 +41,7 @@ namespace BeeBreeder.Common.Model.Data
             var isPossibleWithout = targets.All(x => possibleWithout.Contains(x));
             return isPossibleWith && !isPossibleWithout;
         }
-        
+
         public static MutationTree FromSpecieCombinations(List<SpecieCombination> specieCombinations)
         {
             var tree = new MutationTree();
@@ -59,15 +61,15 @@ namespace BeeBreeder.Common.Model.Data
                 var parent1 = tree.Nodes.FirstOrDefault(y => y.Specie == x.Parent1);
                 var parent2 = tree.Nodes.FirstOrDefault(y => y.Specie == x.Parent2);
                 var childNode = tree.Nodes.FirstOrDefault(y => y.Specie == x.MutationResult);
-                
-                var link =  new MutationLink()
+
+                var link = new MutationLink()
                 {
                     Parent1 = parent1,
                     Parent2 = parent2,
                     Child = childNode,
                     MutationChance = x.MutationChance
                 };
-                
+
                 parent1?.Child.Add(link);
                 parent2?.Child.Add(link);
                 childNode?.Parents.Add(link);
@@ -76,6 +78,37 @@ namespace BeeBreeder.Common.Model.Data
             }).ToList();
 
             return tree;
+        }
+
+        public List<Species> OnlyNecessaryForGetting(List<Species> targets, List<Species> existing)
+        {
+            List<Species> necessary = new List<Species>();
+
+            void RecursiveNecessary(MutationNode current)
+            {
+                if (existing.Contains(current.Specie))
+                    necessary.Add(current.Specie);
+                else
+                {
+                    var parents = current.Parents.FirstOrDefault();
+                    if (parents != null)
+                    {
+                        RecursiveNecessary(parents.Parent1);
+                        RecursiveNecessary(parents.Parent2);
+                    }
+                }
+            }
+
+            foreach (var target in targets)
+            {
+                if (existing.Contains(target))
+                    continue;
+
+                var node = Nodes.FirstOrDefault(x => x.Specie == target);
+                RecursiveNecessary(node);
+            }
+
+            return necessary.Distinct().ToList();
         }
     }
 }

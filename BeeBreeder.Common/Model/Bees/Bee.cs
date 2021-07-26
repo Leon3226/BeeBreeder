@@ -7,7 +7,8 @@ namespace BeeBreeder.Common.Model.Bees
     public class Bee
     {
         public Gender Gender;
-        public Genotype Genotype;
+        public Genotype Genotype = new();
+        public int Generation = 0;
 
         public List<Bee> Breed(Bee secondBee)
         {
@@ -22,7 +23,8 @@ namespace BeeBreeder.Common.Model.Bees
                 child.Add(new Bee()
                     {
                         Gender = i == 0 ? Gender.Princess : Gender.Drone,
-                        Genotype = Genotype.Cross(secondBee.Genotype)
+                        Genotype = Genotype.Cross(secondBee.Genotype),
+                        Generation = princess.Generation + 1
                     }
                 );
             }

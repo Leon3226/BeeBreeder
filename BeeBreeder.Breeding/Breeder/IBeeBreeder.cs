@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using BeeBreeder.Common.Model.Bees;
 
 namespace BeeBreeder.Breeding.Breeder
@@ -6,5 +7,7 @@ namespace BeeBreeder.Breeding.Breeder
     {   
         BeePool Pool { get; set; }
         void Breed(int iterations);
+        List<(Bee,Bee)> GetBreedingPairs(int count = 0);
+        IEnumerable<Bee> ToFlush();
     }
 }

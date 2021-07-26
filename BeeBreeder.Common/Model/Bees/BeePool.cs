@@ -32,7 +32,7 @@ namespace BeeBreeder.Common.Model.Bees
             }
         }
 
-        public int RemoveDroneDuplicates(int targetDuplicatesCount = 0)
+        public IEnumerable<Bee> RemoveDroneDuplicates(int targetDuplicatesCount = 0)
         {
             var dronesToCheck = Drones.ToList();
             var originalDrones = new List<Bee>();
@@ -44,7 +44,7 @@ namespace BeeBreeder.Common.Model.Bees
                 dronesToCheck = dronesToCheck.Except(duplicates).ToList();
             }
 
-            var diff = Drones.Count - originalDrones.Count;
+            var diff = Drones.Except(originalDrones);
             Drones = originalDrones;
             return diff;
         }
