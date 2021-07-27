@@ -62,7 +62,7 @@ namespace BeeBreeder.Common.Model.Genetics
 
             foreach (var stat in stats.Characteristics)
             {
-                var gene = GeneHelper.GetGene(stat.Key, stat.Value, BeeGeneticDatabase.GenesDominancies[stat.Key][stat.Value]);
+                var gene = GeneHelper.GetGene(stat.Key, stat.Value, BeeGeneticDatabase.GenesDominance[stat.Key][stat.Value]);
                 var chromosome = GeneHelper.GetChromosome(stat.Key, stat.Value.GetType(), gene, gene);
                 newGenotype.Genes.Add(stat.Key, chromosome);
             }

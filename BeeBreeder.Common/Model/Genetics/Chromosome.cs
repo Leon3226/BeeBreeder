@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace BeeBreeder.Common.Model.Genetics
 {
-    public class Chromosome<T> : ICrossable, IChromosome, IChromosome<T> where T : struct
+    public class Chromosome<T> : IChromosome, IChromosome<T> where T : struct
     {
         public string Property { get; set; } = "Unnamed";
         public IGene<T> Primary { get; set; }
@@ -21,21 +21,11 @@ namespace BeeBreeder.Common.Model.Genetics
                 return Primary.Value;
             }
         }
-
-        private Random _rand;
-
         public IGene<T> Random(Random random = null)
         {
-            if (random == null)
-                random = EnsureRandom();
+            random ??= new Random();
 
             return random.NextDouble() > 0.5 ? Primary : Secondary;
-        }
-
-        private Random EnsureRandom()
-        {
-            _rand ??= new Random();
-            return _rand;
         }
 
         protected virtual Chromosome<T> Cross(Chromosome<T> secondPair, Random random = null)
@@ -54,7 +44,7 @@ namespace BeeBreeder.Common.Model.Genetics
             random ??= new Random();
             var first = Random(random);
             var second = secondPair.Random(random);
-            var mixed = EnsureRandom().NextDouble() > 0.5;
+            var mixed = random.NextDouble() > 0.5;
             if (!mixed)
                 return (first, second);
             else

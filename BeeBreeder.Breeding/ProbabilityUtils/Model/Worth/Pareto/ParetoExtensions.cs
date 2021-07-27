@@ -1,13 +1,12 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using BeeBreeder.Common.Model.Bees;
 
-namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Paretho
+namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Pareto
 {
-    public static class ParethoExtensions
+    public static class ParetoExtensions
     {
-        public static Bee ParethoBetter(this Bee first, Bee second)
+        public static Bee ParetoBetter(this Bee first, Bee second)
         {
             bool firstHasBest = false;
             bool secondHasBest = false;
@@ -15,7 +14,7 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Paretho
             foreach (var firstChromosome in first.Genotype.Genes)
             {
                 var secondChromosome = second.Genotype.Genes[firstChromosome.Key];
-                var best = firstChromosome.Value.ParethoBetter(secondChromosome);
+                var best = firstChromosome.Value.ParetoBetter(secondChromosome);
                 if (best == firstChromosome.Value)
                     firstHasBest = true;
                 if (best == secondChromosome)   
@@ -33,11 +32,11 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Paretho
             return null;
         }
 
-        public static List<Bee> ParethoOptimal(this IList<Bee> bees)
+        public static List<Bee> ParetoOptimal(this IList<Bee> bees)
         {
             List<Bee> optimal = bees.Where(bee => !bees.Any(x =>
             {
-                var better = ParethoBetter(x, bee) == x;
+                var better = ParetoBetter(x, bee) == x;
                 return better;
             })).ToList();
             return optimal;

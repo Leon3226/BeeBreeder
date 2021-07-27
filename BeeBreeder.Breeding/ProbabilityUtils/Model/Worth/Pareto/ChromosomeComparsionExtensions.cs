@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 using BeeBreeder.Common.Model.Genetics;
 
-namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Paretho
+namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Pareto
 {
-    public static class ChromosomeComparsionExtensions
+    public static class ChromosomeComparisonExtensions
     {
-        public static IChromosome ParethoBetter(this IChromosome first, IChromosome second, bool compareOrder = false, BreedingTarget target = null)
+        public static IChromosome ParetoBetter(this IChromosome first, IChromosome second, bool compareOrder = false, BreedingTarget target = null)
         {
             var fpp = first.Primary.Compare(second.Primary, first.Property);
             var fps = first.Primary.Compare(second.Secondary, first.Property);

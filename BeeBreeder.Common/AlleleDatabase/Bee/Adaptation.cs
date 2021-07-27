@@ -1,9 +1,9 @@
 namespace BeeBreeder.Common.AlleleDatabase.Bee
 {
-    public struct Adaptation
+    public readonly struct Adaptation
     {
-        public int Up;
-        public int Down;
+        public readonly int Up;
+        public readonly int Down;
 
         public Adaptation(int up = 0, int down = 0)
         {

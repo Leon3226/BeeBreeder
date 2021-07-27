@@ -42,6 +42,7 @@ namespace BeeBreeder.Common.Model.Bees
                 var duplicates = dronesToCheck.Where(x => x.Genotype.Equals(bee.Genotype)).ToList();
                 originalDrones.AddRange(duplicates.Take(targetDuplicatesCount + 1));
                 dronesToCheck = dronesToCheck.Except(duplicates).ToList();
+                i = -1;
             }
 
             var diff = Drones.Except(originalDrones);

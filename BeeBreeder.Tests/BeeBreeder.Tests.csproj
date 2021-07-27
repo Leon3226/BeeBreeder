@@ -17,6 +17,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\BeeBreeder.Breeding\BeeBreeder.Breeding.csproj" />
       <ProjectReference Include="..\BeeBreeder.Common\BeeBreeder.Common.csproj" />
     </ItemGroup>
 

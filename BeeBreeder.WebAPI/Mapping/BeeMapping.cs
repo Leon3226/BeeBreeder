@@ -224,8 +224,8 @@ namespace BeeBreeder.WebAPI.Mapping
 
             foreach (var gene in bee.Genotype.Genes)
             {
-                gene.Value.Primary.Dominant = BeeGeneticDatabase.GenesDominancies[gene.Key][gene.Value.Primary.Value];
-                gene.Value.Secondary.Dominant = BeeGeneticDatabase.GenesDominancies[gene.Key][gene.Value.Secondary.Value];
+                gene.Value.Primary.Dominant = BeeGeneticDatabase.GenesDominance[gene.Key][gene.Value.Primary.Value];
+                gene.Value.Secondary.Dominant = BeeGeneticDatabase.GenesDominance[gene.Key][gene.Value.Secondary.Value];
             }
             
             return bee;

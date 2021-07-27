@@ -14,7 +14,7 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth
         {
             IntComparers.Add(BeeGeneticDatabase.StatNames.Speed, MoreBetter);
             IntComparers.Add(BeeGeneticDatabase.StatNames.Fertility, MoreBetter);
-            IntComparers.Add(BeeGeneticDatabase.StatNames.Lifespan, MoreBetter);
+            IntComparers.Add(BeeGeneticDatabase.StatNames.Lifespan, LessBetter);
             IntComparers.Add(BeeGeneticDatabase.StatNames.Area, MoreBetter);
             IntComparers.Add(BeeGeneticDatabase.StatNames.Pollination, MoreBetter);
             IntComparers.Add(BeeGeneticDatabase.StatNames.Diurnal, MoreBetter);
@@ -38,7 +38,7 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth
             return gene1 > gene2 ? Comparison.Better : Comparison.Worse;
         }
         
-        public static Comparison LessBetter(int gene1, int gene2)
+        private static Comparison LessBetter(int gene1, int gene2)
         {
             if (gene1 == gene2)
                 return Comparison.Equal;

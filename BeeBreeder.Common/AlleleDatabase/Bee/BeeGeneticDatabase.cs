@@ -31,7 +31,7 @@ namespace BeeBreeder.Common.AlleleDatabase.Bee
         public static Dictionary<Species, int> DefaultSpeciePriorities = new();
         public static Dictionary<Flowers, int> DefaultFlowersPriorities = new();
         public static Dictionary<Effect, int> DefaultEffectPriorities = new();
-        public static Dictionary<string, Dictionary<object, bool>> GenesDominancies;
+        public static Dictionary<string, Dictionary<object, bool>> GenesDominance;
 
         static BeeGeneticDatabase()
         {
@@ -39,7 +39,7 @@ namespace BeeBreeder.Common.AlleleDatabase.Bee
             InitMutationTree();
             InitStatTypes();
             InitBeeStats();
-            InitStatDominancyTree();
+            InitStatDominanceTree();
             InitDefaultSpeciePriorities();
             InitDefaultEffectPriorities();
             InitDefaultFlowersPriorities();
@@ -420,9 +420,9 @@ namespace BeeBreeder.Common.AlleleDatabase.Bee
                 }
             });
         }
-        private static void InitStatDominancyTree()
+        private static void InitStatDominanceTree()
         {
-            GenesDominancies = new Dictionary<string, Dictionary<object, bool>>
+            GenesDominance = new Dictionary<string, Dictionary<object, bool>>
             {
                 {
                     StatNames.Specie, new Dictionary<object, bool>()

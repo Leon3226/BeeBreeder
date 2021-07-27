@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Paretho;
+using BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Pareto;
 using BeeBreeder.Common.Model.Bees;
 
 namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Chance
@@ -16,7 +16,7 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Chance
                 var beeChromosome = bee.Genotype.Genes[property];
                 foreach (var chromosomeChances in chance.Chances)
                 {
-                    var comparison = chromosomeChances.Value.ParethoBetter(beeChromosome);
+                    var comparison = chromosomeChances.Value.ParetoBetter(beeChromosome);
                     if (comparison == null)
                         newChance.ChanceToStay += chromosomeChances.Probability;
                     if (comparison == beeChromosome)
