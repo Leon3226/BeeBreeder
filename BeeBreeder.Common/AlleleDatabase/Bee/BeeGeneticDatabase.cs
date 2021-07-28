@@ -27,6 +27,8 @@ namespace BeeBreeder.Common.AlleleDatabase.Bee
         
         public static readonly List<SpecieCombination> SpecieCombinations = new();
         public static Dictionary<string, Type> StatTypes = new();
+        public static Dictionary<Biome, Climate> Biomes = new();
+        public static Dictionary<Species, Climate> SpeciesBiome = new();
         public static readonly Dictionary<Species, BeeInitialStats> SpecieStats = new();
         public static Dictionary<Species, int> DefaultSpeciePriorities = new();
         public static Dictionary<Flowers, int> DefaultFlowersPriorities = new();
@@ -39,12 +41,43 @@ namespace BeeBreeder.Common.AlleleDatabase.Bee
             InitMutationTree();
             InitStatTypes();
             InitBeeStats();
+            InitBiomes();
+            InitSpeciesPreferences();
             InitStatDominanceTree();
             InitDefaultSpeciePriorities();
             InitDefaultEffectPriorities();
             InitDefaultFlowersPriorities();
         }
 
+        private static void InitBiomes()
+        {
+            Biomes.Add(Biome.Forest, new Climate(Temperature.Normal, Humidity.Normal));
+            Biomes.Add(Biome.Meadow, new Climate(Temperature.Normal, Humidity.Normal));
+            Biomes.Add(Biome.Plains, new Climate(Temperature.Normal, Humidity.Normal));
+            Biomes.Add(Biome.Desert, new Climate(Temperature.Hot, Humidity.Arid));
+            Biomes.Add(Biome.Jungle, new Climate(Temperature.Warm, Humidity.Damp));
+            Biomes.Add(Biome.Tundra, new Climate(Temperature.Icy, Humidity.Arid));
+            Biomes.Add(Biome.SnowForest, new Climate(Temperature.Cold, Humidity.Normal));
+        }
+        private static void InitSpeciesPreferences()
+        {
+            SpeciesBiome.Add(Species.Forest, new Climate(Temperature.Normal, Humidity.Normal));
+            SpeciesBiome.Add(Species.Meadows, new Climate(Temperature.Normal, Humidity.Normal));
+            SpeciesBiome.Add(Species.Common, new Climate(Temperature.Normal, Humidity.Normal));
+            SpeciesBiome.Add(Species.Noble, new Climate(Temperature.Normal, Humidity.Normal));
+            SpeciesBiome.Add(Species.Majestic, new Climate(Temperature.Normal, Humidity.Normal));
+            SpeciesBiome.Add(Species.Imperial, new Climate(Temperature.Normal, Humidity.Normal));
+            SpeciesBiome.Add(Species.Unweary, new Climate(Temperature.Normal, Humidity.Normal));
+            SpeciesBiome.Add(Species.Valiant, new Climate(Temperature.Normal, Humidity.Normal));
+            SpeciesBiome.Add(Species.Cultivated, new Climate(Temperature.Normal, Humidity.Normal));
+            SpeciesBiome.Add(Species.Diligent, new Climate(Temperature.Normal, Humidity.Normal));
+            SpeciesBiome.Add(Species.Rural, new Climate(Temperature.Normal, Humidity.Normal));
+            SpeciesBiome.Add(Species.Steadfast, new Climate(Temperature.Normal, Humidity.Normal));
+            SpeciesBiome.Add(Species.Edenic, new Climate(Temperature.Warm, Humidity.Damp));
+            SpeciesBiome.Add(Species.Tropical, new Climate(Temperature.Warm, Humidity.Damp));
+            SpeciesBiome.Add(Species.Exotic, new Climate(Temperature.Warm, Humidity.Damp));
+            SpeciesBiome.Add(Species.Austere, new Climate(Temperature.Hot, Humidity.Arid));
+        }
         private static void InitMutationTree()
         {
             SpecieCombinations.Add(new SpecieCombination(Species.Forest, Species.Meadows, 0.15, Species.Common));
@@ -613,7 +646,6 @@ namespace BeeBreeder.Common.AlleleDatabase.Bee
                 {Effect.Beatific, 2}
             };
         }
-
         private static void InitDefaultFlowersPriorities()
         {
             DefaultFlowersPriorities = new Dictionary<Flowers, int>()

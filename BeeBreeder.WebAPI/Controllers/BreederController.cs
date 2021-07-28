@@ -32,7 +32,7 @@ namespace BeeBreeder.WebAPI.Controllers
         // GET
         [HttpPost]
         public async Task<string> Post(string inv)
-        {
+        {   
             string json;
             using (var reader = new StreamReader(Request.Body))
             {

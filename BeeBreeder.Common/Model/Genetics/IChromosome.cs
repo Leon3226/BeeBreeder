@@ -14,5 +14,7 @@ namespace BeeBreeder.Common.Model.Genetics
     {
         IGene Primary { get; }
         IGene Secondary { get; }
+        object ResultantAttribute { get; }
+
     }
 }

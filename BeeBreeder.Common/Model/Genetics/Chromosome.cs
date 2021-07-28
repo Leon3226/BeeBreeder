@@ -8,6 +8,7 @@ namespace BeeBreeder.Common.Model.Genetics
         public string Property { get; set; } = "Unnamed";
         public IGene<T> Primary { get; set; }
         public IGene<T> Secondary { get; set; }
+        object IChromosome.ResultantAttribute => ResultantAttribute;
 
         public T ResultantAttribute
         {

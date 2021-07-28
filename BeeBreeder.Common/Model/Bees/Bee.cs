@@ -32,6 +32,34 @@ namespace BeeBreeder.Common.Model.Bees
             return child;
         }
 
+        public bool CanLiveIn(Biome biome)
+        {
+            return CanLiveIn(BeeGeneticDatabase.Biomes[biome]);
+        }
+
+        public bool CanLiveIn(Climate biome)
+        {
+            Climate specieClimate =
+                BeeGeneticDatabase.SpeciesBiome[
+                    (Species) Genotype.Genes[BeeGeneticDatabase.StatNames.Specie].ResultantAttribute];
+            if (specieClimate == biome)
+                return true;
+
+            var humidityTolerance = (Adaptation)Genotype.Genes[BeeGeneticDatabase.StatNames.HumidTolerance].ResultantAttribute;
+            var biomeHumidValue = (int) biome.Humidity;
+            var beeHumidValue = (int) specieClimate.Humidity;
+            if (biomeHumidValue > beeHumidValue + humidityTolerance.Up || biomeHumidValue < beeHumidValue - humidityTolerance.Down)
+                return false;
+            
+            var temperatureTolerance = (Adaptation)Genotype.Genes[BeeGeneticDatabase.StatNames.TempTolerance].ResultantAttribute;
+            var biomeTempValue = (int) biome.Temperature;
+            var beeTempValue = (int) specieClimate.Temperature;
+            if (biomeTempValue > beeTempValue + temperatureTolerance.Up || biomeTempValue < beeTempValue - temperatureTolerance.Down)
+                return false;
+
+            return true;
+        }
+
         public override string ToString()
         {
             return $"{Gender} \n{Genotype}";

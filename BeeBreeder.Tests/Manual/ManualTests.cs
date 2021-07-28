@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using BeeBreeder.Breeding.Breeder;
+using BeeBreeder.Breeding.Generation;
 using BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Comparators;
 using BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Pareto;
 using BeeBreeder.Common.AlleleDatabase.Bee;
@@ -20,14 +21,14 @@ namespace BeeBreeder.Tests.Manual
             _evaluator = new SumGenomeEvaluator();
         }
 
-        [Test]
+        //[Test]
         public void PickCoefficients()
         {
             var targetValue = 130;
             var maxBreeds = 1200;
-            var fromNaturalSelection = 30;
-            var toNaturalSelection = 60;
-            var iterations = 10;
+            var fromNaturalSelection = 1;
+            var toNaturalSelection = 50;
+            var iterations = 5;
             var averageValues = new Dictionary<int, Dictionary<int, (bool, int)>>();
 
             for (int i = fromNaturalSelection; i < toNaturalSelection; i++)
@@ -57,41 +58,23 @@ namespace BeeBreeder.Tests.Manual
                 }
                 averageValues.Add(i, nd);
             }
+
+            var avv = averageValues.Select(x => (x.Key, x.Value.Count(v => v.Value.Item1), x.Value.Average(v => v.Value.Item2))).OrderByDescending(x=> x.Item3).ToList();
         }
 
         private BeePool GetStartPool()
         {
-            var bee1 = new Bee()
-            {
-                Gender = Gender.Princess,
-                Genotype = Genotype.FromInitialStats(BeeGeneticDatabase.SpecieStats[Species.Forest])
-            };
-            var bee2 = new Bee()
-            {
-                Gender = Gender.Princess,
-                Genotype = Genotype.FromInitialStats(BeeGeneticDatabase.SpecieStats[Species.Meadows])
-            };
-            var bee3 = new Bee()
-            {
-                Gender = Gender.Drone,
-                Genotype = Genotype.FromInitialStats(BeeGeneticDatabase.SpecieStats[Species.Forest])
-            };
-            var bee4 = new Bee()
-            {
-                Gender = Gender.Drone,
-                Genotype = Genotype.FromInitialStats(BeeGeneticDatabase.SpecieStats[Species.Steadfast])
-            };
-            var bee5 = new Bee()
-            {
-                Gender = Gender.Drone,
-                Genotype = Genotype.FromInitialStats(BeeGeneticDatabase.SpecieStats[Species.Meadows])
-            };
+            var generator = new BeeGenerator();
 
             return new BeePool()
             {
                 Bees = new List<Bee>()
                 {
-                    bee1, bee2, bee3, bee4, bee5
+                    generator.Generate(Species.Forest, Gender.Princess),
+                    generator.Generate(Species.Forest),
+                    generator.Generate(Species.Meadows, Gender.Princess),
+                    generator.Generate(Species.Meadows),
+                    generator.Generate(Species.Steadfast)
                 }
             };
         }
