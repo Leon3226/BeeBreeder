@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using BeeBreeder.Common.AlleleDatabase.Bee;
+using Db =  BeeBreeder.Common.AlleleDatabase.Bee.BeeGeneticDatabase;
+using StatNames = BeeBreeder.Common.AlleleDatabase.Bee.BeeGeneticDatabase.StatNames;
 
 namespace BeeBreeder.Common.Model.Genetics
 {
@@ -28,13 +30,13 @@ namespace BeeBreeder.Common.Model.Genetics
             var firstGenotype = this;
             var secondGenotype = second;
             
-            var mutations = ((SpecieChromosome)Genes[BeeGeneticDatabase.StatNames.Specie]).Mutations((SpecieChromosome)second.Genes[BeeGeneticDatabase.StatNames.Specie], random);
+            var mutations = ((SpecieChromosome)Genes[StatNames.Specie]).Mutations((SpecieChromosome)second[StatNames.Specie], random);
 
             if (mutations.Item1 != null)
-                firstGenotype = FromInitialStats(BeeGeneticDatabase.SpecieStats[mutations.Item1.Value]);
+                firstGenotype = FromInitialStats(Db.SpecieStats[mutations.Item1.Value]);
             
             if (mutations.Item2 != null)
-                secondGenotype = FromInitialStats(BeeGeneticDatabase.SpecieStats[mutations.Item2.Value]);
+                secondGenotype = FromInitialStats(Db.SpecieStats[mutations.Item2.Value]);
             
             foreach (var gene in firstGenotype.Genes)
             {
@@ -62,7 +64,7 @@ namespace BeeBreeder.Common.Model.Genetics
 
             foreach (var stat in stats.Characteristics)
             {
-                var gene = GeneHelper.GetGene(stat.Key, stat.Value, BeeGeneticDatabase.GenesDominance[stat.Key][stat.Value]);
+                var gene = GeneHelper.GetGene(stat.Key, stat.Value, Db.GenesDominance[stat.Key][stat.Value]);
                 var chromosome = GeneHelper.GetChromosome(stat.Key, stat.Value.GetType(), gene, gene);
                 newGenotype.Genes.Add(stat.Key, chromosome);
             }
@@ -98,7 +100,7 @@ namespace BeeBreeder.Common.Model.Genetics
                 return false;
             foreach (var gene in Genes)
             {
-                var secondGene = secondGenotype.Genes[gene.Key];
+                var secondGene = secondGenotype[gene.Key];
                 var isEqual =
                     (gene.Value.Primary.Equals(secondGene.Primary) && gene.Value.Secondary.Equals(secondGene.Secondary)) ||
                     (gene.Value.Primary.Equals(secondGene.Secondary) && gene.Value.Secondary.Equals(secondGene.Primary));

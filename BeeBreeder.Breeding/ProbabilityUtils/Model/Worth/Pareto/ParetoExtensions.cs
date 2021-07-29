@@ -13,7 +13,7 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Pareto
 
             foreach (var firstChromosome in first.Genotype.Genes)
             {
-                var secondChromosome = second.Genotype.Genes[firstChromosome.Key];
+                var secondChromosome = second[firstChromosome.Key];
                 var best = firstChromosome.Value.ParetoBetter(secondChromosome);
                 if (best == firstChromosome.Value)
                     firstHasBest = true;
@@ -32,14 +32,32 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Pareto
             return null;
         }
 
-        public static List<Bee> ParetoOptimal(this IList<Bee> bees)
+        public static List<Bee> ParetoOptimal(this IEnumerable<Bee> bees)
         {
-            List<Bee> optimal = bees.Where(bee => !bees.Any(x =>
+            var toCheck = bees.ToList();
+            for (int i = 0; i < toCheck.Count; i++)
             {
-                var better = ParetoBetter(x, bee) == x;
-                return better;
-            })).ToList();
-            return optimal;
+                var bee1 = toCheck[i];
+                for (int j = 0; j < toCheck.Count; j++)
+                {
+                    var bee2 = toCheck[j];
+                    if (bee1 == bee2) continue;
+                    var better = ParetoBetter(bee1, bee2);
+                    if (better != null)
+                    {
+                        var worse = better == bee1 ? bee2 : bee1;
+                        toCheck.Remove(worse);
+                        if (better == bee1) break;
+                    }
+                }
+            }
+            return toCheck;
+        }
+        
+        public static List<BeeStack> ParetoOptimal(this IEnumerable<BeeStack> bees)
+        {
+            var optimal = ParetoOptimal(bees.Select(x => x.Bee));
+            return bees.Where(x => optimal.Contains(x.Bee)).ToList();
         }
     }
 }

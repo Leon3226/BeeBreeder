@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using BeeBreeder.Common.AlleleDatabase.Bee;
 using BeeBreeder.Common.Model.Genetics;
+using StatNames = BeeBreeder.Common.AlleleDatabase.Bee.BeeGeneticDatabase.StatNames;
 
 namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth
 {
@@ -12,15 +13,15 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth
 
         static GeneComparisonExtensions()
         {
-            IntComparers.Add(BeeGeneticDatabase.StatNames.Speed, MoreBetter);
-            IntComparers.Add(BeeGeneticDatabase.StatNames.Fertility, MoreBetter);
-            IntComparers.Add(BeeGeneticDatabase.StatNames.Lifespan, MoreBetter);
-            IntComparers.Add(BeeGeneticDatabase.StatNames.Area, MoreBetter);
-            IntComparers.Add(BeeGeneticDatabase.StatNames.Pollination, MoreBetter);
-            IntComparers.Add(BeeGeneticDatabase.StatNames.Diurnal, MoreBetter);
-            IntComparers.Add(BeeGeneticDatabase.StatNames.Nocturnal, MoreBetter);
-            IntComparers.Add(BeeGeneticDatabase.StatNames.Cave, MoreBetter);
-            IntComparers.Add(BeeGeneticDatabase.StatNames.Flyer, MoreBetter);
+            IntComparers.Add(StatNames.Speed, MoreBetter);
+            IntComparers.Add(StatNames.Fertility, MoreBetter);
+            IntComparers.Add(StatNames.Lifespan, LessBetter);
+            IntComparers.Add(StatNames.Area, MoreBetter);
+            IntComparers.Add(StatNames.Pollination, MoreBetter);
+            IntComparers.Add(StatNames.Diurnal, MoreBetter);
+            IntComparers.Add(StatNames.Nocturnal, MoreBetter);
+            IntComparers.Add(StatNames.Cave, MoreBetter);
+            IntComparers.Add(StatNames.Flyer, MoreBetter);
             
             Comparers.Add(typeof(Gene<int>), CompareInt);
             Comparers.Add(typeof(Gene<Species>), CompareSpecie);

@@ -5,6 +5,7 @@ using BeeBreeder.Common.AlleleDatabase.Bee;
 using BeeBreeder.Common.Model.Bees;
 using BeeBreeder.Common.Model.Genetics;
 using BeeBreeder.WebAPI.Model;
+using StatNames = BeeBreeder.Common.AlleleDatabase.Bee.BeeGeneticDatabase.StatNames;
 
 namespace BeeBreeder.WebAPI.Mapping
 {
@@ -21,18 +22,18 @@ namespace BeeBreeder.WebAPI.Mapping
         {
             _statNames = new Dictionary<string, string>()
             {
-                {"Species", BeeGeneticDatabase.StatNames.Specie},
-                {"Effect", BeeGeneticDatabase.StatNames.Effect},
-                {"Territory", BeeGeneticDatabase.StatNames.Area},
-                {"FlowerProvider", BeeGeneticDatabase.StatNames.Flowers},
-                {"CaveDwelling", BeeGeneticDatabase.StatNames.Cave},
-                {"TemperatureTolerance", BeeGeneticDatabase.StatNames.TempTolerance},
-                {"Flowering", BeeGeneticDatabase.StatNames.Pollination},
-                {"Fertility", BeeGeneticDatabase.StatNames.Fertility},
-                {"HumidityTolerance", BeeGeneticDatabase.StatNames.HumidTolerance},
-                {"Speed", BeeGeneticDatabase.StatNames.Speed},
-                {"Lifespan", BeeGeneticDatabase.StatNames.Lifespan},
-                {"NeverSleeps", BeeGeneticDatabase.StatNames.Nocturnal}
+                {"Species", StatNames.Specie},
+                {"Effect", StatNames.Effect},
+                {"Territory", StatNames.Area},
+                {"FlowerProvider", StatNames.Flowers},
+                {"CaveDwelling", StatNames.Cave},
+                {"TemperatureTolerance", StatNames.TempTolerance},
+                {"Flowering", StatNames.Pollination},
+                {"Fertility", StatNames.Fertility},
+                {"HumidityTolerance", StatNames.HumidTolerance},
+                {"Speed", StatNames.Speed},
+                {"Lifespan", StatNames.Lifespan},
+                {"NeverSleeps", StatNames.Nocturnal}
             };
 
             _speedMapping = new Dictionary<float, int>()
@@ -94,7 +95,7 @@ namespace BeeBreeder.WebAPI.Mapping
             };
         }
             
-        public static Bee ToModelBee(this MinecraftBeeModel raw)
+        public static BeeStack ToModelBee(this MinecraftBeeModel raw)
         {
             var bee = new Bee();
             bee.Generation = raw.Individual.Generation;
@@ -110,98 +111,98 @@ namespace BeeBreeder.WebAPI.Mapping
             
             var specieChromosome = new SpecieChromosome()
             {
-                Property = BeeGeneticDatabase.StatNames.Specie,
+                Property = StatNames.Specie,
                 Primary = new Gene<Species>() {Value = speciePrimary},
                 Secondary = new Gene<Species>() {Value = specieSecondary}
             };
             
             var speedChromosome = new Chromosome<int>()
             {
-                Property = BeeGeneticDatabase.StatNames.Speed,
+                Property = StatNames.Speed,
                 Primary = new Gene<int>() {Value = _speedMapping[_speedMapping.Keys.First(x => Math.Abs(x - rawPrimary.Speed) < 0.001)]},
                 Secondary = new Gene<int>() {Value = _speedMapping[_speedMapping.Keys.First(x => Math.Abs(x - rawSecondary.Speed) < 0.001)]}
             };
             
             var pollinationChromosome = new Chromosome<int>()
             {
-                Property = BeeGeneticDatabase.StatNames.Pollination,
+                Property = StatNames.Pollination,
                 Primary = new Gene<int>() {Value = _pollinationMapping[rawPrimary.Flowering]},
                 Secondary = new Gene<int>() {Value = _pollinationMapping[rawSecondary.Flowering]}
             };
             
             var areaChromosome = new Chromosome<int>()
             {
-                Property = BeeGeneticDatabase.StatNames.Area,
+                Property = StatNames.Area,
                 Primary = new Gene<int>() {Value = _areaMapping[rawPrimary.Territory]},
                 Secondary = new Gene<int>() {Value = _areaMapping[rawSecondary.Territory]}
             };
             
             var lifespanChromosome = new Chromosome<int>()
             {
-                Property = BeeGeneticDatabase.StatNames.Lifespan,
+                Property = StatNames.Lifespan,
                 Primary = new Gene<int>() {Value = _lifespanMapping[rawPrimary.Lifespan]},
                 Secondary = new Gene<int>() {Value = _lifespanMapping[rawSecondary.Lifespan]}
             };
             
             var caveChromosome = new Chromosome<int>()
             {
-                Property = BeeGeneticDatabase.StatNames.Cave,
+                Property = StatNames.Cave,
                 Primary = new Gene<int>() {Value = Convert.ToInt32(rawPrimary.CaveDwelling)},
                 Secondary = new Gene<int>() {Value = Convert.ToInt32(rawSecondary.CaveDwelling)}
             };
 
             var nocturnalChromosome = new Chromosome<int>()
             {
-                Property = BeeGeneticDatabase.StatNames.Nocturnal,
+                Property = StatNames.Nocturnal,
                 Primary = new Gene<int>() {Value = Convert.ToInt32(rawPrimary.NeverSleeps)},
                 Secondary = new Gene<int>() {Value = Convert.ToInt32(rawSecondary.NeverSleeps)}
             };
             
             var flyerChromosome = new Chromosome<int>()
             {
-                Property = BeeGeneticDatabase.StatNames.Flyer,
+                Property = StatNames.Flyer,
                 Primary = new Gene<int>() {Value = Convert.ToInt32(rawPrimary.ToleratesRain)},
                 Secondary = new Gene<int>() {Value = Convert.ToInt32(rawSecondary.ToleratesRain)}
             };
             
             var diurnalChromosome = new Chromosome<int>()
             {
-                Property = BeeGeneticDatabase.StatNames.Diurnal,
+                Property = StatNames.Diurnal,
                 Primary = new Gene<int>() {Value = 1},
                 Secondary = new Gene<int>() {Value = 1}
             };
             
             var fertilityChromosome = new Chromosome<int>()
             {
-                Property = BeeGeneticDatabase.StatNames.Fertility,
+                Property = StatNames.Fertility,
                 Primary = new Gene<int>() {Value = rawPrimary.Fertility},
                 Secondary = new Gene<int>() {Value = rawSecondary.Fertility}
             };
             
             var flowerChromosome = new Chromosome<Flowers>()
             {
-                Property = BeeGeneticDatabase.StatNames.Flowers,
+                Property = StatNames.Flowers,
                 Primary = new Gene<Flowers>() {Value = flowerPrimary},
                 Secondary = new Gene<Flowers>() {Value = flowerSecondary}
             };
             
             var effectChromosome = new Chromosome<Effect>()
             {
-                Property = BeeGeneticDatabase.StatNames.Effect,
+                Property = StatNames.Effect,
                 Primary = new Gene<Effect>() {Value = effectPrimary},
                 Secondary = new Gene<Effect>() {Value = effectSecondary}
             };
             
             var humidityChromosome = new Chromosome<Adaptation>()
             {
-                Property = BeeGeneticDatabase.StatNames.HumidTolerance,
+                Property = StatNames.HumidTolerance,
                 Primary = new Gene<Adaptation>() {Value = _adaptationMapping[rawPrimary.HumidityTolerance]},
                 Secondary = new Gene<Adaptation>() {Value = _adaptationMapping[rawSecondary.HumidityTolerance]}
             };
             
             var temperatureChromosome = new Chromosome<Adaptation>()
             {
-                Property = BeeGeneticDatabase.StatNames.TempTolerance,
+                Property = StatNames.TempTolerance,
                 Primary = new Gene<Adaptation>() {Value = _adaptationMapping[rawPrimary.TemperatureTolerance]},
                 Secondary = new Gene<Adaptation>() {Value = _adaptationMapping[rawSecondary.TemperatureTolerance]}
             };
@@ -228,7 +229,7 @@ namespace BeeBreeder.WebAPI.Mapping
                 gene.Value.Secondary.Dominant = BeeGeneticDatabase.GenesDominance[gene.Key][gene.Value.Secondary.Value];
             }
             
-            return bee;
+            return new(bee, raw.Size);
         }
     }
 }

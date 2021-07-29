@@ -7,7 +7,7 @@ namespace BeeBreeder.WebAPI.Mapping
 {
     public static class ApiaryRequestExtensions
     {
-        public static Dictionary<Bee, ApiaryPosition> GetModel(this ApiaryRequest request)
+        public static Dictionary<BeeStack, ApiaryPosition> GetModel(this ApiaryRequest request)
         {
             return request.List.ToDictionary(x => x.Bee.ToModelBee(), x => x.BeePosition);
         }

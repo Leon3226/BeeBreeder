@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using BeeBreeder.Common.AlleleDatabase.Bee;
 using BeeBreeder.Common.Model.Genetics;
+using StatNames = BeeBreeder.Common.AlleleDatabase.Bee.BeeGeneticDatabase.StatNames;
 
 namespace BeeBreeder.Common.Model.Bees
 {
@@ -10,6 +12,12 @@ namespace BeeBreeder.Common.Model.Bees
         public Genotype Genotype = new();
         public int Generation = 0;
 
+        public IChromosome this[string index]
+        {
+            get => Genotype[index];
+            set => Genotype[index] = value;
+        }
+
         public List<Bee> Breed(Bee secondBee)
         {
             if (Gender == secondBee.Gender)
@@ -17,7 +25,7 @@ namespace BeeBreeder.Common.Model.Bees
 
             List<Bee> child = new List<Bee>();
             var princess = Gender == Gender.Drone ? secondBee : this;
-            var fertility = ((IChromosome<int>)princess.Genotype[BeeGeneticDatabase.StatNames.Fertility]).ResultantAttribute;
+            var fertility = ((IChromosome<int>)princess.Genotype[StatNames.Fertility]).ResultantAttribute;
             for (int i = 0; i < fertility + 1; i++)
             {
                 child.Add(new Bee()
@@ -41,17 +49,17 @@ namespace BeeBreeder.Common.Model.Bees
         {
             Climate specieClimate =
                 BeeGeneticDatabase.SpeciesBiome[
-                    (Species) Genotype.Genes[BeeGeneticDatabase.StatNames.Specie].ResultantAttribute];
+                    (Species) Genotype[StatNames.Specie].ResultantAttribute];
             if (specieClimate == biome)
                 return true;
 
-            var humidityTolerance = (Adaptation)Genotype.Genes[BeeGeneticDatabase.StatNames.HumidTolerance].ResultantAttribute;
+            var humidityTolerance = (Adaptation)Genotype[StatNames.HumidTolerance].ResultantAttribute;
             var biomeHumidValue = (int) biome.Humidity;
             var beeHumidValue = (int) specieClimate.Humidity;
             if (biomeHumidValue > beeHumidValue + humidityTolerance.Up || biomeHumidValue < beeHumidValue - humidityTolerance.Down)
                 return false;
             
-            var temperatureTolerance = (Adaptation)Genotype.Genes[BeeGeneticDatabase.StatNames.TempTolerance].ResultantAttribute;
+            var temperatureTolerance = (Adaptation)Genotype[StatNames.TempTolerance].ResultantAttribute;
             var biomeTempValue = (int) biome.Temperature;
             var beeTempValue = (int) specieClimate.Temperature;
             if (biomeTempValue > beeTempValue + temperatureTolerance.Up || biomeTempValue < beeTempValue - temperatureTolerance.Down)

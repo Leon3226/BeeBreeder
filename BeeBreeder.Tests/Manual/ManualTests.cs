@@ -43,7 +43,7 @@ namespace BeeBreeder.Tests.Manual
                     for (int k = 0; k < maxBreeds; k++)
                     {
                         breeder.Breed(1);
-                        averageValue = breeder.Pool.Bees.Select(x => _evaluator.Evaluate(x.Genotype)).Average();
+                        averageValue = breeder.Pool.Bees.Select(x => _evaluator.Evaluate(x.Bee.Genotype)).Average();
                         if (averageValue > targetValue)
                         {
                             nd.Add(j, (true, k));
@@ -68,13 +68,13 @@ namespace BeeBreeder.Tests.Manual
 
             return new BeePool()
             {
-                Bees = new List<Bee>()
+                Bees = new List<BeeStack>()
                 {
-                    generator.Generate(Species.Forest, Gender.Princess),
-                    generator.Generate(Species.Forest),
-                    generator.Generate(Species.Meadows, Gender.Princess),
-                    generator.Generate(Species.Meadows),
-                    generator.Generate(Species.Steadfast)
+                    new BeeStack(generator.Generate(Species.Forest, Gender.Princess), 1),
+                    new BeeStack(generator.Generate(Species.Forest), 1),
+                    new BeeStack(generator.Generate(Species.Meadows, Gender.Princess), 1),
+                    new BeeStack(generator.Generate(Species.Meadows), 1),
+                    new BeeStack(generator.Generate(Species.Steadfast), 1)
                 }
             };
         }

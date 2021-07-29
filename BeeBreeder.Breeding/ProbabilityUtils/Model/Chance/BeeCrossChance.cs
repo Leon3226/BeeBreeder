@@ -30,7 +30,7 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Chance
                 RecalculateChances();
             }
         }
-        public List<IChromosomeCrossChance> Chances = new();
+        public readonly List<IChromosomeCrossChance> Chances = new();
         public BeeCrossChance(Bee first, Bee second)
         {
             _first = first;
@@ -40,8 +40,8 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Chance
 
         private void RecalculateChances()
         {
-            var firstSpecieChromosome = (SpecieChromosome)_first.Genotype.Genes[BeeGeneticDatabase.StatNames.Specie];
-            var secondSpecieChromosome = (SpecieChromosome)_second.Genotype.Genes[BeeGeneticDatabase.StatNames.Specie];
+            var firstSpecieChromosome = (SpecieChromosome)_first[BeeGeneticDatabase.StatNames.Specie];
+            var secondSpecieChromosome = (SpecieChromosome)_second[BeeGeneticDatabase.StatNames.Specie];
             var mutationChances = SpecieChromosome.GetPossibleMutations(firstSpecieChromosome.Primary.Value,
                 secondSpecieChromosome.Secondary.Value).Concat(SpecieChromosome.GetPossibleMutations(firstSpecieChromosome.Secondary.Value,
                 secondSpecieChromosome.Primary.Value)).Distinct().ToList();
@@ -49,9 +49,9 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Chance
             var mutationGenomes = mutationChances.Select(x => (Genotype.FromInitialStats(BeeGeneticDatabase.SpecieStats[x.MutationResult]), x.MutationChance)).ToArray();
             foreach (var firstGene in _first.Genotype.Genes)
             {
-                var secondGene = _second.Genotype.Genes[firstGene.Key];
+                var secondGene = _second[firstGene.Key];
                 IChromosomeCrossChance chance = ChromosomeCrossChanceHelper.GetChance(firstGene.Value, secondGene, BeeGeneticDatabase.StatTypes[secondGene.Property]
-                    , mutationGenomes.Select(x => (x.Item1.Genes[firstGene.Key], x.MutationChance)).ToArray());
+                    , mutationGenomes.Select(x => (x.Item1[firstGene.Key], x.MutationChance)).ToArray());
                 Chances.Add(chance);
             }
         }

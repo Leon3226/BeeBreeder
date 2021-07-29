@@ -47,7 +47,7 @@ namespace BeeBreeder.WebAPI.Controllers
             var flush = toFlush.Select(x => tb[x]);
             _breeder.Pool.Bees = _breeder.Pool.Bees.Except(toFlush).ToList();
             var toBreed = _breeder.GetBreedingPairs();
-            var breedPositions = toBreed.Select(x => (tb[x.Item1], tb[x.Item2]));
+            var breedPositions = toBreed.Select(x => (tb.FirstOrDefault(bee => bee.Key.Bee == x.Item1).Value, tb.FirstOrDefault(bee => bee.Key.Bee == x.Item2).Value));
              
             _logger.Log(LogLevel.Information, json);
             Console.WriteLine(json);

@@ -4,6 +4,7 @@ using System.Linq;
 using BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Comparators.Functions;
 using BeeBreeder.Common.AlleleDatabase.Bee;
 using BeeBreeder.Common.Model.Genetics;
+using StatNames = BeeBreeder.Common.AlleleDatabase.Bee.BeeGeneticDatabase.StatNames;
 
 namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Comparators
 {
@@ -15,14 +16,14 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Comparators
         {
             GeneValueFunctions = new Dictionary<string, IFunction>()
             {
-                {BeeGeneticDatabase.StatNames.Speed, new QuadraticFunction() {Coefficient = 0.7}},
-                {BeeGeneticDatabase.StatNames.Area, new LinearFunction() {Coefficient = 2}},
-                {BeeGeneticDatabase.StatNames.Cave, new LinearFunction() {Coefficient = 10}},
-                {BeeGeneticDatabase.StatNames.Fertility, new QuadraticFunction() {Coefficient = 0.5}},
-                {BeeGeneticDatabase.StatNames.Flyer, new LinearFunction() {Coefficient = 20}},
-                {BeeGeneticDatabase.StatNames.Lifespan, new LinearFunction() {Coefficient = 1}},
-                {BeeGeneticDatabase.StatNames.Nocturnal, new LinearFunction() {Coefficient = 25}},
-                {BeeGeneticDatabase.StatNames.Pollination, new LinearFunction() {Coefficient = 3}},
+                {StatNames.Speed, new QuadraticFunction() {Coefficient = 0.7}},
+                {StatNames.Area, new LinearFunction() {Coefficient = 2}},
+                {StatNames.Cave, new LinearFunction() {Coefficient = 10}},
+                {StatNames.Fertility, new QuadraticFunction() {Coefficient = 0.5}},
+                {StatNames.Flyer, new LinearFunction() {Coefficient = 20}},
+                {StatNames.Lifespan, new LinearFunction() {Coefficient = 1}},
+                {StatNames.Nocturnal, new LinearFunction() {Coefficient = 25}},
+                {StatNames.Pollination, new LinearFunction() {Coefficient = 3}},
             };
         }
         

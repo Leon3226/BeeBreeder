@@ -14,6 +14,7 @@ using BeeBreeder.Common.AlleleDatabase.Bee;
 using BeeBreeder.Common.Model.Bees;
 using BeeBreeder.Common.Model.Data;
 using BeeBreeder.Common.Model.Genetics;
+using StatNames = BeeBreeder.Common.AlleleDatabase.Bee.BeeGeneticDatabase.StatNames;
 
 namespace BeeBreeder
 {
@@ -25,24 +26,32 @@ namespace BeeBreeder
             var generator = new BeeGenerator();
             IGenomeEvaluator eval = new SumGenomeEvaluator();
             var tree = MutationTree.FromSpecieCombinations(BeeGeneticDatabase.SpecieCombinations);
-            
+
+            var bee1 = generator.Generate(Species.Forest, Gender.Princess);
+            var bee2 = generator.Generate(Species.Meadows);
+
+            var beesChild = bee1.Breed(bee2);
+
             var pool = new BeePool
             {
-                Bees = new List<Bee>
+                Bees = new List<BeeStack>
                 {
-                    generator.Generate(Species.Forest, Gender.Princess),
-                    generator.Generate(Species.Forest),
-                    generator.Generate(Species.Meadows, Gender.Princess),
-                    generator.Generate(Species.Meadows),
-                    generator.Generate(Species.Steadfast),
-                    generator.Generate(Species.Forest, Gender.Princess),
-                    generator.Generate(Species.Forest),
-                    generator.Generate(Species.Meadows, Gender.Princess),
-                    generator.Generate(Species.Meadows)
+                    new(generator.Generate(Species.Forest, Gender.Princess), 1),
+                    new(generator.Generate(Species.Forest), 1),
+                    new(generator.Generate(Species.Meadows, Gender.Princess), 1),
+                    new(generator.Generate(Species.Meadows), 1),
+                    new(generator.Generate(Species.Steadfast), 1),
+                    new(generator.Generate(Species.Forest, Gender.Princess), 1),
+                    new(generator.Generate(Species.Forest), 1),
+                    new(generator.Generate(Species.Meadows, Gender.Princess), 1),
+                    new(generator.Generate(Species.Meadows), 1)
                 }
             };
+            pool.CompactDuplicates();
 
-            var targetSpecies = new List<Species>() {Species.Industrious, Species.Imperial};
+            var pr = tree.PossibleResults(new List<Species>() {Species.Forest, Species.Meadows});
+
+            var targetSpecies = new List<Species>() {Species.Imperial};
 
             IBeeBreeder randomBreeder = new NaturalSelectionBreeder {TargetSpecies = targetSpecies};
             randomBreeder.Pool = pool;
@@ -53,13 +62,20 @@ namespace BeeBreeder
 
             var breedIterations = 1000;
 
-            var timeQuantum = breedIterations / randomBreeder.Pool.Princesses.Count;
-            var lifespanGenes = randomBreeder.Pool.Princesses.Select(x =>
-                ((Chromosome<int>) x.Genotype[BeeGeneticDatabase.StatNames.Lifespan]).ResultantAttribute).Max();
-            var lifespan = lifespanGenes * 10 * 28 * timeQuantum;
-            timeElapsed = timeElapsed.Add(new TimeSpan(0, 0, lifespan));
+            int i;
+            for (i = 0; i < breedIterations; i++)
+            {
+                var lifespanGenes = randomBreeder.Pool.Princesses.Select(x =>
+                    ((Chromosome<int>) x.Bee.Genotype[StatNames.Lifespan]).ResultantAttribute).Max();
+                var lifespan = lifespanGenes * 10 * 28;
+                timeElapsed = timeElapsed.Add(new TimeSpan(0, 0, lifespan));
 
-            randomBreeder.Breed(breedIterations);
+                var values = pool.Bees.Select(x => eval.Evaluate(x.Bee.Genotype));
+                randomBreeder.Breed(1);
+
+                //if (values.Average() > 150)
+                //    break;
+            }
 
             var es = sw.Elapsed.TotalSeconds;
         }

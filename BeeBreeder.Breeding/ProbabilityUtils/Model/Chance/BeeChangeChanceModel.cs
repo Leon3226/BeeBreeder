@@ -13,7 +13,7 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Chance
             {
                 var newChance = new ChangeChance();
                 var property = chance.First.Property;
-                var beeChromosome = bee.Genotype.Genes[property];
+                var beeChromosome = bee[property];
                 foreach (var chromosomeChances in chance.Chances)
                 {
                     var comparison = chromosomeChances.Value.ParetoBetter(beeChromosome);

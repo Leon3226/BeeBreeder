@@ -10,6 +10,28 @@ namespace BeeBreeder.Common.Model.Genetics
         public IGene<T> Secondary { get; set; }
         object IChromosome.ResultantAttribute => ResultantAttribute;
 
+        public Chromosome()
+        {
+            
+        }
+        
+        public Chromosome(IGene<T> value, string property = null)
+        {
+            if (property != null) Property = property;
+
+            Primary = value;
+            Secondary = value;
+        }
+        
+        public Chromosome(T value, string property = null)
+        {
+            if (property != null) Property = property;
+            var gene = new Gene<T>() { Value = value };
+
+            Primary = gene;
+            Secondary = gene;
+        }
+
         public T ResultantAttribute
         {
             get

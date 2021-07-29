@@ -5,63 +5,67 @@ namespace BeeBreeder.Common.Model.Bees
 {
     public class BeePool
     {
-        public List<Bee> Bees = new();
+        public List<BeeStack> Bees = new();
 
-        public List<Bee> Princesses
+        public BeePool()
+        {
+            CompactDuplicates();
+        }
+        public List<BeeStack> Princesses
         {
             get
             {
-                return Bees.Where(x => x.Gender == Gender.Princess).ToList();
+                return Bees.Where(x => x.Bee.Gender == Gender.Princess).ToList();
             }
             set
             {
-                Bees.RemoveAll(x => x.Gender == Gender.Princess);
+                Bees.RemoveAll(x => x.Bee.Gender == Gender.Princess);
                 Bees.AddRange(value);
             }
         }
-        public List<Bee> Drones
+        public List<BeeStack> Drones
         {
             get
             {
-                return Bees.Where(x => x.Gender == Gender.Drone).ToList();
+                return Bees.Where(x => x.Bee.Gender == Gender.Drone).ToList();
             }
             set
             {
-                Bees.RemoveAll(x => x.Gender == Gender.Drone);
+                Bees.RemoveAll(x => x.Bee.Gender == Gender.Drone);
                 Bees.AddRange(value);
             }
         }
 
-        public IEnumerable<Bee> RemoveDroneDuplicates(int targetDuplicatesCount = 0)
+        public void CompactDuplicates()
         {
-            var dronesToCheck = Drones.ToList();
-            var originalDrones = new List<Bee>();
-            for (int i = 0; i < dronesToCheck.Count; i++)
+            for (int i = 0; i < Drones.Count; i++)
             {
-                var bee = dronesToCheck[i];
-                var duplicates = dronesToCheck.Where(x => x.Genotype.Equals(bee.Genotype)).ToList();
-                originalDrones.AddRange(duplicates.Take(targetDuplicatesCount + 1));
-                dronesToCheck = dronesToCheck.Except(duplicates).ToList();
-                i = -1;
+                var bee = Drones[i];
+                var duplicates = Drones.Where(x => x.Bee.Genotype.Equals(bee.Bee.Genotype)).Except(new[] {bee}).ToList();
+                duplicates.ForEach(x => bee.Count += x.Count);
+                foreach (var duplicate in duplicates)
+                {
+                    Bees.Remove(duplicate);
+                }
             }
+        }
 
-            var diff = Drones.Except(originalDrones);
-            Drones = originalDrones;
-            return diff;
+        public void RemoveBee(Bee bee, int count)
+        {
+            var bees = Bees.FirstOrDefault(x => x.Bee == bee);
+            if (bees == null) return;
+            bees.Count -= count;
+            if (bees.Count <= 0)
+                Bees.Remove(bees);
         }
 
         public bool Cross(Bee first, Bee second)
         {
-            if (!Bees.Contains(first) || !Bees.Contains(second))
-                return false;
-
             var child = first.Breed(second);
             if (child == null)
                 return false;
             
-            Bees.AddRange(child);
-            Bees.Remove(first);
-            Bees.Remove(second);
+            Bees.AddRange(child.Select(x => new BeeStack(x, 1)));
             return true;
         }
     }
