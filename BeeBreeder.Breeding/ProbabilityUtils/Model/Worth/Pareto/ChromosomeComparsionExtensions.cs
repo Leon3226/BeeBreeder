@@ -8,10 +8,10 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Pareto
     {
         public static IChromosome ParetoBetter(this IChromosome first, IChromosome second, bool compareOrder = false, BreedingTarget target = null)
         {
-            var fpp = first.Primary.Compare(second.Primary, first.Property);
-            var fps = first.Primary.Compare(second.Secondary, first.Property);
-            var fsp = first.Secondary.Compare(second.Primary, first.Property);
-            var fss = first.Secondary.Compare(second.Secondary, first.Property);
+            var fpp = first.Primary.Compare(second.Primary, first.Property, target: target); 
+            var fps = first.Primary.Compare(second.Secondary, first.Property, target: target);
+            var fsp = first.Secondary.Compare(second.Primary, first.Property, target: target);
+            var fss = first.Secondary.Compare(second.Secondary, first.Property, target: target);
             
             List<Comparison> comparisons = new List<Comparison>() {fpp, fps, fsp, fss};
 

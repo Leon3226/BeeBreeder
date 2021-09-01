@@ -1,6 +1,6 @@
 namespace BeeBreeder.WebAPI.Model
 {
-    public struct MinecraftBeeIndividual
+    public struct GameBeeIndividual
     {
         public int Generation;
         public bool CanSpawn;
@@ -9,8 +9,8 @@ namespace BeeBreeder.WebAPI.Model
         public string DisplayName;
         public bool IsAnalyzed;
         public bool IsSecret;
-        public MinecraftGene Active;
-        public MinecraftGene Inactive;
+        public GameGene Active;
+        public GameGene Inactive;
         public string Ident;
         public bool IsNatural;
         public bool IsAlive;

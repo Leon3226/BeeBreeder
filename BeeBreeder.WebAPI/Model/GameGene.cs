@@ -1,6 +1,6 @@
 namespace BeeBreeder.WebAPI.Model
 {
-    public class MinecraftGene
+    public class GameGene
     {
         public string Effect;
         public string Species;

@@ -7,6 +7,12 @@ namespace BeeBreeder.Common.Model.Genetics
     {
         public T Value { get; init; }
 
+        public Gene(T value)
+        {
+            Dominant = false;
+            Value = value;
+        }
+
         object IGene.Value => Value;
 
         public bool Dominant { get; set; }

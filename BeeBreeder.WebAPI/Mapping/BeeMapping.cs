@@ -95,7 +95,7 @@ namespace BeeBreeder.WebAPI.Mapping
             };
         }
             
-        public static BeeStack ToModelBee(this MinecraftBeeModel raw)
+        public static BeeStack ToModelBee(this GameBeeModel raw)
         {
             var bee = new Bee();
             bee.Generation = raw.Individual.Generation;

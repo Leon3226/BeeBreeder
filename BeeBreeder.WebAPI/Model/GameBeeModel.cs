@@ -1,9 +1,9 @@
 namespace BeeBreeder.WebAPI.Model
 {
-    public struct MinecraftBeeModel
+    public struct GameBeeModel
     {
         public bool HasTag;
-        public MinecraftBeeIndividual Individual;
+        public GameBeeIndividual Individual;
         public int Damage;
         public int MaxSize;
         public int Size;

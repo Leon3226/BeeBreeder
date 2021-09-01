@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BeeBreeder.Breeding.ProbabilityUtils.Model.Worth;
 using BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Pareto;
 using BeeBreeder.Common.AlleleDatabase.Bee;
 using BeeBreeder.Common.Model.Bees;
@@ -10,7 +11,7 @@ using StatNames = BeeBreeder.Common.AlleleDatabase.Bee.BeeGeneticDatabase.StatNa
 
 namespace BeeBreeder.Breeding.Breeder
 {
-    public class NaturalSelectionBreeder : IBeeBreeder
+    public class NaturalSelectionBreeder : BeeBreederBase
     {
         readonly Random _rand = new();
         private MutationTree _tree = MutationTree.FromSpecieCombinations(BeeGeneticDatabase.SpecieCombinations);
@@ -19,34 +20,16 @@ namespace BeeBreeder.Breeding.Breeder
         public bool ClearDuplicates = true;
         public int IterationsBetweenDuplicatesClears = 50;
         public int AllowedDuplicatesCount = 2;
-        public List<Species> TargetSpecies = new() {Species.Imperial};
+        public virtual List<Species> TargetSpecies { get; set; } = new() {Species.Imperial};
 
         private int _iterationsFromPrevNatSelection = 0;
         private int _iterationsFromPrevDuplClear = 0;
 
         private bool NeedToDuplClear => ClearDuplicates && _iterations - _iterationsFromPrevDuplClear > IterationsBetweenDuplicatesClears;
         private bool NeedToNatSelection => _iterations - _iterationsFromPrevNatSelection > IterationsBetweenNaturalSelectionClears;
-        private int _iterations = 0;
-        public BeePool Pool { get; set; }
+        protected int _iterations = 0;
 
-        public void Breed(int iterations)
-        {
-            if (iterations < 0) return;
-            for (int i = 0; i < iterations;)
-            {
-                var pairs = GetBreedingPairs();
-                if (pairs.Count == 0)
-                    break;
-                
-                i += pairs.Count;
-
-                ToFlush();
-                pairs.ForEach(x => Pool.Cross(x.Item1, x.Item2));
-                Pool.CompactDuplicates();
-            }
-        }
-
-        public List<(Bee, Bee)> GetBreedingPairs(int count = 0)
+        public override List<(Bee, Bee)> GetBreedingPairs(int count = 0)
         {
             if (count < 0)
                 return new List<(Bee, Bee)>();
@@ -86,28 +69,31 @@ namespace BeeBreeder.Breeding.Breeder
             return toReturn;
         }
 
-        private IEnumerable<BeeStack> ParetoFromNecessary()
+        public override List<(Slot, Bee, Bee)> GetPairsInSlots()
         {
-            var necessarySpecies = _tree.OnlyNecessaryForGetting(
-                TargetSpecies, Pool.Drones.Select(x =>
-                        ((Chromosome<Species>) x.Bee.Genotype[StatNames.Specie]).ResultantAttribute)
-                    .Distinct()
-                    .ToList());
+            throw new NotImplementedException();
+        }
+
+        protected IEnumerable<BeeStack> ParetoFromNecessary()
+        {
+            var necessarySpecies = TargetSpecies;
 
             var paretoBees = new List<BeeStack>();
             foreach (var specie in necessarySpecies)
             {
+                
+                var target = new BreedingTarget();
+                target.SpeciePriorities[specie] = 100;
                 var bees = Pool.Drones.Except(paretoBees).Where(x =>
-                        x.Bee.Genotype[StatNames.Specie].Primary.Value.Equals(specie) ||
-                        x.Bee.Genotype[StatNames.Specie].Secondary.Value.Equals(specie)).ToList();
-                var pareto = bees.Select(x => x.Bee).ParetoOptimal();
+                        x.Bee[StatNames.Specie].Primary.Value.Equals(specie) ||
+                        x.Bee[StatNames.Specie].Secondary.Value.Equals(specie)).ToList();
+                var pareto = bees.Select(x => x.Bee).ParetoOptimal(target);
                 paretoBees.AddRange(bees.Where(x => pareto.Contains(x.Bee)));
             }
 
             return paretoBees.Distinct();
         }
-
-        public IEnumerable<BeeStack> ToFlush()
+        public override IEnumerable<BeeStack> ToFlush()
         {
             if (NeedToNatSelection)
             {
@@ -117,7 +103,7 @@ namespace BeeBreeder.Breeding.Breeder
 
             return new List<BeeStack>();
         }
-        public List<BeeStack> NaturalSelection()
+        public virtual List<BeeStack> NaturalSelection()
         {
             var paretoNecessary = ParetoFromNecessary().ToList();
             var optimalDrones = Pool.Drones.Except(paretoNecessary).ToList().ParetoOptimal().Distinct().ToList();

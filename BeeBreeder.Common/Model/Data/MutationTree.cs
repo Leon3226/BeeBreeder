@@ -27,7 +27,7 @@ namespace BeeBreeder.Common.Model.Data
                 possible.AddRange(toAdd);
             } while (toAdd.Count != 0);
 
-            return possible;
+            return possible.Except(existingSpecies).ToList();
         }
 
         public bool IsEssentialForGetting(List<Species> targets, List<Species> existing, Species inspectable)
@@ -80,23 +80,33 @@ namespace BeeBreeder.Common.Model.Data
             return tree;
         }
 
-        public List<Species> OnlyNecessaryForGetting(List<Species> targets, List<Species> existing)
+        public List<Species> OnlyNecessaryForGettingIfPossible(List<Species> targets, List<Species> existing)
         {
             List<Species> necessary = new List<Species>();
 
-            void RecursiveNecessary(MutationNode current)
+            MutationNode RecursiveNecessary(MutationNode current)
             {
-                if (existing.Contains(current.Specie))
-                    necessary.Add(current.Specie);
+                var contains = existing.Contains(current.Specie);
+                if (contains)
+                {
+                    return current;
+                }
                 else
                 {
                     var parents = current.Parents.FirstOrDefault();
                     if (parents != null)
                     {
-                        RecursiveNecessary(parents.Parent1);
-                        RecursiveNecessary(parents.Parent2);
+                        var first = RecursiveNecessary(parents.Parent1);
+                        var second = RecursiveNecessary(parents.Parent2);
+                        if (first != null && second != null)
+                        {
+                            necessary.Add(first.Specie);
+                            necessary.Add(second.Specie);
+                        }
                     }
                 }
+
+                return null;
             }
 
             foreach (var target in targets)
@@ -108,7 +118,64 @@ namespace BeeBreeder.Common.Model.Data
                 RecursiveNecessary(node);
             }
 
-            return necessary.Distinct().ToList();
+            var result = necessary.Distinct().ToList();
+            return result;
+        }
+
+        public List<Species> OnlyNecessaryForGettingIfPossibleAndHaveEnough(List<Species> targets,
+            Dictionary<Species, int> existing, int threshold = 20)
+        {
+            List<Species> necessary = new List<Species>();
+
+            MutationNode RecursiveNecessary(MutationNode current)
+            {
+                var exists = false;
+                if (existing.TryGetValue(current.Specie, out int count))
+                {
+                    if (count >= threshold)
+                    {
+                        return current;
+                    }
+                    else
+                    {
+                        exists = true;
+                    }
+                }
+
+                var parents = current.Parents;
+                if (parents != null)
+                {
+                    foreach (var pair in parents)
+                    {
+                        var first = RecursiveNecessary(pair.Parent1);
+                        var second = RecursiveNecessary(pair.Parent2);
+                        if (first != null && second != null)
+                        {
+                            necessary.Add(first.Specie);
+                            necessary.Add(second.Specie);
+                            if (exists)
+                                necessary.Add(current.Specie);
+                        }
+                    }
+                }
+
+                if (exists)
+                    return current;
+
+                return null;
+            }
+
+            foreach (var target in targets)
+            {
+                if (existing.Any(x => x.Key == target && x.Value >= threshold))
+                    continue;
+
+                var node = Nodes.FirstOrDefault(x => x.Specie == target);
+                RecursiveNecessary(node);
+            }
+
+            var result = necessary.Distinct().ToList();
+            return result;
         }
     }
 }

@@ -8,6 +8,7 @@ namespace BeeBreeder.Breeding.Breeder
         BeePool Pool { get; set; }
         void Breed(int iterations);
         List<(Bee,Bee)> GetBreedingPairs(int count = 0);
+        List<(Slot, Bee, Bee)> GetPairsInSlots();
         IEnumerable<BeeStack> ToFlush();
     }
 }

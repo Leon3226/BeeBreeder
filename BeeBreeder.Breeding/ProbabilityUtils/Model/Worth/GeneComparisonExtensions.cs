@@ -8,27 +8,30 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth
 {
     public static class GeneComparisonExtensions
     {
-        private static readonly Dictionary<string, Func<int, int, Comparison>> IntComparers = new ();
-        private static readonly Dictionary<Type, Func<IGene, IGene, string, BreedingTarget, Comparison>> Comparers = new ();
+        private static readonly Dictionary<string, Func<int, int, Comparison>> IntComparers = new();
+        private static readonly Dictionary<Type, Func<IGene, BreedingTarget, int>> Converters = new();
 
         static GeneComparisonExtensions()
         {
             IntComparers.Add(StatNames.Speed, MoreBetter);
             IntComparers.Add(StatNames.Fertility, MoreBetter);
-            IntComparers.Add(StatNames.Lifespan, LessBetter);
+            IntComparers.Add(StatNames.Lifespan, MoreBetter);
             IntComparers.Add(StatNames.Area, MoreBetter);
             IntComparers.Add(StatNames.Pollination, MoreBetter);
             IntComparers.Add(StatNames.Diurnal, MoreBetter);
             IntComparers.Add(StatNames.Nocturnal, MoreBetter);
             IntComparers.Add(StatNames.Cave, MoreBetter);
             IntComparers.Add(StatNames.Flyer, MoreBetter);
-            
-            Comparers.Add(typeof(Gene<int>), CompareInt);
-            Comparers.Add(typeof(Gene<Species>), CompareSpecie);
-            Comparers.Add(typeof(Gene<Flowers>), CompareFlowers);
-            Comparers.Add(typeof(Gene<Adaptation>), CompareAdaptation);
-            Comparers.Add(typeof(Gene<Effect>), CompareEffect);
+            IntComparers.Add(StatNames.Flowers, MoreBetter);
+            IntComparers.Add(StatNames.Specie, MoreBetter);
+            IntComparers.Add(StatNames.Effect, MoreBetter);
+            IntComparers.Add(StatNames.HumidTolerance, MoreBetter);
+            IntComparers.Add(StatNames.TempTolerance, MoreBetter);
 
+            Converters.Add(typeof(Gene<Species>), ConvertSpecie);
+            Converters.Add(typeof(Gene<Flowers>), ConvertFlowers);
+            Converters.Add(typeof(Gene<Adaptation>), ConvertAdaptation);
+            Converters.Add(typeof(Gene<Effect>), ConvertEffect);
         }
 
         private static Comparison MoreBetter(int gene1, int gene2)
@@ -38,7 +41,7 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth
 
             return gene1 > gene2 ? Comparison.Better : Comparison.Worse;
         }
-        
+
         private static Comparison LessBetter(int gene1, int gene2)
         {
             if (gene1 == gene2)
@@ -46,66 +49,55 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth
 
             return gene1 < gene2 ? Comparison.Better : Comparison.Worse;
         }
-        
+
+        public static int Numeric(this IGene gene, BreedingTarget target = null)
+        {
+            var intValue = gene.Value as int?;
+            if (intValue == null)
+            {
+                return Converters[gene.GetType()].Invoke(gene, target);
+            }
+
+            return intValue.Value;
+        }
+
         public static Comparison Compare(this IGene gene1, IGene gene2, string property, BreedingTarget target = null)
         {
-            return Comparers[gene1.GetType()].Invoke(gene1, gene2, property, target);
+            var val1 = gene1.Numeric(target);
+            var val2 = gene2.Numeric(target);
+            return IntComparers[property].Invoke(val1, val2);
         }
+
         private static Comparison CompareInt(IGene gene1, IGene gene2, string property, BreedingTarget target = null)
         {
-            return IntComparers[property].Invoke(((Gene<int>)gene1).Value, ((Gene<int>)gene2).Value);
+            return IntComparers[property].Invoke(((Gene<int>) gene1).Value, ((Gene<int>) gene2).Value);
         }
-        private static Comparison CompareSpecie(IGene gene1, IGene gene2, string property, BreedingTarget target = null)
+
+        private static int ConvertSpecie(IGene gene, BreedingTarget target = null)
+        {
+            var priorities = target == null || !target.PrioritizeSpecies
+                ? BeeGeneticDatabase.DefaultSpeciePriorities
+                : target.SpeciePriorities;
+            //TODO: Add logic
+            return priorities[((Gene<Species>) gene).Value];
+        }
+
+        private static int ConvertFlowers(IGene gene, BreedingTarget target = null)
         {
             //TODO: Add logic
-            var adp1 = (Gene<Species>)gene1;
-            var adp2 = (Gene<Species>)gene2;
-            var val1 = BeeGeneticDatabase.DefaultSpeciePriorities[adp1.Value];
-            var val2 = BeeGeneticDatabase.DefaultSpeciePriorities[adp2.Value];
-            if (val1 == val2)
-                return Comparison.Equal;
-
-            return val1 > val2 ? Comparison.Better : Comparison.Worse;
+            return BeeGeneticDatabase.DefaultFlowersPriorities[((Gene<Flowers>) gene).Value];
         }
-        private static Comparison CompareFlowers(IGene gene1, IGene gene2, string property, BreedingTarget target = null)
+
+        private static int ConvertEffect(IGene gene, BreedingTarget target = null)
         {
             //TODO: Add logic
-            var adp1 = (Gene<Flowers>)gene1;
-            var adp2 = (Gene<Flowers>)gene2;
-            
-            var val1 = BeeGeneticDatabase.DefaultFlowersPriorities[adp1.Value];
-            var val2 = BeeGeneticDatabase.DefaultFlowersPriorities[adp2.Value];
-            if (val1 == val2)
-                return Comparison.Equal;
-
-            return val1 > val2 ? Comparison.Better : Comparison.Worse;
+            return BeeGeneticDatabase.DefaultEffectPriorities[((Gene<Effect>) gene).Value];
         }
-        
-        private static Comparison CompareEffect(IGene gene1, IGene gene2, string property, BreedingTarget target = null)
+
+        private static int ConvertAdaptation(IGene gene, BreedingTarget target = null)
         {
-            //TODO: Add logic
-            var adp1 = (Gene<Effect>)gene1;
-            var adp2 = (Gene<Effect>)gene2;
-            
-            var val1 = BeeGeneticDatabase.DefaultEffectPriorities[adp1.Value];
-            var val2 = BeeGeneticDatabase.DefaultEffectPriorities[adp2.Value];
-            if (val1 == val2)
-                return Comparison.Equal;
-
-            return val1 > val2 ? Comparison.Better : Comparison.Worse;
+            var adp = (Gene<Adaptation>) gene;
+            return adp.Value.Up + adp.Value.Down;
         }
-
-        private static Comparison CompareAdaptation(IGene gene1, IGene gene2, string property, BreedingTarget target = null)
-        {
-            var adp1 = (Gene<Adaptation>)gene1;
-            var adp2 = (Gene<Adaptation>)gene2;
-            var val1 = adp1.Value.Up + adp1.Value.Down;
-            var val2 = adp2.Value.Up + adp2.Value.Down;
-            if (val1 == val2)
-                return Comparison.Equal;
-
-            return val1 > val2 ? Comparison.Better : Comparison.Worse;
-        }
-        
     }
 }

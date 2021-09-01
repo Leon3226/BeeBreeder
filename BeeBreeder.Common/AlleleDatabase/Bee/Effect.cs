@@ -5,6 +5,9 @@ namespace BeeBreeder.Common.AlleleDatabase.Bee
         None,
         Beatific,
         Explorer,
-        Poison
+        Poison,
+        Aggressive,
+        Creeper,
+        Ends
     }
 }

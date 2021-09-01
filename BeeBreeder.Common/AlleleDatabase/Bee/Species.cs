@@ -19,6 +19,16 @@ namespace BeeBreeder.Common.AlleleDatabase.Bee
         Exotic,
         Edenic,
         Rural,
-        Austere
+        Austere,
+        Sinister,
+        Fiendish,
+        Demonic,
+        Modest,
+        Frugal,
+        Ender,
+        Wintry, 
+        Icy,
+        Glacial,
+        Marshy
     }
 }

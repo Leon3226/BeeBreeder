@@ -4,7 +4,7 @@ namespace BeeBreeder.WebAPI.Model
 {
     public class PlacedBee
     {
-        public MinecraftBeeModel Bee;
+        public GameBeeModel Bee;
         public ApiaryPosition BeePosition;
     }
 }

@@ -16,32 +16,28 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Comparators
         {
             GeneValueFunctions = new Dictionary<string, IFunction>()
             {
-                {StatNames.Speed, new QuadraticFunction() {Coefficient = 0.7}},
+                {StatNames.Speed, new QuadraticFunction() {Coefficient = 2}},
                 {StatNames.Area, new LinearFunction() {Coefficient = 2}},
                 {StatNames.Cave, new LinearFunction() {Coefficient = 10}},
                 {StatNames.Fertility, new QuadraticFunction() {Coefficient = 0.5}},
-                {StatNames.Flyer, new LinearFunction() {Coefficient = 20}},
+                {StatNames.Flyer, new LinearFunction() {Coefficient = 30}},
                 {StatNames.Lifespan, new LinearFunction() {Coefficient = 1}},
-                {StatNames.Nocturnal, new LinearFunction() {Coefficient = 25}},
+                {StatNames.Nocturnal, new LinearFunction() {Coefficient = 50}},
                 {StatNames.Pollination, new LinearFunction() {Coefficient = 3}},
+                {StatNames.HumidTolerance, new LinearFunction() {Coefficient = 5}},
+                {StatNames.TempTolerance, new LinearFunction() {Coefficient = 5}},
+                {StatNames.Flowers, new LinearFunction() {Coefficient = 3}},
+                {StatNames.Effect, new LinearFunction() {Coefficient = 10}}
             };
         }
-        
+
         public double Evaluate(Genotype genotype)
         {
             return genotype.Genes.Sum(x =>
             {
                 if (GeneValueFunctions.TryGetValue(x.Key, out IFunction func))
-                {
-                    if (double.TryParse(x.Value.Primary.Value.ToString(), out double val1) && double.TryParse(x.Value.Secondary.Value.ToString(), out double val2))
-                        return func.Y(val1) + func.Y(val2);
-                    else
-                        return 0;
-                }
-                else
-                {
-                    return 0;
-                }
+                    return func.Y(x.Value.Primary.Numeric()) + func.Y(x.Value.Secondary.Numeric());
+                return 0;
             });
         }
     }

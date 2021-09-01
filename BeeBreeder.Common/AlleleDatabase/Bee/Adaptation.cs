@@ -13,7 +13,18 @@ namespace BeeBreeder.Common.AlleleDatabase.Bee
 
         public override string ToString()
         {
-            return $"-{Up}+{Down}";
+            if (Up == Down)
+            {
+                if (Up == 0 )
+                {
+                    return "0";
+                }
+                return $"+-{Up}";
+            }
+
+            var up = Up == 0 ? "" : $"+{Up}";
+                var down = Down == 0 ? "" : $"-{Down}";
+                return $"{up}{down}";
+            }
         }
     }
-}
