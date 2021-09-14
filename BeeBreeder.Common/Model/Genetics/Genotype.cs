@@ -20,9 +20,8 @@ namespace BeeBreeder.Common.Model.Genetics
             get => Genes[key];
             set => Genes[key] = value;
         }
-        public Genotype Cross(Genotype second, Random random = null)
+        public Genotype Cross(Genotype second)
         {
-            random ??= new Random();
             var newGenotype = new Genotype();
             if (Genes.Count != second.Genes.Count)
                 throw new Exception("Genotypes doesnt match");
@@ -30,7 +29,7 @@ namespace BeeBreeder.Common.Model.Genetics
             var firstGenotype = this;
             var secondGenotype = second;
             
-            var mutations = ((SpecieChromosome)Genes[StatNames.Specie]).Mutations((SpecieChromosome)second[StatNames.Specie], random);
+            var mutations = ((SpecieChromosome)Genes[StatNames.Specie]).Mutations((SpecieChromosome)second[StatNames.Specie]);
 
             if (mutations.Item1 != null)
                 firstGenotype = FromInitialStats(Db.SpecieStats[mutations.Item1.Value]);
@@ -41,7 +40,7 @@ namespace BeeBreeder.Common.Model.Genetics
             foreach (var gene in firstGenotype.Genes)
             {
                 if (secondGenotype.Genes.TryGetValue(gene.Key, out var secondGene))
-                    newGenotype.Genes.Add(gene.Key, (IChromosome)gene.Value.Cross(secondGene, random));
+                    newGenotype.Genes.Add(gene.Key, (IChromosome)gene.Value.Cross(secondGene));
                 else
                     throw new Exception("Corresponded gene not found");
             }
@@ -93,11 +92,11 @@ namespace BeeBreeder.Common.Model.Genetics
 
         #endregion
         
-        public override bool Equals(object? obj)
+        public bool Equals(Genotype secondGenotype)
         {
-            var secondGenotype = obj as Genotype;
-            if (secondGenotype == null)
-                return false;
+            // var secondGenotype = obj as Genotype;
+            // if (secondGenotype == null)
+            //     return false;
             foreach (var gene in Genes)
             {
                 var secondGene = secondGenotype[gene.Key];

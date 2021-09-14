@@ -19,12 +19,12 @@ namespace BeeBreeder.Common.Model.Bees
             set => Genotype[index] = value;
         }
 
-        public SpecieChromosome SpecieChromosome => (SpecieChromosome) ChromosomeOf<Species>();
+        public SpecieChromosome SpecieChromosome => (SpecieChromosome) ChromosomeOf<Species>(StatNames.Specie);
 
         public Chromosome<T> ChromosomeOf<T>(string property = null) where T : struct
         {
             return Genotype.Genes.FirstOrDefault(x =>
-                    x.Value.Primary.Value.GetType() == typeof(T) && (property == null || property == x.Key))
+                    (property == null || property == x.Key) && x.Value.Primary.Value.GetType() == typeof(T))
                 .Value as Chromosome<T>;
         }
 

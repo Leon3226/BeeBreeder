@@ -28,10 +28,10 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth
             IntComparers.Add(StatNames.HumidTolerance, MoreBetter);
             IntComparers.Add(StatNames.TempTolerance, MoreBetter);
 
-            Converters.Add(typeof(Gene<Species>), ConvertSpecie);
-            Converters.Add(typeof(Gene<Flowers>), ConvertFlowers);
-            Converters.Add(typeof(Gene<Adaptation>), ConvertAdaptation);
-            Converters.Add(typeof(Gene<Effect>), ConvertEffect);
+            Converters.Add(typeof(Species), ConvertSpecie);
+            Converters.Add(typeof(Flowers), ConvertFlowers);
+            Converters.Add(typeof(Adaptation), ConvertAdaptation);
+            Converters.Add(typeof(Effect), ConvertEffect);
         }
 
         private static Comparison MoreBetter(int gene1, int gene2)
@@ -55,7 +55,7 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth
             var intValue = gene.Value as int?;
             if (intValue == null)
             {
-                return Converters[gene.GetType()].Invoke(gene, target);
+                return Converters[gene.Type].Invoke(gene, target);
             }
 
             return intValue.Value;
@@ -81,7 +81,7 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth
             //TODO: Add logic
             return priorities[((Gene<Species>) gene).Value];
         }
-
+ 
         private static int ConvertFlowers(IGene gene, BreedingTarget target = null)
         {
             //TODO: Add logic

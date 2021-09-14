@@ -47,5 +47,10 @@ namespace BeeBreeder.Tests.Breeding
             
             Assert.Null(bee1.ParetoBetter(bee2));
         }
+        
+        [Test]
+        public void BeePareto()
+        {
+        }
     }
 }

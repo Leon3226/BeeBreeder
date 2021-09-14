@@ -5,6 +5,8 @@ namespace BeeBreeder.Common.Model.Genetics
 {
     public struct Gene<T> : IGene<T> where T: struct
     {
+        public Type Type => typeof(T);
+
         public T Value { get; init; }
 
         public Gene(T value)

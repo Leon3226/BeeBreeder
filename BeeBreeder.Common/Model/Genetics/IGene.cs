@@ -4,6 +4,7 @@ namespace BeeBreeder.Common.Model.Genetics
 {
     public interface IGene
     {
+        Type Type { get; }
         object Value { get; }
         bool Dominant { get; set; }
     }

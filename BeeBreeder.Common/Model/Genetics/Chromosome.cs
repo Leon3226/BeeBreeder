@@ -7,6 +7,8 @@ namespace BeeBreeder.Common.Model.Genetics
     {
         public string Property { get; set; } = "Unnamed";
         public IGene<T> Primary { get; set; }
+        public bool Clean => Primary.Value.Equals(Secondary.Value);
+
         public IGene<T> Secondary { get; set; }
         object IChromosome.ResultantAttribute => ResultantAttribute;
 
@@ -44,16 +46,14 @@ namespace BeeBreeder.Common.Model.Genetics
                 return Primary.Value;
             }
         }
-        public IGene<T> Random(Random random = null)
+        public IGene<T> Random()
         {
-            random ??= new Random();
-
-            return random.NextDouble() > 0.5 ? Primary : Secondary;
+            return RandomGenerator.Double() > 0.5 ? Primary : Secondary;
         }
 
-        protected virtual Chromosome<T> Cross(Chromosome<T> secondPair, Random random = null)
+        protected virtual Chromosome<T> Cross(Chromosome<T> secondPair)
         {
-            var newChromosome = GenesFromCrossing(secondPair, random);
+            var newChromosome = GenesFromCrossing(secondPair);
             return new Chromosome<T>
             {
                 Property = Property,
@@ -62,12 +62,11 @@ namespace BeeBreeder.Common.Model.Genetics
             };
         }
 
-        protected (IGene<T>, IGene<T>) GenesFromCrossing(Chromosome<T> secondPair, Random random = null)
+        protected (IGene<T>, IGene<T>) GenesFromCrossing(Chromosome<T> secondPair)
         {
-            random ??= new Random();
-            var first = Random(random);
-            var second = secondPair.Random(random);
-            var mixed = random.NextDouble() > 0.5;
+            var first = Random();
+            var second = secondPair.Random();
+            var mixed = RandomGenerator.Double() > 0.5;
             if (!mixed)
                 return (first, second);
             else
@@ -79,9 +78,9 @@ namespace BeeBreeder.Common.Model.Genetics
             return $"{Primary} {Secondary} ({ResultantAttribute})";
         }
 
-        public virtual ICrossable Cross(ICrossable second, Random random = null)
+        public virtual ICrossable Cross(ICrossable second)
         {
-            return Cross((Chromosome<T>)second, random);
+            return Cross((Chromosome<T>)second);
         }
 
         IGene IChromosome.Primary => Primary;

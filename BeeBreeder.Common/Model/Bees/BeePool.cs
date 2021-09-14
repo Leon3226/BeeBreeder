@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,24 +12,20 @@ namespace BeeBreeder.Common.Model.Bees
         {
             CompactDuplicates();
         }
+
         public List<BeeStack> Princesses
         {
-            get
-            {
-                return Bees.Where(x => x.Bee.Gender == Gender.Princess).ToList();
-            }
+            get { return Bees.Where(x => x.Bee.Gender == Gender.Princess).ToList(); }
             set
             {
                 Bees.RemoveAll(x => x.Bee.Gender == Gender.Princess);
                 Bees.AddRange(value);
             }
         }
+
         public List<BeeStack> Drones
         {
-            get
-            {
-                return Bees.Where(x => x.Bee.Gender == Gender.Drone).ToList();
-            }
+            get { return Bees.Where(x => x.Bee.Gender == Gender.Drone).ToList(); }
             set
             {
                 Bees.RemoveAll(x => x.Bee.Gender == Gender.Drone);
@@ -38,14 +35,22 @@ namespace BeeBreeder.Common.Model.Bees
 
         public void CompactDuplicates()
         {
-            for (int i = 0; i < Drones.Count; i++)
+            var toCheck = Drones;
+            for (int i = 0; i < toCheck.Count; i++)
             {
-                var bee = Drones[i];
-                var duplicates = Drones.Where(x => x.Bee.Genotype.Equals(bee.Bee.Genotype)).Except(new[] {bee}).ToList();
-                duplicates.ForEach(x => bee.Count += x.Count);
+                if (toCheck.Count == 0)
+                    break;
+                var bee = toCheck[i];
+                var duplicates = toCheck.Except(new[] {bee}).Where(x => x.Bee.Genotype.Equals(bee.Bee.Genotype))
+                    .ToArray();
+                // duplicates.ForEach(x => bee.Count += x.Count);
+                toCheck.Remove(bee);
+                i--;
                 foreach (var duplicate in duplicates)
                 {
-                    Bees.Remove(duplicate);
+                    bee.Count += duplicate.Count;
+                    toCheck.Remove(duplicate);
+                    Bees.Remove(duplicate); 
                 }
             }
         }
@@ -64,7 +69,7 @@ namespace BeeBreeder.Common.Model.Bees
             var child = first.Breed(second);
             if (child == null)
                 return false;
-            
+
             Bees.AddRange(child.Select(x => new BeeStack(x, 1)));
             return true;
         }

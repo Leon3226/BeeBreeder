@@ -7,18 +7,16 @@ namespace BeeBreeder.Common.Model.Genetics
 {
     public class SpecieChromosome : Chromosome<Species>
     {
-        public (Species?, Species?) Mutations(Chromosome<Species> secondChromosome, Random random = null)
+        public (Species?, Species?) Mutations(Chromosome<Species> secondChromosome)
         {
-            random ??= new Random();
-
             Species? GetMutation(Species first, Species second)
             {
-                return GetPossibleMutations(first, second,random).FirstOrDefault(x => x.MutationChance > random.NextDouble())?.MutationResult;
+                return GetPossibleMutations(first, second).FirstOrDefault(x => x.MutationChance > RandomGenerator.Double())?.MutationResult;
             }
 
             Species? GetRandomMutation()
             {
-                return random.NextDouble() > 0.5
+                return RandomGenerator.Double() > 0.5
                     ? GetMutation(Primary.Value, secondChromosome.Secondary.Value)
                     : GetMutation(Secondary.Value, secondChromosome.Primary.Value);
             }
@@ -26,9 +24,9 @@ namespace BeeBreeder.Common.Model.Genetics
             return (GetRandomMutation(), GetRandomMutation());
         }
 
-        protected override Chromosome<Species> Cross(Chromosome<Species> secondPair, Random random = null)
+        protected override Chromosome<Species> Cross(Chromosome<Species> secondPair)
         {
-            var newChromosome = GenesFromCrossing(secondPair, random);
+            var newChromosome = GenesFromCrossing(secondPair);
             return new SpecieChromosome()
             {
                 Property = Property,
@@ -37,9 +35,8 @@ namespace BeeBreeder.Common.Model.Genetics
             };
         }
         
-        public static IEnumerable<SpecieCombination> GetPossibleMutations(Species first, Species second, Random random = null)
+        public static IEnumerable<SpecieCombination> GetPossibleMutations(Species first, Species second)
         {
-            random ??= new Random();
             return BeeGeneticDatabase.SpecieCombinations.Where(x => 
                     (x.Parent1 == first && x.Parent2 == second) || 
                     (x.Parent2 == first && x.Parent1 == second));

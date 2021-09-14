@@ -23,7 +23,7 @@ namespace BeeBreeder
     {
         static void Main(string[] args)
         {
-            Random rand = new Random();
+            Random rand = new Random(23213);
             var generator = new BeeGenerator();
             IGenomeEvaluator eval = new SumGenomeEvaluator();
             var tree = MutationTree.FromSpecieCombinations(BeeGeneticDatabase.SpecieCombinations);
@@ -76,7 +76,7 @@ namespace BeeBreeder
 
             var pr = tree.PossibleResults(new List<Species>() {Species.Forest, Species.Meadows});
 
-            var targetSpecies = new List<Species>() {Species.Exotic};
+            var targetSpecies = new List<Species>() {Species.Exotic, Species.Imperial, Species.Industrious, Species.Rural};
 
             IBeeBreeder randomBreeder = new TestModifiedNaturalSelectionBreeder()
                 {TargetSpecies = targetSpecies, Compact = true, IterationsBetweenNaturalSelectionClears = 5, PureMinCount = 15, ImpureMinCount = 30};
@@ -89,7 +89,7 @@ namespace BeeBreeder
 
             Dictionary<Species, Dictionary<int, int>> dataTable = new();
 
-            var allSpecies = BeeGeneticDatabase.SpecieStats.Select(x => x.Key);
+            var allSpecies = BeeGeneticDatabase.SpecieStats.Select(x => x.Key).ToArray();
             foreach (var spec in allSpecies)
             {
                 dataTable.Add(spec, new Dictionary<int, int>());
@@ -133,7 +133,7 @@ namespace BeeBreeder
             var data = new StringBuilder();
             int i;
             double lastAverageValue;
-            var breedIterations = 1000;
+            var breedIterations = 10000;
 
             for (i = 0; i < breedIterations; i++)
             {
@@ -145,20 +145,31 @@ namespace BeeBreeder
                 var values = pool.Drones.Select(x => eval.Evaluate(x.Bee.Genotype));
                 randomBreeder.Breed(1);
                 WriteData(i);
+                GC.Collect();
 
                 var adp = pool.Bees.Select(x => x.Bee.AcceptableConditions()).ToList();
                 var biomes = pool.Bees.Select(x => x.Bee.AcceptableBiomes()).ToList();
 
                 lastAverageValue = values.Average();
-                if (lastAverageValue >= 490)
+                if (lastAverageValue >= 240)
                 {
-                    Console.WriteLine(lastAverageValue);
+                    //Console.WriteLine(lastAverageValue);
                     //break;    
                 }
             }
 
             var es = sw.Elapsed.TotalSeconds;
             var d = dataString();
+            Console.WriteLine(es);
+            Console.WriteLine(ParetoExtensions.Comparisons);
+
+            var a = ((TestModifiedNaturalSelectionBreeder) randomBreeder)._times
+                .GroupBy(x => x.Item1, (s, tuples) => (s, new TimeSpan((long) tuples.Average(x => x.Item2.Ticks)), new TimeSpan((long) tuples.Sum(x => x.Item2.Ticks))))
+                .OrderByDescending(x => x.Item3);
+            foreach (var item in a)
+            {
+                Console.WriteLine($"{item.s}, {item.Item2}, {item.Item3}");
+            }
         }
     }
 }

@@ -15,13 +15,22 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Pareto
             
             List<Comparison> comparisons = new List<Comparison>() {fpp, fps, fsp, fss};
 
-            if (comparisons.Any(x => x == Comparison.Better) && comparisons.All(x => x != Comparison.Worse))
-                return first;
-            
-            if (comparisons.Any(x => x == Comparison.Worse) && comparisons.All(x => x != Comparison.Better))
-                return second;
+            if (comparisons.Any(x => x == Comparison.Better))
+            {
+                if (comparisons.Any(x => x == Comparison.Worse))
+                {
+                    return null;
+                }
 
-            return null;
+                return first;
+            }
+            else
+            {
+                if (comparisons.All(x => x == Comparison.Equal))
+                    return null;
+            }
+
+            return second;
         }
     }
 }
