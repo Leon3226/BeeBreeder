@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using BeeBreeder.Breeding.Breeder;
+using Autofac;
 using BeeBreeder.Breeding.Generation;
 using BeeBreeder.Breeding.ProbabilityUtils.Model;
 using BeeBreeder.Breeding.ProbabilityUtils.Model.Chance;
 using BeeBreeder.Breeding.ProbabilityUtils.Model.Worth;
 using BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Comparators;
 using BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Pareto;
+using BeeBreeder.Breeding.Simulator;
 using BeeBreeder.Common.AlleleDatabase.Bee;
 using BeeBreeder.Common.Model.Bees;
 using BeeBreeder.Common.Model.Data;
@@ -23,6 +24,9 @@ namespace BeeBreeder
     {
         static void Main(string[] args)
         {
+            var container = DIConfig.BuildContainer();
+            var sim = container.Resolve<IBreedingSimulator>();
+
             Random rand = new Random(23213);
             var generator = new BeeGenerator();
             IGenomeEvaluator eval = new SumGenomeEvaluator();
@@ -77,10 +81,6 @@ namespace BeeBreeder
             var pr = tree.PossibleResults(new List<Species>() {Species.Forest, Species.Meadows});
 
             var targetSpecies = new List<Species>() {Species.Exotic, Species.Imperial, Species.Industrious, Species.Rural};
-
-            IBeeBreeder randomBreeder = new TestModifiedNaturalSelectionBreeder()
-                {TargetSpecies = targetSpecies, Compact = true, IterationsBetweenNaturalSelectionClears = 5, PureMinCount = 15, ImpureMinCount = 30};
-            randomBreeder.Pool = pool;
             Stopwatch sw = new Stopwatch();
             sw.Start();
 
@@ -127,49 +127,47 @@ namespace BeeBreeder
             }
 
             var ens = Enum.GetValues(typeof(Species));
-            var adp1 = pool.Bees.Select(x => x.Bee.AcceptableConditions()).ToList();
-            var biomes1 = pool.Bees.Select(x => x.Bee.AcceptableBiomes()).ToList();
+            var adp1 = pool.Bees.Select(x => x.Bee.AcceptableConditions).ToList();
+            var biomes1 = pool.Bees.Select(x => x.Bee.AcceptableBiomes).ToList();
 
             var data = new StringBuilder();
             int i;
             double lastAverageValue;
             var breedIterations = 10000;
 
-            for (i = 0; i < breedIterations; i++)
+            sim.Pool = pool;
+
+            for (int j = 0; j < 1000; j++)
             {
-                var lifespanGenes = randomBreeder.Pool.Princesses.Select(x =>
-                    x.Bee.ChromosomeOf<int>(StatNames.Lifespan).ResultantAttribute).Max();
-                var lifespan = lifespanGenes * 10 * 28;
-                timeElapsed = timeElapsed.Add(new TimeSpan(0, 0, lifespan));
-
-                var values = pool.Drones.Select(x => eval.Evaluate(x.Bee.Genotype));
-                randomBreeder.Breed(1);
-                WriteData(i);
-                GC.Collect();
-
-                var adp = pool.Bees.Select(x => x.Bee.AcceptableConditions()).ToList();
-                var biomes = pool.Bees.Select(x => x.Bee.AcceptableBiomes()).ToList();
-
-                lastAverageValue = values.Average();
-                if (lastAverageValue >= 240)
-                {
-                    //Console.WriteLine(lastAverageValue);
-                    //break;    
-                }
+                sim.Breed(1);
             }
+
+            //for (i = 0; i < breedIterations; i++)
+            //{
+            //    var lifespanGenes = randomBreeder.Pool.Princesses.Select(x =>
+            //        x.Bee.ChromosomeOf<int>(StatNames.Lifespan).ResultantAttribute).Max();
+            //    var lifespan = lifespanGenes * 10 * 28;
+            //    timeElapsed = timeElapsed.Add(new TimeSpan(0, 0, lifespan));
+
+            //    var values = pool.Drones.Select(x => eval.Evaluate(x.Bee.Genotype));
+            //    randomBreeder.Breed(1);
+            //    WriteData(i);
+
+            //    var adp = pool.Bees.Select(x => x.Bee.AcceptableConditions).ToList();
+            //    var biomes = pool.Bees.Select(x => x.Bee.AcceptableBiomes).ToList();
+
+            //    lastAverageValue = values.Average();
+            //    if (lastAverageValue >= 240)
+            //    {   
+            //        //Console.WriteLine(lastAverageValue);
+            //        //break;    
+            //    }
+            //}
 
             var es = sw.Elapsed.TotalSeconds;
             var d = dataString();
             Console.WriteLine(es);
             Console.WriteLine(ParetoExtensions.Comparisons);
-
-            var a = ((TestModifiedNaturalSelectionBreeder) randomBreeder)._times
-                .GroupBy(x => x.Item1, (s, tuples) => (s, new TimeSpan((long) tuples.Average(x => x.Item2.Ticks)), new TimeSpan((long) tuples.Sum(x => x.Item2.Ticks))))
-                .OrderByDescending(x => x.Item3);
-            foreach (var item in a)
-            {
-                Console.WriteLine($"{item.s}, {item.Item2}, {item.Item3}");
-            }
         }
     }
 }

@@ -13,6 +13,11 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Strategy
     {
         public MutationTree Tree;
 
+        public StrategyUtils(MutationTree tree)
+        {
+            Tree = tree;
+        }
+
         public StrategyResult ImportantTargets(BeePool pool, int minimalCount = 5)
         {
             var result = new StrategyResult();

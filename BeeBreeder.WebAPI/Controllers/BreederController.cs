@@ -5,7 +5,8 @@ using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using BeeBreeder.Breeding.Breeder;
+using BeeBreeder.Breeding.Analyzer;
+using BeeBreeder.Breeding.Flusher;
 using BeeBreeder.Common.Model.Bees;
 using BeeBreeder.WebAPI.Mapping;
 using BeeBreeder.WebAPI.Model;
@@ -22,13 +23,16 @@ namespace BeeBreeder.WebAPI.Controllers
     public class BreederController : Controller
     {
         private readonly ILogger<BreederController> _logger;
-        private readonly IBeeBreeder _breeder;
+        private readonly IBreedAnalyzer _breedAnalyzer;
+        private readonly IBreedFlusher _breedFlusher;
 
-        public BreederController(ILogger<BreederController> logger, IBeeBreeder breeder)
+        public BreederController(ILogger<BreederController> logger, IBreedAnalyzer breedAnalyzer, IBreedFlusher breedFlusher)
         {
             _logger = logger;
-            _breeder = breeder;
+            _breedAnalyzer = breedAnalyzer;
+            _breedFlusher = breedFlusher;
         }
+
         // GET
         [HttpPost]
         public async Task<string> Post(string inv)
@@ -42,11 +46,10 @@ namespace BeeBreeder.WebAPI.Controllers
             dynamic data = JsonConvert.DeserializeObject(json);
             ApiaryRequest data4 = ApiaryRequest.FromJson((JObject)data);
             var tb = data4.GetModel();
-            _breeder.Pool = new BeePool() {Bees = tb.Keys.ToList()};
-            var toFlush = _breeder.ToFlush().ToArray();
+            var pool = new BeePool() {Bees = tb.Keys.ToList()};
+            var toFlush = _breedFlusher.ToFlush(pool).ToArray();
             var flush = toFlush.Select(x => tb[x]);
-            _breeder.Pool.Bees = _breeder.Pool.Bees.Except(toFlush).ToList();
-            var toBreed = _breeder.GetBreedingPairs();
+            var toBreed = _breedAnalyzer.GetBreedingPairs(pool);
             var breedPositions = toBreed.Select(x => (tb.FirstOrDefault(bee => bee.Key.Bee == x.Item1).Value, tb.FirstOrDefault(bee => bee.Key.Bee == x.Item2).Value));
              
             _logger.Log(LogLevel.Information, json);

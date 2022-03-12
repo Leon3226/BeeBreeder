@@ -1,12 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Net.Mime;
+using System.Text;
 using System.Threading.Tasks;
 using BeeBreeder.Breeding.ProbabilityUtils.Model.Strategy;
-using BeeBreeder.Breeding.ProbabilityUtils.Model.Worth;
-using BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Pareto;
 using BeeBreeder.Common;
 using BeeBreeder.Common.AlleleDatabase.Bee;
 using BeeBreeder.Common.Model.Bees;
@@ -14,55 +12,52 @@ using BeeBreeder.Common.Model.Data;
 using BeeBreeder.Common.Model.Extensions;
 using BeeBreeder.Common.Model.Genetics;
 
-namespace BeeBreeder.Breeding.Breeder
+namespace BeeBreeder.Breeding.Analyzer
 {
-    public class TestModifiedNaturalSelectionBreeder : NaturalSelectionBreeder
+    public class ExtendedNaturalSelectionAnalyzer : IBreedAnalyzer
     {
         readonly MutationTree _tree = MutationTree.FromSpecieCombinations(BeeGeneticDatabase.SpecieCombinations);
         private readonly IStrategyUtils _strategyUtils;
-        public int PureMinCount = 5;
-        public int ImpureMinCount = 10;
+
         private List<Species> _selectedTargetSpecies = new();
         private List<Species> _statsTargetSpecies = new();
 
-        public TestModifiedNaturalSelectionBreeder()
+        public int PureMinCount = 5;
+        public int ImpureMinCount = 10;
+        public List<Species> TargetSpecies
         {
-            _strategyUtils = new StrategyUtils() {Tree = _tree};
-        }
-
-        public override List<Species> TargetSpecies
-        {
-            get
-            {
-                var target = _selectedTargetSpecies.Concat(_statsTargetSpecies).Distinct().ToList();
-                var intermediateSpecies = _tree.OnlyNecessaryForGettingIfPossibleAndHaveEnough(target,
-                    Pool.Bees.ExtractSpecies());
-                return intermediateSpecies.Concat(target).Distinct().ToList();
-            }
             set => _selectedTargetSpecies = value;
         }
 
-        public override List<(Bee, Bee)> GetBreedingPairs(int count = 0)
+        public ExtendedNaturalSelectionAnalyzer(IStrategyUtils strategyUtils)
         {
-            var sw = new Stopwatch();
-            
+            _strategyUtils = strategyUtils;
+        }
+
+        List<Species> GetTargetSpecies(BeePool bees)
+        {
+            var target = _selectedTargetSpecies.Concat(_statsTargetSpecies).Distinct().ToList();
+            var intermediateSpecies = _tree.OnlyNecessaryForGettingIfPossibleAndHaveEnough(target,
+                bees.Bees.ExtractSpecies());
+            return intermediateSpecies.Concat(target).Distinct().ToList();
+        }
+
+        public List<(Bee Princess, Bee Drone)> GetBreedingPairs(BeePool bees, int count = 0)
+        {
             if (count < 0)
                 return new List<(Bee, Bee)>();
 
-            var princesses = Pool.Princesses.ToList();
+            var princesses = bees.Princesses.ToList();
             if (princesses.Count == 0)
                 return new List<(Bee, Bee)>();
 
-            var drones = Pool.Drones.ToList();
+            var drones = bees.Drones.ToList();
             if (drones.Count == 0)
                 return new List<(Bee, Bee)>();
 
             count = count == 0 ? princesses.Sum(x => x.Count) : count;
             
-            sw.Start();
-            var strategy = _strategyUtils.ImportantTargets(Pool);
-            _times.Add(("Strategy", sw.Elapsed));
-            sw.Restart();
+            var strategy = _strategyUtils.ImportantTargets(bees);
 
             List<Species> necessarySpecies = new List<Species>();
             necessarySpecies.AddRange(strategy.Species);
@@ -70,7 +65,7 @@ namespace BeeBreeder.Breeding.Breeder
             _statsTargetSpecies = necessarySpecies.ToList();
 
 
-            var spec = TargetSpecies;
+            var spec = GetTargetSpecies(bees);
             var toPreserve = princesses.Where(x =>
                 spec.Contains(x.Bee.SpecieChromosome.Primary.Value) ||
                 spec.Contains(x.Bee.SpecieChromosome.Secondary.Value)).ToList();
@@ -80,13 +75,13 @@ namespace BeeBreeder.Breeding.Breeder
 
             List<(Bee, Bee)> toReturn = new List<(Bee, Bee)>();
 
-            void InsertPairs(List<BeeStack> pairPrincesses, Func<Bee, List<BeeStack>> partnerFilter)
+            void InsertPairs(BeePool bees, List< BeeStack> pairPrincesses, Func<BeePool, Bee, List<BeeStack>> partnerFilter)
             {
                 var overallCount = pairPrincesses.OverallCount();
                 for (int i = 0; i < overallCount; i++)
                 {
                     pairPrincesses = pairPrincesses.Where(x => x.Count > 0).ToList();
-                    drones = Pool.Drones.ToList();
+                    drones = bees.Drones.ToList();
                     if (drones.Count == 0)
                         return;
 
@@ -94,70 +89,40 @@ namespace BeeBreeder.Breeding.Breeder
                         break;
 
                     var princess = pairPrincesses[RandomGenerator.GenerateInt(0, pairPrincesses.Count)];
-                    var partners = partnerFilter(princess.Bee);
+                    var partners = partnerFilter(bees, princess.Bee);
 
                     if (partners.Count == 0)
                         continue;
                     var drone = partners[RandomGenerator.GenerateInt(0, partners.Count)];
 
-                    Pool.RemoveBee(princess.Bee, 1);
-                    Pool.RemoveBee(drone.Bee, 1);
+                    bees.RemoveBee(princess.Bee, 1);
+                    bees.RemoveBee(drone.Bee, 1);
                     toReturn.Add((princess.Bee, drone.Bee));
                 }
             }
-            
-            sw.Restart();
-            InsertPairs(toPreservePure, GetPreserveImportantPartnersPure);
-            _times.Add(("InsPure", sw.Elapsed));
-            sw.Restart();
-            InsertPairs(toPreserveImpure, GetPreserveImportantPartnersImpure);
-            _times.Add(("InsImpure", sw.Elapsed));
-            sw.Restart();
-            InsertPairs(Pool.Princesses.ToList(), GetPossiblePartners);
-            _times.Add(("InsRest", sw.Elapsed));
-            sw.Restart();
 
-            _iterations += toReturn.Count;
+            InsertPairs(bees, toPreservePure, GetPreserveImportantPartnersPure);
+            InsertPairs(bees, toPreserveImpure, GetPreserveImportantPartnersImpure);
+            InsertPairs(bees, bees.Princesses.ToList(), GetPossiblePartners);
+            
             return toReturn;
         }
 
-        public override List<(Slot, Bee, Bee)> GetPairsInSlots()
+        private List<BeeStack> GetPreserveImportantPartnersPure(BeePool bees, Bee bee)
         {
-            return base.GetPairsInSlots();
+            return GetSpeciePartners(bees, bee, bee.SpecieChromosome.ResultantAttribute);
         }
 
-        private List<BeeStack> GetPreserveImportantPartnersPure(Bee bee)
+        private List<BeeStack> GetSpeciePartners(BeePool bees, Bee bee, Species targetSpecies)
         {
-            return GetSpeciePartners(bee, bee.SpecieChromosome.ResultantAttribute);
-        }
-
-        public override async Task<List<BeeStack>> NaturalSelectionAsync()
-        {
-            var breedingTarget = new BreedingTarget();
-            foreach (var specie in TargetSpecies)
-            {
-                breedingTarget.SpeciePriorities[specie] = 100;
-            }
-            
-            var paretoNecessary = ParetoFromNecessaryAsync();
-            var optimalDrones = Pool.Drones.ParetoOptimalAsync(breedingTarget);
-            
-            var survivors = (await optimalDrones).ToList().Concat((await paretoNecessary).ToList()).Distinct().ToList();
-            var toRemove = Pool.Drones.Except(survivors).ToList();
-            Pool.Drones = survivors;
-            return toRemove;
-        }
-
-        private List<BeeStack> GetSpeciePartners(Bee bee, Species targetSpecies)
-        {
-            var partners = bee.Gender == Gender.Princess ? Pool.Drones : Pool.Princesses;
+            var partners = bee.Gender == Gender.Princess ? bees.Drones : bees.Princesses;
 
             var purePartners = partners.Where(x =>
             {
                 var sc = x.Bee.SpecieChromosome;
                 return sc.Clean && sc.Primary.Value == targetSpecies;
             }).ToList();
-            
+
             var pureCount = purePartners.OverallCount();
             if (pureCount == 0)
             {
@@ -188,27 +153,26 @@ namespace BeeBreeder.Breeding.Breeder
 
             return partners;
         }
-        private List<BeeStack> GetPreserveImportantPartnersImpure(Bee bee)
+        private List<BeeStack> GetPreserveImportantPartnersImpure(BeePool bees, Bee bee)
         {
-            var spec = TargetSpecies;
-            return GetSpeciePartners(bee,
+            var spec = GetTargetSpecies(bees);
+            return GetSpeciePartners(bees, bee,
                 spec.Contains(bee.SpecieChromosome.Primary.Value)
                     ? bee.SpecieChromosome.Primary.Value
                     : bee.SpecieChromosome.Secondary.Value);
         }
-
-        private List<BeeStack> GetPossiblePartners(Bee bee)
+        private List<BeeStack> GetPossiblePartners(BeePool bees, Bee bee)
         {
-            var partners = bee.Gender == Gender.Princess ? Pool.Drones : Pool.Princesses;
+            var partners = bee.Gender == Gender.Princess ? bees.Drones : bees.Princesses;
 
             void ExcludeParetoEqualWithDifferentSpecies()
             {
-                var specie1 = (SpecieChromosome) bee[BeeGeneticDatabase.StatNames.Specie];
+                var specie1 = (SpecieChromosome)bee[BeeGeneticDatabase.StatNames.Specie];
                 for (int i = 0; i < partners.Count; i++)
                 {
                     var partner = partners[i];
 
-                    var specie2 = (SpecieChromosome) partner.Bee[BeeGeneticDatabase.StatNames.Specie];
+                    var specie2 = (SpecieChromosome)partner.Bee[BeeGeneticDatabase.StatNames.Specie];
                     if (((specie1.Clean &&
                           specie2.Clean) ||
                          !(specie1.Primary.Value == specie2.Primary.Value &&

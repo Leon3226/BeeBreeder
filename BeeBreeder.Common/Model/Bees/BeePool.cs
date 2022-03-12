@@ -13,6 +13,15 @@ namespace BeeBreeder.Common.Model.Bees
             CompactDuplicates();
         }
 
+        public BeePool(IEnumerable<Bee> bees)
+        {
+            foreach (var bee in bees)
+            {
+                Bees.Add(new BeeStack(bee, 1));
+            }
+            CompactDuplicates();
+        }
+
         public List<BeeStack> Princesses
         {
             get { return Bees.Where(x => x.Bee.Gender == Gender.Princess).ToList(); }
@@ -55,7 +64,7 @@ namespace BeeBreeder.Common.Model.Bees
             }
         }
 
-        public void RemoveBee(Bee bee, int count)
+        public void RemoveBee(Bee bee, int count = 1)
         {
             var bees = Bees.FirstOrDefault(x => x.Bee == bee);
             if (bees == null) return;
@@ -64,14 +73,20 @@ namespace BeeBreeder.Common.Model.Bees
                 Bees.Remove(bees);
         }
 
-        public bool Cross(Bee first, Bee second)
+        public void RemoveAll(IEnumerable<BeeStack> bees)
         {
-            var child = first.Breed(second);
-            if (child == null)
-                return false;
-
-            Bees.AddRange(child.Select(x => new BeeStack(x, 1)));
-            return true;
+            foreach (var deleteStack in bees)
+            {
+                var beeStack = Bees.FirstOrDefault(x => x.Bee.Equals(deleteStack.Bee));
+                if (beeStack != null)
+                {
+                    beeStack.Count -= deleteStack.Count;
+                    if (beeStack.Count <= 0)
+                        Bees.Remove(beeStack);
+                }
+                
+            }
+            CompactDuplicates();
         }
     }
 }
