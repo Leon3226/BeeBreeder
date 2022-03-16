@@ -27,6 +27,7 @@ namespace BeeBreeder.WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddCors();
             //services.AddSingleton<IBeeBreeder, NaturalSelectionBreeder>();
             services.AddSwaggerGen(c =>
             {
@@ -47,6 +48,8 @@ namespace BeeBreeder.WebAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(builder => builder.AllowAnyOrigin());
 
             app.UseAuthorization();
 

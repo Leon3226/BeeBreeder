@@ -33,7 +33,6 @@ namespace BeeBreeder.WebAPI.Controllers
             _breedFlusher = breedFlusher;
         }
 
-        // GET
         [HttpPost]
         public async Task<string> Post(string inv)
         {   

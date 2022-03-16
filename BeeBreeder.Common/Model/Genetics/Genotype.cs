@@ -4,16 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using BeeBreeder.Common.AlleleDatabase.Bee;
+using Newtonsoft.Json;
 using Db =  BeeBreeder.Common.AlleleDatabase.Bee.BeeGeneticDatabase;
 using StatNames = BeeBreeder.Common.AlleleDatabase.Bee.BeeGeneticDatabase.StatNames;
 
 namespace BeeBreeder.Common.Model.Genetics
 {
+    [Serializable]
     public class Genotype
     {
         private const string UnnamedGeneStringRegex = @"(\S+)\s+(\S+)";
 
-        public readonly Dictionary<string, IChromosome> Genes = new();
+        public Dictionary<string, IChromosome> Genes { get; private set; } = new();
         
         public IChromosome this[string key]
         {

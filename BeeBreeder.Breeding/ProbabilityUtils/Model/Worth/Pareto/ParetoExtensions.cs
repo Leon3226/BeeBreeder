@@ -7,31 +7,8 @@ using BeeBreeder.Common.Model.Bees;
 
 namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Pareto
 {
-    public class BeeComparator : IComparer<Bee>
-    {
-        private BreedingTarget _target;
-
-        public BeeComparator(BreedingTarget target)
-        {
-            _target = target;
-        }
-
-        public int Compare(Bee x, Bee y)
-        {
-            ParetoExtensions.Comparisons++;
-            var res = x.ParetoBetter(y, _target);
-            if (res == null)
-                return 0;
-            if (res == x)
-                return 1;
-            return -1;
-        }
-    }
-
     public static class ParetoExtensions
     {
-        public static int Comparisons = 0;
-
         public static Bee ParetoBetter(this Bee first, Bee second, BreedingTarget target = null)
         {
             bool firstHasBest = false;
@@ -96,7 +73,6 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Pareto
                     if (set.Contains(bee2))
                         continue;
                     if (bee1 == bee2) continue;
-                    Comparisons++;
                     var better = ParetoBetter(bee1, bee2, target);
                     if (better != null)
                     {
@@ -133,7 +109,6 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Pareto
                         continue;
                     var better = await Task.Run(() =>
                     {
-                        Comparisons++;
                         return ParetoBetter(bee1, bee2, target);
                     });
                     if (better != null)
@@ -155,7 +130,6 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Pareto
                         if (bee1 == bee2) continue;
                         var better = await Task.Run(() =>
                         {
-                            Comparisons++;
                             return ParetoBetter(bee1, bee2, target);
                         });
                         if (better != null)

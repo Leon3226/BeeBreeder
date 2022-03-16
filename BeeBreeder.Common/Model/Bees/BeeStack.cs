@@ -1,9 +1,12 @@
+using System;
+
 namespace BeeBreeder.Common.Model.Bees
 {
+    [Serializable]
     public class BeeStack
     {
-        public Bee Bee;
-        public int Count;
+        public Bee Bee { get; set; }
+        public int Count { get; set; }
 
         public BeeStack()
         {

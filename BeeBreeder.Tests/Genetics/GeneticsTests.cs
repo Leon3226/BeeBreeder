@@ -8,6 +8,7 @@ namespace BeeBreeder.Tests.Genetics
         [SetUp]
         public void Setup()
         {
+
         }
 
         [Test]

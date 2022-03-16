@@ -11,46 +11,39 @@ namespace BeeBreeder.Tests.Breeding
     public class Pareto
     {
         private BeeGenerator _generator;
-        
+        Bee _bee1;
+        Bee _bee2;
+
         [SetUp]
         public void Setup()
         {
             _generator = new BeeGenerator();
+            _bee1 = _generator.Generate(Species.Forest, Gender.Princess);
+            _bee2 = _generator.Generate(Species.Forest, Gender.Princess);
+
         }
 
         [Test]
         public void BeeParetoEqualIfEqual()
         {
-            var bee1 = _generator.Generate(Species.Forest, Gender.Princess);
-            var bee2 = _generator.Generate(Species.Forest, Gender.Princess);
-            
-            Assert.Null(bee1.ParetoBetter(bee2));
+            Assert.Null(_bee1.ParetoBetter(_bee2));
         }
         
         [Test]
         public void BeeParetoBetterIfOnlyBetter()
         {
-            var bee1 = _generator.Generate(Species.Forest, Gender.Princess);
-            var bee2 = _generator.Generate(Species.Forest, Gender.Princess);
-            bee1[StatNames.Speed] = new Chromosome<int>(10 , StatNames.Speed);
+            _bee1[StatNames.Speed] = new Chromosome<int>(10 , StatNames.Speed);
             
-            Assert.AreEqual(bee1.ParetoBetter(bee2), bee1);
+            Assert.AreEqual(_bee1.ParetoBetter(_bee2), _bee1);
         }
         
         [Test]
         public void BeeParetoEqualIfBothBetterAtSomething()
         {
-            var bee1 = _generator.Generate(Species.Forest, Gender.Princess);
-            var bee2 = _generator.Generate(Species.Forest, Gender.Princess);
-            bee1[StatNames.Speed] = new Chromosome<int>(10 , StatNames.Speed);
-            bee2[StatNames.Pollination] = new Chromosome<int>(10 , StatNames.Pollination);
+            _bee1[StatNames.Speed] = new Chromosome<int>(10 , StatNames.Speed);
+            _bee2[StatNames.Pollination] = new Chromosome<int>(10 , StatNames.Pollination);
             
-            Assert.Null(bee1.ParetoBetter(bee2));
-        }
-        
-        [Test]
-        public void BeePareto()
-        {
+            Assert.Null(_bee1.ParetoBetter(_bee2));
         }
     }
 }

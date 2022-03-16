@@ -7,11 +7,12 @@ using StatNames = BeeBreeder.Common.AlleleDatabase.Bee.BeeGeneticDatabase.StatNa
 
 namespace BeeBreeder.Common.Model.Bees
 {
+    [Serializable]
     public class Bee
     {
-        public Gender Gender;
+        public Gender Gender { get; set; }
         public Genotype Genotype { get; set; } = new();
-        public int Generation = 0;
+        public int Generation { get; set; }
 
         public IChromosome this[string index]
         {

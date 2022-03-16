@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 
 namespace BeeBreeder.Common.Model.Bees
 {
+    [Serializable]
     public class BeePool
     {
-        public List<BeeStack> Bees = new();
+        public List<BeeStack> Bees { get; set; } = new();
 
         public BeePool()
         {
@@ -22,6 +24,7 @@ namespace BeeBreeder.Common.Model.Bees
             CompactDuplicates();
         }
 
+        [JsonIgnore]
         public List<BeeStack> Princesses
         {
             get { return Bees.Where(x => x.Bee.Gender == Gender.Princess).ToList(); }
@@ -32,6 +35,7 @@ namespace BeeBreeder.Common.Model.Bees
             }
         }
 
+        [JsonIgnore]
         public List<BeeStack> Drones
         {
             get { return Bees.Where(x => x.Bee.Gender == Gender.Drone).ToList(); }
