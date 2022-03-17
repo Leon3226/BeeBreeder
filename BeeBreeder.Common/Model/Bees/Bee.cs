@@ -24,7 +24,7 @@ namespace BeeBreeder.Common.Model.Bees
 
         public Chromosome<T> ChromosomeOf<T>(string property = null) where T : struct
         {
-            return Genotype.Genes.FirstOrDefault(x =>
+            return Genotype.Chromosomes.FirstOrDefault(x =>
                     (property == null || property == x.Key) && x.Value.Primary.Value.GetType() == typeof(T))
                 .Value as Chromosome<T>;
         }

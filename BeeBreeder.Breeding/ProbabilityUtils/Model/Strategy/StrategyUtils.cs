@@ -34,7 +34,7 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Strategy
 
             if (referenceGenotype != null)
             {
-                foreach (var gene in referenceGenotype.Genes)
+                foreach (var gene in referenceGenotype.Chromosomes)
                 {
                     var stat = gene.Key;
                     var geneBest = possibleSpeciesGenotypes

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BeeBreeder.Breeding.ProbabilityUtils.Model.Worth;
 using BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Pareto;
+using BeeBreeder.Breeding.Targeter;
 using BeeBreeder.Common.AlleleDatabase.Bee;
 using BeeBreeder.Common.Model.Bees;
 using BeeBreeder.Common.Model.Extensions;
@@ -12,7 +13,12 @@ namespace BeeBreeder.Breeding.Flusher
     public class NaturalSelectionFlusher : IBreedFlusher
     {
         public int ClearDirtySpeciesAt = 5;
-        public virtual List<Species> TargetSpecies { get; set; } = new() { Species.Imperial };
+        protected readonly ISpecieTargeter SpecieTargeter;
+
+        public NaturalSelectionFlusher(ISpecieTargeter specieTargeter)
+        {
+            SpecieTargeter = specieTargeter;
+        }
 
         public IEnumerable<BeeStack> ToFlush(BeePool bees)
         {
@@ -37,7 +43,8 @@ namespace BeeBreeder.Breeding.Flusher
 
         protected virtual async Task<IEnumerable<BeeStack>> ParetoFromNecessaryAsync(BeePool bees)
         {
-            var necessarySpecies = TargetSpecies;
+            SpecieTargeter.Bees = bees;
+            var necessarySpecies = SpecieTargeter.CalculatedTargets.ToList();
 
             var paretoBees = new List<BeeStack>();
             foreach (var specie in necessarySpecies)

@@ -1,3 +1,3 @@
 <ul>
-  <li *ngFor="let bee of bees">({{bee.count}})</li>
+  <li *ngFor="let bee of bees" (click)="onBeeSelection(bee.bee)">{{bee.bee.specieChromosome.stringResultantAttribute  }} ({{bee.count}})</li>
 </ul>

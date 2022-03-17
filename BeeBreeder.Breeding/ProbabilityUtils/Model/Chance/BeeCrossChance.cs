@@ -47,7 +47,7 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Chance
                 secondSpecieChromosome.Primary.Value)).Distinct().ToList();
 
             var mutationGenomes = mutationChances.Select(x => (Genotype.FromInitialStats(BeeGeneticDatabase.SpecieStats[x.MutationResult]), x.MutationChance)).ToArray();
-            foreach (var firstGene in _first.Genotype.Genes)
+            foreach (var firstGene in _first.Genotype.Chromosomes)
             {
                 var secondGene = _second[firstGene.Key];
                 IChromosomeCrossChance chance = ChromosomeCrossChanceHelper.GetChance(firstGene.Value, secondGene, BeeGeneticDatabase.StatTypes[secondGene.Property]

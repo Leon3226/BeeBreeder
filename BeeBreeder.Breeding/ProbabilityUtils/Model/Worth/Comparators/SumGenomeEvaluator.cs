@@ -33,7 +33,7 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Comparators
 
         public double Evaluate(Genotype genotype)
         {
-            return genotype.Genes.Sum(x =>
+            return genotype.Chromosomes.Sum(x =>
             {
                 if (GeneValueFunctions.TryGetValue(x.Key, out IFunction func))
                     return func.Y(x.Value.Primary.Numeric()) + func.Y(x.Value.Secondary.Numeric());

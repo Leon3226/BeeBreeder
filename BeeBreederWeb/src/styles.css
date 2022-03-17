@@ -1,1 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: Montserrat;
+  src: url(assets/fonts/montserrat/Montserrat-VariableFont_wght.ttf) format("opentype");
+}
+
+@font-face {
+  font-family: MontserratBlack;
+  src: url(assets/fonts/montserrat/static/Montserrat-Black.ttf) format("opentype");
+}

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BeeBreeder.Breeding.ProbabilityUtils.Model.Worth;
 using BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Pareto;
+using BeeBreeder.Breeding.Targeter;
 using BeeBreeder.Common.AlleleDatabase.Bee;
 using BeeBreeder.Common.Model.Bees;
 
@@ -14,8 +15,10 @@ namespace BeeBreeder.Breeding.Flusher
     {
         public override async Task<List<BeeStack>> NaturalSelectionAsync(BeePool bees)
         {
+            SpecieTargeter.Bees = bees;
+            var necessarySpecies = SpecieTargeter.CalculatedTargets.ToList();
             var breedingTarget = new BreedingTarget();
-            foreach (var specie in TargetSpecies)
+            foreach (var specie in necessarySpecies)
             {
                 breedingTarget.SpeciePriorities[specie] = 100;
             }
@@ -27,6 +30,11 @@ namespace BeeBreeder.Breeding.Flusher
             var toRemove = bees.Drones.Except(survivors).ToList();
             bees.Drones = survivors;
             return toRemove;
+        }
+
+        public ExtendedNaturalSelectionFlusher(ISpecieTargeter specieTargeter) 
+            : base(specieTargeter)
+        {
         }
     }
 }

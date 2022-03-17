@@ -28,7 +28,7 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Pareto
             //        return null;
             //}
 
-            foreach (var firstChromosome in first.Genotype.Genes)
+            foreach (var firstChromosome in first.Genotype.Chromosomes)
             {
                 var secondChromosome = second[firstChromosome.Key];
                 var best = firstChromosome.Value.ParetoBetter(secondChromosome, target: target);

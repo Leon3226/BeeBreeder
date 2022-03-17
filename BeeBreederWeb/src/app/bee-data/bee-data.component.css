@@ -1,0 +1,12 @@
+.gene-dominant{
+  color: firebrick;
+}
+
+.gene-recessive{
+  color: #4CACBA;
+}
+
+.table-column{
+  width: 100px;
+  font-family: Montserrat;
+}

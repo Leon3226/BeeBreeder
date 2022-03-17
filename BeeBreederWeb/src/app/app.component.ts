@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {BeeStack} from "../model/bee/bee-stack";
+import {Bee} from "../model/bee/bee";
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,11 @@ export class AppComponent {
   title = 'BeeBreederWeb';
 
   bees: BeeStack[] = [];
+  selectedBee : Bee = new Bee();
+
+  onBeeSelected(bee: Bee) : void{
+    this.selectedBee = bee;
+  }
 
   ngOnInit(): void {
     const fetchPromise = fetch("https://localhost:44327/ApiaryData");

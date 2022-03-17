@@ -46,6 +46,9 @@ namespace BeeBreeder.Common.Model.Genetics
                 return Primary.Value;
             }
         }
+
+        public string StringResultantAttribute => ResultantAttribute.ToString();
+
         public IGene<T> Random()
         {
             return RandomGenerator.Double() > 0.5 ? Primary : Secondary;

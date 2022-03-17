@@ -15,23 +15,23 @@ namespace BeeBreeder.Common.Model.Genetics
     {
         private const string UnnamedGeneStringRegex = @"(\S+)\s+(\S+)";
 
-        public Dictionary<string, IChromosome> Genes { get; private set; } = new();
+        public ChromosomeDictionary Chromosomes { get; private set; } = new();
         
         public IChromosome this[string key]
         {
-            get => Genes[key];
-            set => Genes[key] = value;
+            get => Chromosomes[key];
+            set => Chromosomes[key] = value;
         }
         public Genotype Cross(Genotype second)
         {
             var newGenotype = new Genotype();
-            if (Genes.Count != second.Genes.Count)
+            if (Chromosomes.Count != second.Chromosomes.Count)
                 throw new Exception("Genotypes doesnt match");
 
             var firstGenotype = this;
             var secondGenotype = second;
             
-            var mutations = ((SpecieChromosome)Genes[StatNames.Specie]).Mutations((SpecieChromosome)second[StatNames.Specie]);
+            var mutations = ((SpecieChromosome)Chromosomes[StatNames.Specie]).Mutations((SpecieChromosome)second[StatNames.Specie]);
 
             if (mutations.Item1 != null)
                 firstGenotype = FromInitialStats(Db.SpecieStats[mutations.Item1.Value]);
@@ -39,10 +39,10 @@ namespace BeeBreeder.Common.Model.Genetics
             if (mutations.Item2 != null)
                 secondGenotype = FromInitialStats(Db.SpecieStats[mutations.Item2.Value]);
             
-            foreach (var gene in firstGenotype.Genes)
+            foreach (var gene in firstGenotype.Chromosomes)
             {
-                if (secondGenotype.Genes.TryGetValue(gene.Key, out var secondGene))
-                    newGenotype.Genes.Add(gene.Key, (IChromosome)gene.Value.Cross(secondGene));
+                if (secondGenotype.Chromosomes.TryGetValue(gene.Key, out var secondGene))
+                    newGenotype.Chromosomes.Add(gene.Key, (IChromosome)gene.Value.Cross(secondGene));
                 else
                     throw new Exception("Corresponded gene not found");
             }
@@ -67,7 +67,7 @@ namespace BeeBreeder.Common.Model.Genetics
             {
                 var gene = GeneHelper.GetGene(stat.Key, stat.Value, Db.GenesDominance[stat.Key][stat.Value]);
                 var chromosome = GeneHelper.GetChromosome(stat.Key, stat.Value.GetType(), gene, gene);
-                newGenotype.Genes.Add(stat.Key, chromosome);
+                newGenotype.Chromosomes.Add(stat.Key, chromosome);
             }
 
             return newGenotype;
@@ -99,7 +99,7 @@ namespace BeeBreeder.Common.Model.Genetics
             // var secondGenotype = obj as Genotype;
             // if (secondGenotype == null)
             //     return false;
-            foreach (var gene in Genes)
+            foreach (var gene in Chromosomes)
             {
                 var secondGene = secondGenotype[gene.Key];
                 var isEqual =
@@ -115,7 +115,7 @@ namespace BeeBreeder.Common.Model.Genetics
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            foreach (var gene in Genes)
+            foreach (var gene in Chromosomes)
             {
                 sb.Append($"{gene.Key}: {gene.Value} \n");
             }

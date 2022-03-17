@@ -208,22 +208,22 @@ namespace BeeBreeder.WebAPI.Mapping
             };
             
             
-            bee.Genotype.Genes.Add(specieChromosome.Property, specieChromosome);
-            bee.Genotype.Genes.Add(lifespanChromosome.Property, lifespanChromosome);
-            bee.Genotype.Genes.Add(speedChromosome.Property, speedChromosome);
-            bee.Genotype.Genes.Add(pollinationChromosome.Property, pollinationChromosome);
-            bee.Genotype.Genes.Add(flowerChromosome.Property, flowerChromosome);
-            bee.Genotype.Genes.Add(fertilityChromosome.Property, fertilityChromosome);
-            bee.Genotype.Genes.Add(areaChromosome.Property, areaChromosome);
-            bee.Genotype.Genes.Add(temperatureChromosome.Property, temperatureChromosome);
-            bee.Genotype.Genes.Add(humidityChromosome.Property, humidityChromosome);
-            bee.Genotype.Genes.Add(diurnalChromosome.Property, diurnalChromosome);
-            bee.Genotype.Genes.Add(nocturnalChromosome.Property, nocturnalChromosome);
-            bee.Genotype.Genes.Add(flyerChromosome.Property, flyerChromosome);
-            bee.Genotype.Genes.Add(caveChromosome.Property, caveChromosome);
-            bee.Genotype.Genes.Add(effectChromosome.Property, effectChromosome);
+            bee.Genotype.Chromosomes.Add(specieChromosome.Property, specieChromosome);
+            bee.Genotype.Chromosomes.Add(lifespanChromosome.Property, lifespanChromosome);
+            bee.Genotype.Chromosomes.Add(speedChromosome.Property, speedChromosome);
+            bee.Genotype.Chromosomes.Add(pollinationChromosome.Property, pollinationChromosome);
+            bee.Genotype.Chromosomes.Add(flowerChromosome.Property, flowerChromosome);
+            bee.Genotype.Chromosomes.Add(fertilityChromosome.Property, fertilityChromosome);
+            bee.Genotype.Chromosomes.Add(areaChromosome.Property, areaChromosome);
+            bee.Genotype.Chromosomes.Add(temperatureChromosome.Property, temperatureChromosome);
+            bee.Genotype.Chromosomes.Add(humidityChromosome.Property, humidityChromosome);
+            bee.Genotype.Chromosomes.Add(diurnalChromosome.Property, diurnalChromosome);
+            bee.Genotype.Chromosomes.Add(nocturnalChromosome.Property, nocturnalChromosome);
+            bee.Genotype.Chromosomes.Add(flyerChromosome.Property, flyerChromosome);
+            bee.Genotype.Chromosomes.Add(caveChromosome.Property, caveChromosome);
+            bee.Genotype.Chromosomes.Add(effectChromosome.Property, effectChromosome);
 
-            foreach (var gene in bee.Genotype.Genes)
+            foreach (var gene in bee.Genotype.Chromosomes)
             {
                 gene.Value.Primary.Dominant = BeeGeneticDatabase.GenesDominance[gene.Key][gene.Value.Primary.Value];
                 gene.Value.Secondary.Dominant = BeeGeneticDatabase.GenesDominance[gene.Key][gene.Value.Secondary.Value];

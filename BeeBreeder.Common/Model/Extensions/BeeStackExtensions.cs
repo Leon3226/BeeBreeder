@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,23 @@ namespace BeeBreeder.Common.Model.Extensions
             }
 
             return species;
+        }
+
+        public static void RemoveCount(this List<BeeStack> bees, BeeStack beeStack, int count)
+        {
+            var stack = bees.FirstOrDefault(x => x == beeStack);
+            if (stack != null)
+            {
+                stack.Count -= count;
+                if (stack.Count <= 0)
+                {
+                    bees.Remove(beeStack);
+                }
+            }
+            else
+            {
+                Console.WriteLine();
+            }
         }
     }
 }

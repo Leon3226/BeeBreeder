@@ -1,13 +1,10 @@
 using System;
-using System.Text.Json.Serialization;
-using System.Text.RegularExpressions;
-using System.Xml.Serialization;
+using Newtonsoft.Json;
 
 namespace BeeBreeder.Common.Model.Genetics
 {
     public struct Gene<T> : IGene<T> where T: struct
     {
-        [XmlIgnore]
         [JsonIgnore]
         public Type Type => typeof(T);
 
@@ -20,6 +17,8 @@ namespace BeeBreeder.Common.Model.Genetics
         }
 
         object IGene.Value => Value;
+
+        public string StringValue => Value.ToString();
 
         public bool Dominant { get; set; }
 

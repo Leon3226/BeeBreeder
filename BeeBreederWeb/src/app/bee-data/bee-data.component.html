@@ -1,0 +1,11 @@
+
+
+<table>
+  <tr *ngFor="let chromosome of bee.genotype.chromosomes">
+    <th class="table-column">{{chromosome.key}}</th>
+    <th class="table-column" [ngClass]="chromosome.value.primary.dominant ? 'gene-dominant' : 'gene-recessive'">{{chromosome.value.primary.stringValue}}</th>
+    <th class="table-column"[ngClass]="chromosome.value.secondary.dominant ? 'gene-dominant' : 'gene-recessive'">{{chromosome.value.secondary.stringValue}}</th>
+    <th class="table-column"></th>
+    <th class="table-column">{{chromosome.value.stringResultantAttribute}}</th>
+  </tr>
+</table>

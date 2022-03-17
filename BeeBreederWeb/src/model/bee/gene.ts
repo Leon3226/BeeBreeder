@@ -1,4 +1,5 @@
 export class Gene {
-  value : string = "";
+  value : any = "";
+  stringValue : string = "";
   dominant : boolean = false;
 }

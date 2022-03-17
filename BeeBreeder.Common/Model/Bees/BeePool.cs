@@ -15,6 +15,12 @@ namespace BeeBreeder.Common.Model.Bees
             CompactDuplicates();
         }
 
+        public BeePool(List<BeeStack> bees)
+        {
+            Bees = bees.ToList();
+            CompactDuplicates();
+        }
+
         public BeePool(IEnumerable<Bee> bees)
         {
             foreach (var bee in bees)
@@ -48,13 +54,13 @@ namespace BeeBreeder.Common.Model.Bees
 
         public void CompactDuplicates()
         {
-            var toCheck = Drones;
+            var toCheck = Bees.ToList();
             for (int i = 0; i < toCheck.Count; i++)
             {
                 if (toCheck.Count == 0)
                     break;
                 var bee = toCheck[i];
-                var duplicates = toCheck.Except(new[] {bee}).Where(x => x.Bee.Genotype.Equals(bee.Bee.Genotype))
+                var duplicates = toCheck.Except(new[] {bee}).Where(x => x.Bee.Genotype.Equals(bee.Bee.Genotype) && x.Bee.Gender == bee.Bee.Gender)
                     .ToArray();
                 // duplicates.ForEach(x => bee.Count += x.Count);
                 toCheck.Remove(bee);
