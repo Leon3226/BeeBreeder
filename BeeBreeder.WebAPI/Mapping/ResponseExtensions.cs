@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using BeeBreeder.Common.Model.Positioning;
 using BeeBreeder.WebAPI.Model;
 
 namespace BeeBreeder.WebAPI.Mapping

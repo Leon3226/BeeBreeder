@@ -22,5 +22,4 @@ export class Adaptation {
     let down = this.down == 0 ? "" : "-${this.down}";
     return "${up}${down}";
   }
-  }
 }

@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Bee} from "../../model/bee/bee";
+import {Bee} from "../../../model/bee/bee";
 
 @Component({
   selector: 'app-bee-data',

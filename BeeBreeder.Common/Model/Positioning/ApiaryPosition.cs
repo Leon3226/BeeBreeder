@@ -1,6 +1,6 @@
 using System;
 
-namespace BeeBreeder.WebAPI.Model
+namespace BeeBreeder.Common.Model.Positioning
 {
     public struct ApiaryPosition
     {

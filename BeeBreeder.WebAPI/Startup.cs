@@ -2,24 +2,31 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Formatting;
+using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Web.Http;
 using BeeBreeder.Breeding.Analyzer;
 using BeeBreeder.Breeding.Flusher;
+using BeeBreeder.Breeding.Positioning;
 using BeeBreeder.Breeding.ProbabilityUtils.Model.Strategy;
 using BeeBreeder.Breeding.Simulator;
 using BeeBreeder.Breeding.Targeter;
 using BeeBreeder.Common.AlleleDatabase.Bee;
 using BeeBreeder.Common.Model.Data;
+using BeeBreeder.WebAPI.Model.Auth;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Converters;
 
@@ -44,6 +51,29 @@ namespace BeeBreeder.WebAPI
             {
                 options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
             });
+            services
+                .AddScoped<Microsoft.AspNetCore.Identity.IUserStore<IdentityUser>, MockUserStore>()
+                .AddScoped<Microsoft.AspNetCore.Identity.IRoleStore<IdentityRole>, MockRoleStore>()
+                .AddIdentity<IdentityUser, IdentityRole>()
+                .AddDefaultTokenProviders();
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.SaveToken = true;
+                options.RequireHttpsMetadata = false;
+                options.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidAudience = Configuration["JWT:ValidAudience"],
+                    ValidIssuer = Configuration["JWT:ValidIssuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
+                };
+            });
 
             services.AddScoped<IBreedAnalyzer, ExtendedNaturalSelectionAnalyzer>();
             services.AddScoped<IBreedFlusher, ExtendedNaturalSelectionFlusher> ();
@@ -51,6 +81,7 @@ namespace BeeBreeder.WebAPI
             services.AddScoped<IStrategyUtils, StrategyUtils>();
             services.AddScoped<IBreedingSimulator, BreedingSimulator>();
             services.AddScoped<ISpecieTargeter, BestGenesTargeter>();
+            services.AddScoped<IPositionsController, PositionsController>();
 
             services.AddCors();
             //services.AddSingleton<IBeeBreeder, NaturalSelectionBreeder>();
@@ -76,6 +107,7 @@ namespace BeeBreeder.WebAPI
 
             app.UseCors(builder => builder.AllowAnyOrigin());
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });

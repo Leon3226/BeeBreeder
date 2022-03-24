@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {BeeStack} from "../../model/bee/bee-stack";
-import {Bee} from "../../model/bee/bee";
+import {BeeStack} from "../../../model/bee/bee-stack";
+import {Bee} from "../../../model/bee/bee";
 
 @Component({
   selector: 'app-bee-list',

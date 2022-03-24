@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using BeeBreeder.Breeding.Generation;
+using BeeBreeder.Breeding.Positioning;
 using BeeBreeder.Breeding.Simulator;
 using BeeBreeder.Common.AlleleDatabase.Bee;
 using BeeBreeder.Common.Model.Bees;
@@ -16,11 +17,13 @@ namespace BeeBreeder.WebAPI.Controllers
     {
         private readonly ILogger<BreederController> _logger;
         private readonly IBreedingSimulator _simulator;
+        private readonly IPositionsController _positionsController;
 
-        public ApiaryDataController(ILogger<BreederController> logger, IBreedingSimulator simulator)
+        public ApiaryDataController(ILogger<BreederController> logger, IBreedingSimulator simulator, IPositionsController positionsController)
         {
             _logger = logger;
             _simulator = simulator;
+            _positionsController = positionsController;
         }
 
         [HttpGet]

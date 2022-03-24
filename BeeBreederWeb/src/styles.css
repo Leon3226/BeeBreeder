@@ -8,3 +8,6 @@
   font-family: MontserratBlack;
   src: url(assets/fonts/montserrat/static/Montserrat-Black.ttf) format("opentype");
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

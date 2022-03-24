@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using BeeBreeder.Common.Model.Bees;
+using BeeBreeder.Common.Model.Positioning;
 using BeeBreeder.WebAPI.Model;
 
 namespace BeeBreeder.WebAPI.Mapping

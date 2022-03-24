@@ -1,4 +1,5 @@
 using BeeBreeder.Common.Model.Bees;
+using BeeBreeder.Common.Model.Positioning;
 
 namespace BeeBreeder.WebAPI.Model
 {

@@ -1,0 +1,16 @@
+
+<form [formGroup]="loginForm" (ngSubmit)="onFormSubmit()">
+
+  <h2>Log In</h2>
+  <label>
+    <input placeholder="Username" formControlName="username">
+  </label>
+  <span *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched">Please enter Username</span>
+
+  <label>
+    <input type="password" placeholder="Password" formControlName="password">
+  </label>
+  <span *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched">Please enter Password</span>
+
+  <button type="submit" [disabled]="!loginForm.valid" color="primary">Login</button>
+</form>

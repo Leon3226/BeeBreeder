@@ -11,9 +11,9 @@
   color: #FFFFFF;
   font-style: normal;
   font-weight: bold;
+  text-decoration: none;
   font-size: 32px;
   line-height: 39px;
-  display: flex;
   align-items: center;
   text-align: center;
 }
