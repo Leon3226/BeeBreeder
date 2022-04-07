@@ -1,5 +1,10 @@
 <div class="header-panel header-font">
-  <a routerLink="/login" class="header-button header-font button-log-in">Log In</a>
-  <a routerLink="/register" class="header-button header-font button-sign-up">Sign Up</a>
+  <div *ngIf="!loggedIn">
+    <a routerLink="/login" class="header-button header-font button-log-in">Log In</a>
+    <a routerLink="/register" class="header-button header-font button-sign-up">Sign Up</a>
+  </div>
+  <div *ngIf="loggedIn">
+    <div>Welcome, {{accountData["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"]}}</div>
+  </div>
   <a routerLink="" class="header-header header-font">BeeBreeder</a>
 </div>

@@ -1,0 +1,50 @@
+.li-selected{
+  color: white;
+  background: cornflowerblue;
+}
+
+.bee-image-container{
+  width: 60px;
+  height: 60px;
+  border: 1px solid grey;
+
+  align-self: center;
+}
+
+.bee-specie-text{
+  position: relative;
+}
+
+.bee-image{
+  position: absolute;
+  width: inherit;
+  height: inherit;
+  margin: 0;
+  image-rendering: pixelated;
+  mask-size: contain;
+}
+
+.bee-belly{
+  mask-image: url(../../../assets/images/bee/bellyMask.png);
+  mask-mode: luminance;
+}
+
+.bee-outline{
+  mask-image: url(../../../assets/images/bee/outlineMask.png);
+}
+
+* {
+  box-sizing: border-box;
+}
+ul {
+  list-style-type: none;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+li {
+  flex: 0 0 20%;
+  border: 1px solid grey;
+  padding: 1em;
+  display: table;
+}

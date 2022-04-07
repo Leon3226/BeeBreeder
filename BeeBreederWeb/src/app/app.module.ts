@@ -17,6 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {RouterModule} from "@angular/router";
 import { BeeControlPanelComponent } from './bee-management/bee-control-panel/bee-control-panel.component';
 import {FormBuilder, ReactiveFormsModule} from "@angular/forms";
+import {JwtModule} from "@auth0/angular-jwt";
 
 @NgModule({
   declarations: [
@@ -36,7 +37,13 @@ import {FormBuilder, ReactiveFormsModule} from "@angular/forms";
     AppRoutingModule,
     BrowserModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    JwtModule.forRoot({
+      config: {
+        allowedDomains: ["example.com"],
+        disallowedRoutes: ["http://example.com/examplebadroute/"],
+      },
+    }),
   ],
   providers: [
     {

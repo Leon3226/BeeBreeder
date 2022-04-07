@@ -5,6 +5,7 @@ using BeeBreeder.Breeding.Positioning;
 using BeeBreeder.Breeding.Simulator;
 using BeeBreeder.Common.AlleleDatabase.Bee;
 using BeeBreeder.Common.Model.Bees;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.Logging;
 namespace BeeBreeder.WebAPI.Controllers
 {
     [Route("[controller]")]
+    [Authorize]
     [ApiController]
     public class ApiaryDataController : ControllerBase
     {
@@ -47,7 +49,7 @@ namespace BeeBreeder.WebAPI.Controllers
             };
 
             _simulator.Pool = pool;
-            _simulator.Breed(3000);
+            await Task.Run(() => _simulator.Breed(5));
 
             return pool;
         }

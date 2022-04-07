@@ -9,8 +9,14 @@
         <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
         <PackageReference Include="Microsoft.AspNet.WebApi.WebHost" Version="5.2.7" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.3" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.3" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.3" />
         <PackageReference Include="Microsoft.AspNetCore.Routing" Version="2.2.2" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.3" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.3">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
         <PackageReference Include="Microsoft.Owin.Cors" Version="4.2.0" />
         <PackageReference Include="Microsoft.Owin.Host.SystemWeb" Version="4.2.0" />
         <PackageReference Include="Microsoft.Owin.Security.OAuth" Version="4.2.0" />

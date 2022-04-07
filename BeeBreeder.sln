@@ -1,14 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeeBreeder", "BeeBreeder\BeeBreeder.csproj", "{5ECCE8FB-04C5-4DBA-8A8E-1A0B999BEB46}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32210.238
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeeBreeder", "BeeBreeder\BeeBreeder.csproj", "{5ECCE8FB-04C5-4DBA-8A8E-1A0B999BEB46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeeBreeder.Common", "BeeBreeder.Common\BeeBreeder.Common.csproj", "{10006E7E-47A2-417A-B1BD-4F0593C43A5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeeBreeder.Common", "BeeBreeder.Common\BeeBreeder.Common.csproj", "{10006E7E-47A2-417A-B1BD-4F0593C43A5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeeBreeder.Breeding", "BeeBreeder.Breeding\BeeBreeder.Breeding.csproj", "{C87D56C9-B4B8-462F-87FF-6AEB9A0EA4F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeeBreeder.Breeding", "BeeBreeder.Breeding\BeeBreeder.Breeding.csproj", "{C87D56C9-B4B8-462F-87FF-6AEB9A0EA4F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeeBreeder.Tests", "BeeBreeder.Tests\BeeBreeder.Tests.csproj", "{7665BE6A-6E26-4EB8-B67D-0997E593371B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeeBreeder.Tests", "BeeBreeder.Tests\BeeBreeder.Tests.csproj", "{7665BE6A-6E26-4EB8-B67D-0997E593371B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeeBreeder.WebAPI", "BeeBreeder.WebAPI\BeeBreeder.WebAPI.csproj", "{A747A407-2609-468E-BF1A-F5B0F2C5D916}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeeBreeder.WebAPI", "BeeBreeder.WebAPI\BeeBreeder.WebAPI.csproj", "{A747A407-2609-468E-BF1A-F5B0F2C5D916}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeeBreeder.Data", "BeeBreeder.Data\BeeBreeder.Data.csproj", "{21C51E98-23F1-4A3F-94A4-40E1EE4E8632}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,5 +41,15 @@ Global
 		{A747A407-2609-468E-BF1A-F5B0F2C5D916}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A747A407-2609-468E-BF1A-F5B0F2C5D916}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A747A407-2609-468E-BF1A-F5B0F2C5D916}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21C51E98-23F1-4A3F-94A4-40E1EE4E8632}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21C51E98-23F1-4A3F-94A4-40E1EE4E8632}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21C51E98-23F1-4A3F-94A4-40E1EE4E8632}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21C51E98-23F1-4A3F-94A4-40E1EE4E8632}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {08BC85BF-38D8-4D43-871C-E680E9CFFCC9}
 	EndGlobalSection
 EndGlobal

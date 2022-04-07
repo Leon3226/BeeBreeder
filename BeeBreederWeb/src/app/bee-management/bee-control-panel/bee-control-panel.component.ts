@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {BeeStack} from "../../../model/bee/bee-stack";
 import {Bee} from "../../../model/bee/bee";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-bee-control-panel',
@@ -9,7 +10,7 @@ import {Bee} from "../../../model/bee/bee";
 })
 export class BeeControlPanelComponent implements OnInit {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   bees: BeeStack[] = [];
   selectedBee : Bee = new Bee();
@@ -21,12 +22,9 @@ export class BeeControlPanelComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoadingData = true;
-    const fetchPromise = fetch("http://localhost:5001/ApiaryData");
-    fetchPromise.then(response => {
-      response.text().then(x => {
-        let beeObj = JSON.parse(x);
-        this.bees = beeObj.bees;
-      })
-    }).then(x => this.isLoadingData = false).catch(x => this.isLoadingData = false);
+    this.http.get<any>("http://localhost:5001/ApiaryData").subscribe(response => {
+        this.bees = response.bees;
+        this.isLoadingData = false;
+    })
   }
 }

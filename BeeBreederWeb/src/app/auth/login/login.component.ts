@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators} from "@angular/forms";
-import {AuthService} from "../../auth.service";
+import {AuthService} from "../../services/auth/auth.service";
 import {Router} from "@angular/router";
 
 
@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
       .subscribe({
         next: () => {
           this.isLoadingResults = false;
-          this.router.navigate(['/secure']).then(_ => console.log('You are secure now!'));
+          this.router.navigate(['/']);
         },
         error: (err: any) => {
           console.log(err);

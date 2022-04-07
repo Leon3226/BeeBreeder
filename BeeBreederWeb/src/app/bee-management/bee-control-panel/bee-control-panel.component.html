@@ -1,5 +1,15 @@
 <div>
   <div *ngIf="isLoadingData">Loading data...</div>
-  <app-bee-list (selectedBeeChanged)="onBeeSelected($event)" [bees]="bees"></app-bee-list>
-  <app-bee-data [bee]="selectedBee"></app-bee-data>
+</div>
+
+<div class="row">
+  <div class="column right">
+    <h2>Column 1</h2>
+  </div>
+  <div class="column middle">
+    <app-bee-list (selectedBeeChanged)="onBeeSelected($event)" [bees]="bees"></app-bee-list>
+  </div>
+  <div class="column left">
+    <app-bee-data [bee]="selectedBee"></app-bee-data>
+  </div>
 </div>
