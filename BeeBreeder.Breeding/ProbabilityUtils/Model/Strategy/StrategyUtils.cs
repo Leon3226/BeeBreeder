@@ -1,7 +1,7 @@
 using System.Linq;
+using BeeBreeder.Breeding.Comparison.Pareto;
 using BeeBreeder.Breeding.Generation;
 using BeeBreeder.Breeding.ProbabilityUtils.Model.Worth;
-using BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Pareto;
 using BeeBreeder.Common.Data;
 using BeeBreeder.Common.Model.Bees;
 using BeeBreeder.Common.Model.Data;
@@ -13,13 +13,15 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Strategy
         private readonly MutationTree _mutationTree;
         private readonly ISpecieStatsRepository _specieStatsRepository;
         private readonly BeeGenerator _beeGenerator;
+        private readonly IParetoComparer _paretoComparer;
         
 
-        public StrategyUtils(MutationTree tree, ISpecieStatsRepository specieStatsRepository, BeeGenerator beeGenerator)
+        public StrategyUtils(MutationTree tree, ISpecieStatsRepository specieStatsRepository, BeeGenerator beeGenerator, IParetoComparer paretoComparer)
         {
             _mutationTree = tree;
             _specieStatsRepository = specieStatsRepository;
             _beeGenerator = beeGenerator;
+            _paretoComparer = paretoComparer;
         }
 
         public StrategyResult ImportantTargets(BeePool pool, int minimalCount = 5)
@@ -43,7 +45,7 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Strategy
                     var stat = gene.Key;
                     var geneBest = possibleSpeciesGenotypes
                         .Where(x => possibleSpeciesGenotypes.All(y =>
-                            x.Item2[stat].ParetoBetter(y.Item2[stat]) != y.Item2[stat]))
+                            _paretoComparer.ParetoBetter(x.Item2[stat], y.Item2[stat]) != y.Item2[stat]))
                         .Select(x => (x.Key, x.Item2[stat])).ToList();
                     result.GenesBest.Add(stat, geneBest);
                 }
@@ -53,8 +55,8 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Strategy
             {
                 var bestGeneValue = pair.Value.FirstOrDefault().Item2.Primary;
                 var bestGeneCount = pool.Bees.Count(x =>
-                    x.Bee[pair.Key].Primary.Compare(bestGeneValue, pair.Key) != Comparison.Worse ||
-                    x.Bee[pair.Key].Secondary.Compare(bestGeneValue, pair.Key) != Comparison.Worse);
+                    x.Bee[pair.Key].Primary.Compare(bestGeneValue, pair.Key) != Worth.Comparison.Worse ||
+                    x.Bee[pair.Key].Secondary.Compare(bestGeneValue, pair.Key) != Worth.Comparison.Worse);
                 var enough = bestGeneCount >= minimalCount;
                 if (enough)
                 {

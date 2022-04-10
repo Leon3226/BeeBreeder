@@ -1,13 +1,17 @@
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using BeeBreeder.Breeding.ProbabilityUtils.Model.Worth;
 using BeeBreeder.Common.Model.Bees;
+using BeeBreeder.Common.Model.Genetics;
 
-namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Pareto
+namespace BeeBreeder.Breeding.Comparison.Pareto
 {
-    public static class ParetoExtensions
+    public class ParetoComparer : IParetoComparer
     {
-        public static Bee ParetoBetter(this Bee first, Bee second, BreedingTarget target = null)
+        public Bee ParetoBetter(Bee first, Bee second, BreedingTarget target = null)
         {
             bool firstHasBest = false;
             bool secondHasBest = false;
@@ -15,7 +19,7 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Pareto
             foreach (var firstChromosome in first.Genotype.Chromosomes)
             {
                 var secondChromosome = second[firstChromosome.Key];
-                var best = firstChromosome.Value.ParetoBetter(secondChromosome, target: target);
+                var best = ParetoBetter(firstChromosome.Value, secondChromosome, target: target);
                 if (best == firstChromosome.Value)
                     firstHasBest = true;
                 if (best == secondChromosome)
@@ -33,7 +37,7 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Pareto
             return null;
         }
 
-        public static List<Bee> ParetoOptimal(this IEnumerable<Bee> bees, BreedingTarget target = null)
+        public List<Bee> ParetoOptimal(IEnumerable<Bee> bees, BreedingTarget target = null)
         {
             var toCheck = bees.ToList();
             var set = new HashSet<Bee>(toCheck.Count / 2);
@@ -65,7 +69,7 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Pareto
             return toCheck.Except(set).ToList();
         }
 
-        public static async Task<List<Bee>> ParetoOptimalAsync(this IEnumerable<Bee> bees, BreedingTarget target = null)
+        public async Task<List<Bee>> ParetoOptimalAsync(IEnumerable<Bee> bees, BreedingTarget target = null)
         {
             var toCheck = bees.ToList();
             var removed = new HashSet<Bee>(toCheck.Count / 2);
@@ -104,18 +108,45 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Pareto
 
             return toCheck.Except(removed).ToList();
         }
-        public static List<BeeStack> ParetoOptimal(this IEnumerable<BeeStack> bees, BreedingTarget target = null)
+        public List<BeeStack> ParetoOptimal(IEnumerable<BeeStack> bees, BreedingTarget target = null)
         {
             var optimal = ParetoOptimal(bees.Select(x => x.Bee), target);
             return bees.Where(x => optimal.Contains(x.Bee)).ToList();
         }
 
-        public static async Task<List<BeeStack>> ParetoOptimalAsync(this IEnumerable<BeeStack> bees,
+        public async Task<List<BeeStack>> ParetoOptimalAsync(IEnumerable<BeeStack> bees,
             BreedingTarget target = null)
         {
             var toCheck = bees.ToList();
-            var optimal = await Task.Run(() =>  ParetoOptimal(toCheck.Select(x => x.Bee), target));
+            var optimal = await Task.Run(() => ParetoOptimal(toCheck.Select(x => x.Bee), target));
             return toCheck.Where(x => optimal.Contains(x.Bee)).ToList();
         }
-    }
+
+        public IChromosome ParetoBetter(IChromosome first, IChromosome second, bool compareOrder = false, BreedingTarget target = null)
+        {
+            //TODO: Can be optimized 
+            var fpp = first.Primary.Compare(second.Primary, first.Property, target: target);
+            var fps = first.Primary.Compare(second.Secondary, first.Property, target: target);
+            var fsp = first.Secondary.Compare(second.Primary, first.Property, target: target);
+            var fss = first.Secondary.Compare(second.Secondary, first.Property, target: target);
+
+            List<ProbabilityUtils.Model.Worth.Comparison> comparisons = new List<ProbabilityUtils.Model.Worth.Comparison>() { fpp, fps, fsp, fss };
+
+            if (comparisons.Any(x => x == ProbabilityUtils.Model.Worth.Comparison.Better))
+            {
+                if (comparisons.Any(x => x == ProbabilityUtils.Model.Worth.Comparison.Worse))
+                {
+                    return null;
+                }
+
+                return first;
+            }
+            else
+            {
+                if (comparisons.All(x => x == ProbabilityUtils.Model.Worth.Comparison.Equal))
+                    return null;
+            }
+
+            return second;
+        } }
 }

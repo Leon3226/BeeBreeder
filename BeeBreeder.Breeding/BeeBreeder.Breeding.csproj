@@ -12,4 +12,8 @@
       <ProjectReference Include="..\BeeBreeder.Common\BeeBreeder.Common.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="GeneComparer\" />
+    </ItemGroup>
+
 </Project>

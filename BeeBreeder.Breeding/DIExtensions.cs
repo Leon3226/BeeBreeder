@@ -1,4 +1,6 @@
 ﻿using BeeBreeder.Breeding.Analyzer;
+using BeeBreeder.Breeding.Comparison.Gene;
+using BeeBreeder.Breeding.Comparison.Pareto;
 using BeeBreeder.Breeding.Crossing;
 using BeeBreeder.Breeding.EnvironmentMatching;
 using BeeBreeder.Breeding.Flusher;
@@ -25,6 +27,8 @@ namespace BeeBreeder.Breeding
             services.AddScoped<ISpecieTargeter, BestGenesTargeter>();
             services.AddScoped<IPositionsController, PositionsController>();
             services.AddScoped<IBeeCrosser, BeeCrosser>();
+            services.AddScoped<IParetoComparer, ParetoComparer>();
+            services.AddScoped<IGeneComparer, GeneComparer>();
             services.AddScoped<IEnvironmentMatcher, EnvironmentMatcher>();
             services.AddScoped<BeeGenerator>();
 

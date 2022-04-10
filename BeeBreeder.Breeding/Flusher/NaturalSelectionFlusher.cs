@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BeeBreeder.Breeding.Comparison.Pareto;
 using BeeBreeder.Breeding.ProbabilityUtils.Model.Worth;
-using BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Pareto;
 using BeeBreeder.Breeding.Targeter;
 using BeeBreeder.Common.Data;
 using BeeBreeder.Common.Model.Bees;
@@ -15,10 +15,13 @@ namespace BeeBreeder.Breeding.Flusher
     {
         public int ClearDirtySpeciesAt = 5;
         protected readonly ISpecieTargeter SpecieTargeter;
+        protected readonly IParetoComparer ParetoComparer;
 
-        public NaturalSelectionFlusher(ISpecieTargeter specieTargeter)
+
+        public NaturalSelectionFlusher(ISpecieTargeter specieTargeter, IParetoComparer paretoComparer)
         {
             SpecieTargeter = specieTargeter;
+            this.ParetoComparer = paretoComparer;
         }
 
         public IEnumerable<BeeStack> ToFlush(BeePool bees)
@@ -33,7 +36,7 @@ namespace BeeBreeder.Breeding.Flusher
         public virtual async Task<List<BeeStack>> NaturalSelectionAsync(BeePool bees)
         {
             var paretoNecessary = (await ParetoFromNecessaryAsync(bees)).ToList();
-            var optimalDrones = (await bees.Drones.Except(paretoNecessary).ToList().ParetoOptimalAsync()).Distinct()
+            var optimalDrones = (await ParetoComparer.ParetoOptimalAsync(bees.Drones.Except(paretoNecessary).ToList())).Distinct()
                 .ToList();
             var count = bees.Drones.Count - optimalDrones.Count;
             var survivors = optimalDrones.Concat(paretoNecessary).ToList();
@@ -57,7 +60,7 @@ namespace BeeBreeder.Breeding.Flusher
                         x.Bee[Constants.StatNames.Specie].Primary.Value.Equals(specie) ||
                         x.Bee[Constants.StatNames.Specie].Secondary.Value.Equals(specie)).ToList();
 
-                    var pareto = await result.Select(x => x.Bee).ParetoOptimalAsync(target);
+                    var pareto = await ParetoComparer.ParetoOptimalAsync(result.Select(x => x.Bee), target);
 
                     paretoBees.AddRange(result.Where(x => pareto.Contains(x.Bee)));
                 });

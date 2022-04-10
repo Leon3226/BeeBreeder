@@ -25,7 +25,12 @@
       "ProjectGuid": "c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5",
       "DisplayName": "BeeBreeder.Breeding",
       "ColorIndex": 3
+    },
+    "7665be6a-6e26-4eb8-b67d-0997e593371b": {
+      "ProjectGuid": "7665be6a-6e26-4eb8-b67d-0997e593371b",
+      "DisplayName": "BeeBreeder.Tests",
+      "ColorIndex": 4
     }
   },
-  "NextColorIndex": 4
+  "NextColorIndex": 5
 }

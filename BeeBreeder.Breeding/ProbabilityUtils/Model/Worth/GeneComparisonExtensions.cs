@@ -29,7 +29,7 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth
             IntComparers.Add(StatNames.Effect, MoreBetter);
             IntComparers.Add(StatNames.HumidTolerance, MoreBetter);
             IntComparers.Add(StatNames.TempTolerance, MoreBetter);
-
+             
             Converters.Add(typeof(Species), ConvertSpecie);
             Converters.Add(typeof(Flowers), ConvertFlowers);
             Converters.Add(typeof(Adaptation), ConvertAdaptation);
