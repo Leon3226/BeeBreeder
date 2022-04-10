@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace BeeBreeder.Common.Model.Genetics
 {
-    public class Chromosome<T> : IChromosome, IChromosome<T> where T : struct
+    public class Chromosome<T> : IChromosome<T> where T : struct
     {
         public string Property { get; set; } = "Unnamed";
         public IGene<T> Primary { get; set; }

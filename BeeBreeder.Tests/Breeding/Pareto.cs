@@ -1,10 +1,10 @@
 using BeeBreeder.Breeding.Generation;
 using BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Pareto;
-using BeeBreeder.Common.AlleleDatabase.Bee;
 using BeeBreeder.Common.Model.Bees;
 using BeeBreeder.Common.Model.Genetics;
+using BeeBreeder.Common.Model.Genetics.Phenotype;
 using NUnit.Framework;
-using StatNames = BeeBreeder.Common.AlleleDatabase.Bee.BeeGeneticDatabase.StatNames;
+using StatNames = BeeBreeder.Common.Data.Constants.StatNames;
 
 namespace BeeBreeder.Tests.Breeding
 {
@@ -15,9 +15,9 @@ namespace BeeBreeder.Tests.Breeding
         Bee _bee2;
 
         [SetUp]
-        public void Setup()
+        public void Setup(BeeGenerator generator)
         {
-            _generator = new BeeGenerator();
+            _generator = generator;
             _bee1 = _generator.Generate(Species.Forest, Gender.Princess);
             _bee2 = _generator.Generate(Species.Forest, Gender.Princess);
 

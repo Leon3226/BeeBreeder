@@ -1,14 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using BeeBreeder.Common.AlleleDatabase.Bee;
 using BeeBreeder.Common.Model.Bees;
 using BeeBreeder.Common.Model.Genetics;
+using BeeBreeder.Common.Model.Genetics.Phenotype;
 using BeeBreeder.WebAPI.Model;
-using StatNames = BeeBreeder.Common.AlleleDatabase.Bee.BeeGeneticDatabase.StatNames;
+using StatNames = BeeBreeder.Common.Data.Constants.StatNames;
 
 namespace BeeBreeder.WebAPI.Mapping
 {
+    //TODO: Make NonStatic
     public static class BeeMapping
     {
         private static Dictionary<string, string> _statNames;
@@ -109,7 +110,7 @@ namespace BeeBreeder.WebAPI.Mapping
             Enum.TryParse(rawPrimary.FlowerProvider, out Flowers flowerPrimary);
             Enum.TryParse(rawSecondary.FlowerProvider, out Flowers flowerSecondary);
             
-            var specieChromosome = new SpecieChromosome()
+            var specieChromosome = new Chromosome<Species>()
             {
                 Property = StatNames.Specie,
                 Primary = new Gene<Species>() {Value = speciePrimary},
@@ -225,8 +226,9 @@ namespace BeeBreeder.WebAPI.Mapping
 
             foreach (var gene in bee.Genotype.Chromosomes)
             {
-                gene.Value.Primary.Dominant = BeeGeneticDatabase.GenesDominance[gene.Key][gene.Value.Primary.Value];
-                gene.Value.Secondary.Dominant = BeeGeneticDatabase.GenesDominance[gene.Key][gene.Value.Secondary.Value];
+                //TODO: Revision if possible to get this info from coming data
+                //gene.Value.Primary.Dominant = BeeGeneticDatabase.GenesDominance[gene.Key][gene.Value.Primary.Value];
+               //gene.Value.Secondary.Dominant = BeeGeneticDatabase.GenesDominance[gene.Key][gene.Value.Secondary.Value];
             }
             
             return new(bee, raw.Size);

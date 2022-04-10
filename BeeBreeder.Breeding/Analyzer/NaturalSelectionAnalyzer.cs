@@ -1,5 +1,6 @@
 ﻿using BeeBreeder.Common;
 using BeeBreeder.Common.Model.Bees;
+using BeeBreeder.Common.Model.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,9 +33,10 @@ namespace BeeBreeder.Breeding.Analyzer
                 if (princesses.Count == 0 || drones.Count == 0)
                     break;
                 var princess = princesses[RandomGenerator.GenerateInt(0, princesses.Count)];
-                princesses.Remove(princess);
                 var drone = drones[RandomGenerator.GenerateInt(0, drones.Count)];
-                drones.Remove(drone);
+
+                princesses.RemoveCount(princess, 1);
+                drones.RemoveCount(drone, 1);
 
                 toReturn.Add((princess.Bee, drone.Bee));
             }

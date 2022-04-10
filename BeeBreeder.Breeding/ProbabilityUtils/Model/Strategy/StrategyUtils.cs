@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using BeeBreeder.Breeding.Generation;
 using BeeBreeder.Breeding.ProbabilityUtils.Model.Worth;
 using BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Pareto;
-using BeeBreeder.Common.AlleleDatabase.Bee;
+using BeeBreeder.Common.Data;
 using BeeBreeder.Common.Model.Bees;
 using BeeBreeder.Common.Model.Data;
 using BeeBreeder.Common.Model.Genetics;
@@ -11,11 +12,16 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Strategy
 {
     public class StrategyUtils : IStrategyUtils
     {
-        public MutationTree Tree;
+        private readonly MutationTree _mutationTree;
+        private readonly ISpecieStatsRepository _specieStatsRepository;
+        private readonly BeeGenerator _beeGenerator;
+        
 
-        public StrategyUtils(MutationTree tree)
+        public StrategyUtils(MutationTree tree, ISpecieStatsRepository specieStatsRepository, BeeGenerator beeGenerator)
         {
-            Tree = tree;
+            _mutationTree = tree;
+            _specieStatsRepository = specieStatsRepository;
+            _beeGenerator = beeGenerator;
         }
 
         public StrategyResult ImportantTargets(BeePool pool, int minimalCount = 5)
@@ -25,10 +31,10 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Strategy
                 .Select(x => x.Bee.SpecieChromosome.Primary.Value)
                 .Concat(pool.Bees.Select(x => x.Bee.SpecieChromosome.Secondary.Value)
                 ).Distinct().ToList();
-            var possibleSpecies = Tree.PossibleResults(existingSpecies);
+            var possibleSpecies = _mutationTree.PossibleResults(existingSpecies);
 
-            var possibleSpeciesGenotypes = BeeGeneticDatabase.SpecieStats.Where(x => possibleSpecies.Contains(x.Key))
-                .Select(x => (x.Key, Genotype.FromInitialStats(x.Value))).ToList();
+            var possibleSpeciesGenotypes = _specieStatsRepository.SpecieStats.Where(x => possibleSpecies.Contains(x.Key))
+                .Select(x => (x.Key, _beeGenerator.GenotypeFromInitialStats(x.Value))).ToList();
             var referenceGenotype = possibleSpeciesGenotypes.FirstOrDefault().Item2;
             result.GenesBest = new();
 
@@ -60,7 +66,7 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Strategy
 
             foreach (var pair in result.GenesBest)
             {
-                result.GenesBest[pair.Key] = pair.Value.Where(val => !pair.Value.Any(x => Tree[x.Item1].LeadsTo(val.Item1)))
+                result.GenesBest[pair.Key] = pair.Value.Where(val => !pair.Value.Any(x => _mutationTree[x.Item1].LeadsTo(val.Item1)))
                     .ToList();
             }
             

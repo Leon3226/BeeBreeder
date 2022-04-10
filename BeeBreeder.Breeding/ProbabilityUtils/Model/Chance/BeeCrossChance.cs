@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using BeeBreeder.Common.AlleleDatabase.Bee;
+using BeeBreeder.Breeding.Generation;
+using BeeBreeder.Common.Data;
 using BeeBreeder.Common.Model.Bees;
 using BeeBreeder.Common.Model.Genetics;
+using BeeBreeder.Common.Model.Genetics.Phenotype;
 
 namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Chance
 {
@@ -31,6 +33,18 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Chance
             }
         }
         public readonly List<IChromosomeCrossChance> Chances = new();
+
+        private readonly ISpecieCombinationsRepository _specieCombinationsRepository;
+        private readonly BeeGenerator _beeGenerator;
+        private readonly ISpecieStatsRepository _specieStatsRepository;
+
+        public BeeCrossChance(ISpecieCombinationsRepository specieCombinationsRepository, BeeGenerator beeGenerator, ISpecieStatsRepository specieStatsRepository)
+        {
+            _specieCombinationsRepository = specieCombinationsRepository;
+            _beeGenerator = beeGenerator;
+            _specieStatsRepository = specieStatsRepository;
+        }
+
         public BeeCrossChance(Bee first, Bee second)
         {
             _first = first;
@@ -40,17 +54,17 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Chance
 
         private void RecalculateChances()
         {
-            var firstSpecieChromosome = (SpecieChromosome)_first[BeeGeneticDatabase.StatNames.Specie];
-            var secondSpecieChromosome = (SpecieChromosome)_second[BeeGeneticDatabase.StatNames.Specie];
-            var mutationChances = SpecieChromosome.GetPossibleMutations(firstSpecieChromosome.Primary.Value,
-                secondSpecieChromosome.Secondary.Value).Concat(SpecieChromosome.GetPossibleMutations(firstSpecieChromosome.Secondary.Value,
+            var firstSpecieChromosome = (Chromosome<Species>)_first[Constants.StatNames.Specie];
+            var secondSpecieChromosome = (Chromosome<Species>)_second[Constants.StatNames.Specie];
+            var mutationChances = _specieCombinationsRepository.GetPossibleMutations(firstSpecieChromosome.Primary.Value,
+                secondSpecieChromosome.Secondary.Value).Concat(_specieCombinationsRepository.GetPossibleMutations(firstSpecieChromosome.Secondary.Value,
                 secondSpecieChromosome.Primary.Value)).Distinct().ToList();
 
-            var mutationGenomes = mutationChances.Select(x => (Genotype.FromInitialStats(BeeGeneticDatabase.SpecieStats[x.MutationResult]), x.MutationChance)).ToArray();
+            var mutationGenomes = mutationChances.Select(x => (_beeGenerator.GenotypeFromInitialStats(_specieStatsRepository.SpecieStats[x.MutationResult]), x.MutationChance)).ToArray();
             foreach (var firstGene in _first.Genotype.Chromosomes)
             {
                 var secondGene = _second[firstGene.Key];
-                IChromosomeCrossChance chance = ChromosomeCrossChanceHelper.GetChance(firstGene.Value, secondGene, BeeGeneticDatabase.StatTypes[secondGene.Property]
+                IChromosomeCrossChance chance = ChromosomeCrossChanceHelper.GetChance(firstGene.Value, secondGene, Constants.StatTypes[secondGene.Property]
                     , mutationGenomes.Select(x => (x.Item1[firstGene.Key], x.MutationChance)).ToArray());
                 Chances.Add(chance);
             }

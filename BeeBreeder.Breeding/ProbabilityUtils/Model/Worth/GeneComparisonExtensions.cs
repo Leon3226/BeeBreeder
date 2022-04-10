@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
-using BeeBreeder.Common.AlleleDatabase.Bee;
+using BeeBreeder.Common.Data;
 using BeeBreeder.Common.Model.Genetics;
-using StatNames = BeeBreeder.Common.AlleleDatabase.Bee.BeeGeneticDatabase.StatNames;
+using BeeBreeder.Common.Model.Genetics.Phenotype;
+using StatNames = BeeBreeder.Common.Data.Constants.StatNames;
 
 namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth
 {
+    //TODO: Make NonStatic
     public static class GeneComparisonExtensions
     {
         private static readonly Dictionary<string, Func<int, int, Comparison>> IntComparers = new();
@@ -75,23 +77,27 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth
 
         private static int ConvertSpecie(IGene gene, BreedingTarget target = null)
         {
-            var priorities = target == null || !target.PrioritizeSpecies
-                ? BeeGeneticDatabase.DefaultSpeciePriorities
-                : target.SpeciePriorities;
-            //TODO: Add logic
-            return priorities[((Gene<Species>) gene).Value];
+            if (target == null || !target.PrioritizeSpecies || target.SpeciePriorities == null)
+                return 0;
+
+            if (target.SpeciePriorities.TryGetValue(((Gene<Species>)gene).Value, out int value))
+            {
+                return value;
+            }
+
+            return 0;
         }
  
         private static int ConvertFlowers(IGene gene, BreedingTarget target = null)
         {
             //TODO: Add logic
-            return BeeGeneticDatabase.DefaultFlowersPriorities[((Gene<Flowers>) gene).Value];
+            return Constants.DefaultFlowersPriorities[((Gene<Flowers>) gene).Value];
         }
 
         private static int ConvertEffect(IGene gene, BreedingTarget target = null)
         {
             //TODO: Add logic
-            return BeeGeneticDatabase.DefaultEffectPriorities[((Gene<Effect>) gene).Value];
+            return Constants.DefaultEffectPriorities[((Gene<Effect>) gene).Value];
         }
 
         private static int ConvertAdaptation(IGene gene, BreedingTarget target = null)

@@ -1,0 +1,31 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Прочие файлы",
+      "ColorIndex": -1
+    },
+    "10006e7e-47a2-417a-b1bd-4f0593c43a5a": {
+      "ProjectGuid": "10006e7e-47a2-417a-b1bd-4f0593c43a5a",
+      "DisplayName": "BeeBreeder.Common",
+      "ColorIndex": 0
+    },
+    "a747a407-2609-468e-bf1a-f5b0f2c5d916": {
+      "ProjectGuid": "a747a407-2609-468e-bf1a-f5b0f2c5d916",
+      "DisplayName": "BeeBreeder.WebAPI",
+      "ColorIndex": 1
+    },
+    "5ecce8fb-04c5-4dba-8a8e-1a0b999beb46": {
+      "ProjectGuid": "5ecce8fb-04c5-4dba-8a8e-1a0b999beb46",
+      "DisplayName": "BeeBreeder",
+      "ColorIndex": 2
+    },
+    "c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5": {
+      "ProjectGuid": "c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5",
+      "DisplayName": "BeeBreeder.Breeding",
+      "ColorIndex": 3
+    }
+  },
+  "NextColorIndex": 4
+}

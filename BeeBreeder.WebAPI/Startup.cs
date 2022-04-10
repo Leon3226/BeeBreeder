@@ -6,13 +6,14 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Web.Http;
+using BeeBreeder.Breeding;
 using BeeBreeder.Breeding.Analyzer;
 using BeeBreeder.Breeding.Flusher;
 using BeeBreeder.Breeding.Positioning;
 using BeeBreeder.Breeding.ProbabilityUtils.Model.Strategy;
 using BeeBreeder.Breeding.Simulator;
 using BeeBreeder.Breeding.Targeter;
-using BeeBreeder.Common.AlleleDatabase.Bee;
+using BeeBreeder.Common.Data;
 using BeeBreeder.Common.Model.Data;
 using BeeBreeder.WebAPI.Model.Auth;
 using Microsoft.AspNet.Identity;
@@ -30,6 +31,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Converters;
+using Constants = BeeBreeder.Common.Data.Constants;
 
 namespace BeeBreeder.WebAPI
 {
@@ -75,16 +77,8 @@ namespace BeeBreeder.WebAPI
                 };
             });
 
-            services.AddScoped<IBreedAnalyzer, ExtendedNaturalSelectionAnalyzer>();
-            services.AddScoped<IBreedFlusher, ExtendedNaturalSelectionFlusher> ();
-            services.AddSingleton<MutationTree>(MutationTree.FromSpecieCombinations(BeeGeneticDatabase.SpecieCombinations));
-            services.AddScoped<IStrategyUtils, StrategyUtils>();
-            services.AddScoped<IBreedingSimulator, BreedingSimulator>();
-            services.AddScoped<ISpecieTargeter, BestGenesTargeter>();
-            services.AddScoped<IPositionsController, PositionsController>();
-
             services.AddCors();
-            //services.AddSingleton<IBeeBreeder, NaturalSelectionBreeder>();
+            services.AddBeeBreeder();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BeeBreeder.WebAPI", Version = "v1" });

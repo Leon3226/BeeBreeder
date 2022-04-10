@@ -2,8 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using BeeBreeder.Common.AlleleDatabase.Bee;
 using BeeBreeder.Common.Model.Bees;
+using BeeBreeder.Common.Model.Genetics.Phenotype;
 
 namespace BeeBreeder.Common.Model.Extensions
 {
@@ -45,6 +45,16 @@ namespace BeeBreeder.Common.Model.Extensions
             {
                 Console.WriteLine();
             }
+        }
+
+        public static BeeStack Copy(this BeeStack bees)
+        {
+            return new BeeStack(bees.Bee, bees.Count);
+        }
+
+        public static List<BeeStack> Copy(this IEnumerable<BeeStack> bees)
+        {
+            return bees.Select(x => x.Copy()).ToList();
         }
     }
 }

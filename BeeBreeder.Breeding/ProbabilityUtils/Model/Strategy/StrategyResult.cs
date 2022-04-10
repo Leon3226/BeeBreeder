@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using BeeBreeder.Common.AlleleDatabase.Bee;
 using BeeBreeder.Common.Model.Genetics;
+using BeeBreeder.Common.Model.Genetics.Phenotype;
 
 namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Strategy
 {

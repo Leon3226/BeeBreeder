@@ -1,4 +1,4 @@
-namespace BeeBreeder.Common.AlleleDatabase.Bee
+namespace BeeBreeder.Common.Model.Genetics.Phenotype
 {
     public readonly struct Adaptation
     {
@@ -11,7 +11,7 @@ namespace BeeBreeder.Common.AlleleDatabase.Bee
             Down = down;
         }
 
-        public override string ToString()
+        public override string ToString() 
         {
             if (Up == Down)
             {

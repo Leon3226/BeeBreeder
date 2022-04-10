@@ -1,7 +1,4 @@
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-
-namespace BeeBreeder.Common.AlleleDatabase.Bee
+namespace BeeBreeder.Common.Model.Genetics.Phenotype
 {
     public enum Species
     {

@@ -2,9 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Comparators.Functions;
-using BeeBreeder.Common.AlleleDatabase.Bee;
 using BeeBreeder.Common.Model.Genetics;
-using StatNames = BeeBreeder.Common.AlleleDatabase.Bee.BeeGeneticDatabase.StatNames;
+using StatNames = BeeBreeder.Common.Data.Constants.StatNames;
 
 namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Comparators
 {

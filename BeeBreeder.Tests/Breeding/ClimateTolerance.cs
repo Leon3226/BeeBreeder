@@ -1,20 +1,24 @@
+using BeeBreeder.Breeding.EnvironmentMatching;
 using BeeBreeder.Breeding.Generation;
-using BeeBreeder.Common.AlleleDatabase.Bee;
 using BeeBreeder.Common.Model.Bees;
+using BeeBreeder.Common.Model.Environment;
 using BeeBreeder.Common.Model.Genetics;
+using BeeBreeder.Common.Model.Genetics.Phenotype;
 using NUnit.Framework;
-using StatNames = BeeBreeder.Common.AlleleDatabase.Bee.BeeGeneticDatabase.StatNames;
+using StatNames = BeeBreeder.Common.Data.Constants.StatNames;
 
 namespace BeeBreeder.Tests.Breeding
 {
     public class ClimateTolerance
     {
         private BeeGenerator _generator;
+        private IEnvironmentMatcher _environmentMatcher;
 
         [SetUp]
-        public void Setup()
+        public void Setup(BeeGenerator generator, IEnvironmentMatcher environmentMatcher)
         {
-            _generator = new BeeGenerator();
+            _generator = generator;
+            _environmentMatcher = environmentMatcher;
         }
 
         [Test]
@@ -22,7 +26,7 @@ namespace BeeBreeder.Tests.Breeding
         {
             var bee = _generator.Generate(Species.Forest, Gender.Princess);
 
-            Assert.True(bee.CanLiveIn(Biome.Forest));
+            Assert.True(_environmentMatcher.CanLiveIn(bee, Biome.Forest));
         }
 
         [Test]
@@ -30,7 +34,7 @@ namespace BeeBreeder.Tests.Breeding
         {
             var bee = _generator.Generate(Species.Forest, Gender.Princess);
 
-            Assert.False(bee.CanLiveIn(Biome.Desert));
+            Assert.True(_environmentMatcher.CanLiveIn(bee, Biome.Desert));
         }
 
         [Test]
@@ -40,7 +44,7 @@ namespace BeeBreeder.Tests.Breeding
             bee[StatNames.TempTolerance] = new Chromosome<Adaptation>(new Adaptation(2, 0), StatNames.TempTolerance);
             bee[StatNames.HumidTolerance] = new Chromosome<Adaptation>(new Adaptation(0, 1), StatNames.HumidTolerance);
 
-            Assert.True(bee.CanLiveIn(Biome.Desert));
+            Assert.True(_environmentMatcher.CanLiveIn(bee, Biome.Desert));
         }
     }
 }

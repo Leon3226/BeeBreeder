@@ -1,4 +1,4 @@
-using BeeBreeder.Common.AlleleDatabase.Bee;
+using BeeBreeder.Common.Model.Environment;
 
 namespace BeeBreeder.Common.Model.Bees
 {

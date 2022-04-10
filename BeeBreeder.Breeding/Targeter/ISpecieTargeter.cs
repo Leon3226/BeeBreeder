@@ -4,8 +4,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using BeeBreeder.Common.AlleleDatabase.Bee;
 using BeeBreeder.Common.Model.Bees;
+using BeeBreeder.Common.Model.Genetics.Phenotype;
 
 namespace BeeBreeder.Breeding.Targeter
 {

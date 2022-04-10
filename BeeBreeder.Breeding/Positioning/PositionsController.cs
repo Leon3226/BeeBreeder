@@ -15,7 +15,7 @@ namespace BeeBreeder.Breeding.Positioning
             var biomesAvaliable = transposerBiomes.Where(x => avaliablePositions.Any(pos => pos.Trans == x.Transposer)).Select(x => x.Biome).ToList();
             return new BeePool()
             {
-                Bees = bees.Bees.Where(x => biomesAvaliable.All(biome => x.Bee.CanLiveIn(biome))).Select(x => new BeeStack(x.Bee, x.Count)).ToList()
+                //Bees = bees.Bees.Where(x => biomesAvaliable.All(biome => x.Bee.CanLiveIn(biome))).Select(x => new BeeStack(x.Bee, x.Count)).ToList()
             };
         }
     }

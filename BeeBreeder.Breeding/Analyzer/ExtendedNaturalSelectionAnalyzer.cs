@@ -7,25 +7,27 @@ using System.Threading.Tasks;
 using BeeBreeder.Breeding.ProbabilityUtils.Model.Strategy;
 using BeeBreeder.Breeding.Targeter;
 using BeeBreeder.Common;
-using BeeBreeder.Common.AlleleDatabase.Bee;
+using BeeBreeder.Common.Data;
 using BeeBreeder.Common.Model.Bees;
 using BeeBreeder.Common.Model.Data;
 using BeeBreeder.Common.Model.Extensions;
 using BeeBreeder.Common.Model.Genetics;
+using BeeBreeder.Common.Model.Genetics.Phenotype;
 
 namespace BeeBreeder.Breeding.Analyzer
 {
     public class ExtendedNaturalSelectionAnalyzer : IBreedAnalyzer
     {
-        readonly MutationTree _tree = MutationTree.FromSpecieCombinations(BeeGeneticDatabase.SpecieCombinations);
+        private readonly MutationTree _mutationTree;
         private readonly ISpecieTargeter _specieTargeter;
 
         public int PureMinCount = 5;
         public int ImpureMinCount = 10;
 
-        public ExtendedNaturalSelectionAnalyzer(ISpecieTargeter specieTargeter)
+        public ExtendedNaturalSelectionAnalyzer(ISpecieTargeter specieTargeter, MutationTree mutationTree)
         {
             _specieTargeter = specieTargeter;
+            _mutationTree = mutationTree;
         }
 
         public List<(Bee Princess, Bee Drone)> GetBreedingPairs(BeePool bees, int count = 0)
@@ -35,8 +37,8 @@ namespace BeeBreeder.Breeding.Analyzer
             if (count < 0)
                 return toReturn;
 
-            var princesses = bees.Princesses.Select(x => new BeeStack(x.Bee, x.Count)).ToList();
-            var drones = bees.Drones.Select(x => new BeeStack(x.Bee, x.Count)).ToList();
+            var princesses = bees.Princesses.Copy();
+            var drones = bees.Drones.Copy();
             if (!princesses.Any() || !drones.Any())
                 return toReturn;
 
@@ -135,29 +137,29 @@ namespace BeeBreeder.Breeding.Analyzer
 
             void ExcludeParetoEqualWithDifferentSpecies()
             {
-                var specie1 = (SpecieChromosome)bee[BeeGeneticDatabase.StatNames.Specie];
+                var specie1 = (Chromosome<Species>)bee[Constants.StatNames.Specie];
                 for (int i = 0; i < partners.Count; i++)
                 {
                     var partner = partners[i];
 
-                    var specie2 = (SpecieChromosome)partner.Bee[BeeGeneticDatabase.StatNames.Specie];
+                    var specie2 = (Chromosome<Species>)partner.Bee[Constants.StatNames.Specie];
                     if (((specie1.Clean &&
                           specie2.Clean) ||
                          !(specie1.Primary.Value == specie2.Primary.Value &&
                            specie1.Secondary.Value == specie2.Secondary.Value &&
                            specie1.Primary.Value == specie2.Primary.Value)) &&
-                        !_tree.PossibleResults(new List<Species>()
+                        !_mutationTree.PossibleResults(new List<Species>()
                             {specie1.Primary.Value, specie2.Primary.Value}).Any() &&
-                        !_tree.PossibleResults(new List<Species>()
+                        !_mutationTree.PossibleResults(new List<Species>()
                             {specie1.Primary.Value, specie2.Secondary.Value}).Any() &&
-                        !_tree.PossibleResults(new List<Species>()
+                        !_mutationTree.PossibleResults(new List<Species>()
                             {specie1.Secondary.Value, specie2.Secondary.Value}).Any()
                     )
                     {
                         var isEqual = true;
                         foreach (var gene in bee.Genotype.Chromosomes)
                         {
-                            if (gene.Key == BeeGeneticDatabase.StatNames.Specie)
+                            if (gene.Key == Constants.StatNames.Specie)
                                 continue;
 
                             var secondGene = partner.Bee[gene.Key];

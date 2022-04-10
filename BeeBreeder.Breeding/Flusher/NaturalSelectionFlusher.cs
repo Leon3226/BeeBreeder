@@ -4,9 +4,10 @@ using System.Threading.Tasks;
 using BeeBreeder.Breeding.ProbabilityUtils.Model.Worth;
 using BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Pareto;
 using BeeBreeder.Breeding.Targeter;
-using BeeBreeder.Common.AlleleDatabase.Bee;
+using BeeBreeder.Common.Data;
 using BeeBreeder.Common.Model.Bees;
 using BeeBreeder.Common.Model.Extensions;
+using BeeBreeder.Common.Model.Genetics.Phenotype;
 
 namespace BeeBreeder.Breeding.Flusher
 {
@@ -53,8 +54,8 @@ namespace BeeBreeder.Breeding.Flusher
                 await Task.Run(async () =>
                 {
                     var result = bees.Drones.Except(paretoBees).Where(x =>
-                        x.Bee[BeeGeneticDatabase.StatNames.Specie].Primary.Value.Equals(specie) ||
-                        x.Bee[BeeGeneticDatabase.StatNames.Specie].Secondary.Value.Equals(specie)).ToList();
+                        x.Bee[Constants.StatNames.Specie].Primary.Value.Equals(specie) ||
+                        x.Bee[Constants.StatNames.Specie].Secondary.Value.Equals(specie)).ToList();
 
                     var pareto = await result.Select(x => x.Bee).ParetoOptimalAsync(target);
 

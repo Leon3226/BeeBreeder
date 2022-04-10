@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using BeeBreeder.Common.AlleleDatabase.Bee;
+using BeeBreeder.Common.Model.Genetics.Phenotype;
 
 namespace BeeBreeder.Common.Model.Data
 {

@@ -9,6 +9,7 @@ namespace BeeBreeder.Common.Model.Bees
     public class BeePool
     {
         public List<BeeStack> Bees { get; set; } = new();
+        private HashSet<Bee> _duplicateChecked = new();
 
         public BeePool()
         {
@@ -60,7 +61,9 @@ namespace BeeBreeder.Common.Model.Bees
                 if (toCheck.Count == 0)
                     break;
                 var bee = toCheck[i];
-                var duplicates = toCheck.Except(new[] {bee}).Where(x => x.Bee.Genotype.Equals(bee.Bee.Genotype) && x.Bee.Gender == bee.Bee.Gender)
+                var duplicateCheckedLastGeneration = _duplicateChecked.Contains(bee.Bee);
+                var duplicates = toCheck.Except(new[] {bee}).Where(x => !duplicateCheckedLastGeneration || !_duplicateChecked.Contains(x.Bee))
+                    .Where(x => x.Bee.Equals(bee.Bee))
                     .ToArray();
                 // duplicates.ForEach(x => bee.Count += x.Count);
                 toCheck.Remove(bee);
@@ -71,6 +74,12 @@ namespace BeeBreeder.Common.Model.Bees
                     toCheck.Remove(duplicate);
                     Bees.Remove(duplicate); 
                 }
+            }
+
+            _duplicateChecked.Clear();
+            foreach (var bee in Bees)
+            {
+                _duplicateChecked.Add(bee.Bee);
             }
         }
 

@@ -1,4 +1,4 @@
-namespace BeeBreeder.Common.AlleleDatabase.Bee
+namespace BeeBreeder.Common.Model.Genetics.Phenotype
 {
     public enum Flowers
     {

@@ -1,4 +1,6 @@
-namespace BeeBreeder.Common.AlleleDatabase.Bee
+using BeeBreeder.Common.Model.Genetics.Phenotype;
+
+namespace BeeBreeder.Common.Data.Model
 {
     public class SpecieCombination
     {

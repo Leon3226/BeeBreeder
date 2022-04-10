@@ -1,4 +1,4 @@
-namespace BeeBreeder.Common.AlleleDatabase.Bee
+namespace BeeBreeder.Common.Model.Environment
 {
     public enum Biome
     {

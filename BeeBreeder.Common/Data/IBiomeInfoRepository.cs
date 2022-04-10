@@ -5,11 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using BeeBreeder.Common.Model.Environment;
 
-namespace BeeBreeder.Common.Model.Positioning
+namespace BeeBreeder.Common.Data
 {
-    public struct TransposerBiome
+    public interface IBiomeInfoRepository
     {
-        public Guid Transposer;
-        public Biome Biome;
+        Dictionary<Biome, Climate> BiomeClimates { get; }
     }
 }

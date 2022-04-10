@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BeeBreeder.Breeding.ProbabilityUtils.Model.Strategy;
-using BeeBreeder.Common.AlleleDatabase.Bee;
 using BeeBreeder.Common.Model.Bees;
 using BeeBreeder.Common.Model.Data;
 using BeeBreeder.Common.Model.Extensions;
+using BeeBreeder.Common.Model.Genetics.Phenotype;
 
 namespace BeeBreeder.Breeding.Targeter
 {

@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using BeeBreeder.Common.AlleleDatabase.Bee;
+using BeeBreeder.Common.Model.Genetics.Phenotype;
 
 namespace BeeBreeder.Common.Model.Genetics
 {
@@ -49,7 +49,7 @@ namespace BeeBreeder.Common.Model.Genetics
         }
         static IChromosome GetSpecieChromosome(IGene primary, IGene secondary)
         {
-            return new SpecieChromosome {Primary = (Gene<Species>)primary, Secondary = (Gene<Species>)secondary};
+            return new Chromosome<Species> { Primary = (Gene<Species>)primary, Secondary = (Gene<Species>)secondary};
         }
         
         static IChromosome GetEffectChromosome(IGene primary, IGene secondary)
