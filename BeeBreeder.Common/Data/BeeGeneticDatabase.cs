@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using BeeBreeder.Common.Data.Model;
-using BeeBreeder.Common.Model.Environment;
 using BeeBreeder.Common.Model.Genetics.Phenotype;
 
 namespace BeeBreeder.Common.Data

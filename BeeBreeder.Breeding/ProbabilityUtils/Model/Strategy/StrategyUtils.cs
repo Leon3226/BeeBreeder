@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using BeeBreeder.Breeding.Generation;
 using BeeBreeder.Breeding.ProbabilityUtils.Model.Worth;
@@ -6,7 +5,6 @@ using BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Pareto;
 using BeeBreeder.Common.Data;
 using BeeBreeder.Common.Model.Bees;
 using BeeBreeder.Common.Model.Data;
-using BeeBreeder.Common.Model.Genetics;
 
 namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Strategy
 {

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Comparators.Functions;
@@ -9,7 +8,7 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Comparators
 {
     public class SumGenomeEvaluator : IGenomeEvaluator
     {
-        public Dictionary<string, IFunction> GeneValueFunctions = new();
+        public Dictionary<string, IFunction> GeneValueFunctions;
 
         public SumGenomeEvaluator()
         {

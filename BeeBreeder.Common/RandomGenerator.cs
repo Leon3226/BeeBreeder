@@ -4,7 +4,7 @@ namespace BeeBreeder.Common
 {
     public static class RandomGenerator
     {
-        public static Random Random { private get; set; } = new Random(123);
+        public static Random Random { private get; set; } = new(123);
 
         public static int GenerateInt(int from, int to)
         {

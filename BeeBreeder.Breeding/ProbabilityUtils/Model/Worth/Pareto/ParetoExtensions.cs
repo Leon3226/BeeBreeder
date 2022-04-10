@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using BeeBreeder.Common.Model.Bees;
 
@@ -13,20 +11,6 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Pareto
         {
             bool firstHasBest = false;
             bool secondHasBest = false;
-
-            //var genesList = first.Genotype.Genes.ToArray();
-            //for (int i = 0; i < genesList.Length; i++)
-            //{
-            //    var firstChromosome = genesList[i];
-            //    var secondChromosome = second[firstChromosome.Key];
-            //    var best = firstChromosome.Value.ParetoBetter(secondChromosome, target: target);
-            //    if (best == firstChromosome.Value)
-            //        firstHasBest = true;
-            //    if (best == secondChromosome)
-            //        secondHasBest = true;
-            //    if (firstHasBest && secondHasBest)
-            //        return null;
-            //}
 
             foreach (var firstChromosome in first.Genotype.Chromosomes)
             {
@@ -52,15 +36,6 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Pareto
         public static List<Bee> ParetoOptimal(this IEnumerable<Bee> bees, BreedingTarget target = null)
         {
             var toCheck = bees.ToList();
-            //var comparer = new BeeComparator(target);
-            //var sorted = toCheck.OrderByDescending(x => x, comparer).ToList();
-            //var a = sorted.TakeWhile((x, i) =>
-            //{
-            //    if (i == 0)
-            //        return true;
-            //    return ParetoBetter(x, sorted[i - 1]) == null;
-            //}).ToList();
-            //return a;
             var set = new HashSet<Bee>(toCheck.Count / 2);
             for (int i = 0; i < toCheck.Count; i++)
             {
@@ -78,13 +53,11 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Pareto
                     {
                         var worse = better == bee1 ? bee2 : bee1;
                         set.Add(worse);
-                        //toCheck.Remove(worse);
                         if (worse == bee1)
                         {
                             //i--;
                             break;
                         }
-                        //else j--;
                     }
                 }
             }
@@ -107,10 +80,7 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Pareto
                     if (bee1 == bee2) continue;
                     if (removed.Contains(bee2))
                         continue;
-                    var better = await Task.Run(() =>
-                    {
-                        return ParetoBetter(bee1, bee2, target);
-                    });
+                    var better = await Task.Run(() => ParetoBetter(bee1, bee2, target));
                     if (better != null)
                     {
                         var worse = better == bee1 ? bee2 : bee1;
@@ -123,30 +93,7 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Pareto
 
             for (int i = 0; i < toCheck.Count - 1; i++)
             {
-                async Task GetToRemove(Bee bee1, IEnumerable<Bee> bees)
-                {
-                    foreach (var bee2 in bees)
-                    {
-                        if (bee1 == bee2) continue;
-                        var better = await Task.Run(() =>
-                        {
-                            return ParetoBetter(bee1, bee2, target);
-                        });
-                        if (better != null)
-                        {
-                            var worse = better == bee1 ? bee2 : bee1;
-                            removed.Add(worse);
-                        }
-                    }
-                }
-
                 var bee1 = toCheck[i];
-                //var beesToCompare = toCheck.Skip(i + 1).ToList();
-
-                //await foreach (var bee in GetToRemove(bee1, beesToCompare))
-                //{
-                //    toCheck.Remove(bee);
-                //}
 
                 await Task.Run(async () =>
                 {
@@ -167,7 +114,7 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Pareto
             BreedingTarget target = null)
         {
             var toCheck = bees.ToList();
-            var optimal = ParetoOptimal(toCheck.Select(x => x.Bee), target);
+            var optimal = await Task.Run(() =>  ParetoOptimal(toCheck.Select(x => x.Bee), target));
             return toCheck.Where(x => optimal.Contains(x.Bee)).ToList();
         }
     }

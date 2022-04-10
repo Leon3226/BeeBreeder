@@ -1,6 +1,3 @@
-using System;
-using System.Text.RegularExpressions;
-
 namespace BeeBreeder.Common.Model.Genetics
 {
     public class Chromosome<T> : IChromosome<T> where T : struct

@@ -14,9 +14,9 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Chance
 
     public interface IChromosomeCrossChance<T> : IChromosomeCrossChance where T : struct 
     {
-        Chromosome<T> First { get; set; }
-        Chromosome<T> Second { get; set; }
+        new Chromosome<T> First { get; set; }
+        new Chromosome<T> Second { get; set; }
         IReadOnlyCollection<(Chromosome<T>, double)> Mutations { get; }
-        IReadOnlyCollection<Chance<Chromosome<T>>> Chances { get; }
+        new IReadOnlyCollection<Chance<Chromosome<T>>> Chances { get; }
     }
 }

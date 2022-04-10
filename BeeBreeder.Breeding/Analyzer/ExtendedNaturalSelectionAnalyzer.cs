@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BeeBreeder.Breeding.ProbabilityUtils.Model.Strategy;
 using BeeBreeder.Breeding.Targeter;
 using BeeBreeder.Common;
 using BeeBreeder.Common.Data;

@@ -1,11 +1,8 @@
 ﻿using BeeBreeder.Common;
 using BeeBreeder.Common.Model.Bees;
 using BeeBreeder.Common.Model.Extensions;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BeeBreeder.Breeding.Analyzer
 {

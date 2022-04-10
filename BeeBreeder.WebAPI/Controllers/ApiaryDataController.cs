@@ -5,8 +5,6 @@ using BeeBreeder.Breeding.Positioning;
 using BeeBreeder.Breeding.Simulator;
 using BeeBreeder.Common.Model.Bees;
 using BeeBreeder.Common.Model.Genetics.Phenotype;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 

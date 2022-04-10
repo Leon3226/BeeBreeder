@@ -1,13 +1,11 @@
-using System;
-
 namespace BeeBreeder.Common.Model.Genetics
 {
     public interface IChromosome<T> : IChromosome  where T: struct
     {
-        IGene<T> Primary { get; set; }
-        IGene<T> Secondary { get; set; }
-        bool Clean { get; }
-        T ResultantAttribute { get; }
+        new IGene<T> Primary { get; set; }
+        new IGene<T> Secondary { get; set; }
+        new bool Clean { get; }
+        new T ResultantAttribute { get; }
 
     }
     

@@ -1,20 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using Autofac;
 using BeeBreeder.Breeding;
 using BeeBreeder.Breeding.Generation;
-using BeeBreeder.Breeding.ProbabilityUtils.Model;
-using BeeBreeder.Breeding.ProbabilityUtils.Model.Chance;
-using BeeBreeder.Breeding.ProbabilityUtils.Model.Worth;
-using BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Comparators;
-using BeeBreeder.Breeding.ProbabilityUtils.Model.Worth.Pareto;
 using BeeBreeder.Breeding.Simulator;
 using BeeBreeder.Common.Model.Bees;
-using BeeBreeder.Common.Model.Data;
 using BeeBreeder.Common.Model.Genetics;
 using BeeBreeder.Common.Model.Genetics.Phenotype;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,8 +21,13 @@ namespace BeeBreeder
             var generator = servideProvider.GetService<BeeGenerator>();
             var sim = servideProvider.GetService<IBreedingSimulator>();
 
-            var forestFlyer = new BeeStack(generator.Generate(Species.Forest), 1);
-            forestFlyer.Bee[StatNames.Flyer] = new Chromosome<int>(1, StatNames.Flyer);
+            var forestFlyer = new BeeStack(generator.Generate(Species.Forest), 1)
+            {
+                Bee =
+                {
+                    [StatNames.Flyer] = new Chromosome<int>(1, StatNames.Flyer)
+                }
+            };
             sim.Pool = new BeePool
             {
                 Bees = new List<BeeStack>

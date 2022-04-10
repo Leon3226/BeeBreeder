@@ -13,11 +13,11 @@ namespace BeeBreeder.WebAPI.Mapping
     public static class BeeMapping
     {
         private static Dictionary<string, string> _statNames;
-        private static Dictionary<string, int> _areaMapping;
-        private static Dictionary<float, int> _speedMapping;
-        private static Dictionary<int, int> _lifespanMapping;
-        private static Dictionary<int, int> _pollinationMapping;
-        private static Dictionary<string, Adaptation> _adaptationMapping;
+        private static readonly Dictionary<string, int> AreaMapping;
+        private static readonly Dictionary<float, int> SpeedMapping;
+        private static readonly Dictionary<int, int> LifespanMapping;
+        private static readonly Dictionary<int, int> PollinationMapping;
+        private static readonly Dictionary<string, Adaptation> AdaptationMapping;
 
         static BeeMapping()
         {
@@ -37,7 +37,7 @@ namespace BeeBreeder.WebAPI.Mapping
                 {"NeverSleeps", StatNames.Nocturnal}
             };
 
-            _speedMapping = new Dictionary<float, int>()
+            SpeedMapping = new Dictionary<float, int>()
             {
                 {0.3f, 1},
                 {0.6f, 2},
@@ -48,7 +48,7 @@ namespace BeeBreeder.WebAPI.Mapping
                 {1.7f, 7}
             };
             
-            _lifespanMapping = new Dictionary<int, int>()
+            LifespanMapping = new Dictionary<int, int>()
             {
                 {10, 1},
                 {20, 2},
@@ -61,7 +61,7 @@ namespace BeeBreeder.WebAPI.Mapping
                 {70, 9}
             };
             
-            _pollinationMapping = new Dictionary<int, int>()
+            PollinationMapping = new Dictionary<int, int>()
             {
                 {5, 1},
                 {10, 2},
@@ -72,7 +72,7 @@ namespace BeeBreeder.WebAPI.Mapping
                 {35, 7}
             };
             
-            _adaptationMapping = new Dictionary<string, Adaptation>()
+            AdaptationMapping = new Dictionary<string, Adaptation>()
             {
                 {"None", new Adaptation(0, 0)},
                 {"Up 1", new Adaptation(1, 0)},
@@ -83,7 +83,7 @@ namespace BeeBreeder.WebAPI.Mapping
                 {"Both 2", new Adaptation(2, 2)}
             };
             
-            _areaMapping = new Dictionary<string, int>()
+            AreaMapping = new Dictionary<string, int>()
             {
                 {"Vec3i{x=9, y=6, z=9}", 1},
                 {"Vec3i{x=11, y=8, z=11}", 2},
@@ -98,9 +98,11 @@ namespace BeeBreeder.WebAPI.Mapping
             
         public static BeeStack ToModelBee(this GameBeeModel raw)
         {
-            var bee = new Bee();
-            bee.Generation = raw.Individual.Generation;
-            bee.Gender = raw.Name.Contains("drone")  ? Gender.Drone : Gender.Princess;
+            var bee = new Bee
+            {
+                Generation = raw.Individual.Generation,
+                Gender = raw.Name.Contains("drone")  ? Gender.Drone : Gender.Princess
+            };
             var rawPrimary = raw.Individual.Active;
             var rawSecondary = raw.Individual.Inactive;
             Enum.TryParse(rawPrimary.Species, out Species speciePrimary);
@@ -120,29 +122,29 @@ namespace BeeBreeder.WebAPI.Mapping
             var speedChromosome = new Chromosome<int>()
             {
                 Property = StatNames.Speed,
-                Primary = new Gene<int>() {Value = _speedMapping[_speedMapping.Keys.First(x => Math.Abs(x - rawPrimary.Speed) < 0.001)]},
-                Secondary = new Gene<int>() {Value = _speedMapping[_speedMapping.Keys.First(x => Math.Abs(x - rawSecondary.Speed) < 0.001)]}
+                Primary = new Gene<int>() {Value = SpeedMapping[SpeedMapping.Keys.First(x => Math.Abs(x - rawPrimary.Speed) < 0.001)]},
+                Secondary = new Gene<int>() {Value = SpeedMapping[SpeedMapping.Keys.First(x => Math.Abs(x - rawSecondary.Speed) < 0.001)]}
             };
             
             var pollinationChromosome = new Chromosome<int>()
             {
                 Property = StatNames.Pollination,
-                Primary = new Gene<int>() {Value = _pollinationMapping[rawPrimary.Flowering]},
-                Secondary = new Gene<int>() {Value = _pollinationMapping[rawSecondary.Flowering]}
+                Primary = new Gene<int>() {Value = PollinationMapping[rawPrimary.Flowering]},
+                Secondary = new Gene<int>() {Value = PollinationMapping[rawSecondary.Flowering]}
             };
             
             var areaChromosome = new Chromosome<int>()
             {
                 Property = StatNames.Area,
-                Primary = new Gene<int>() {Value = _areaMapping[rawPrimary.Territory]},
-                Secondary = new Gene<int>() {Value = _areaMapping[rawSecondary.Territory]}
+                Primary = new Gene<int>() {Value = AreaMapping[rawPrimary.Territory]},
+                Secondary = new Gene<int>() {Value = AreaMapping[rawSecondary.Territory]}
             };
             
             var lifespanChromosome = new Chromosome<int>()
             {
                 Property = StatNames.Lifespan,
-                Primary = new Gene<int>() {Value = _lifespanMapping[rawPrimary.Lifespan]},
-                Secondary = new Gene<int>() {Value = _lifespanMapping[rawSecondary.Lifespan]}
+                Primary = new Gene<int>() {Value = LifespanMapping[rawPrimary.Lifespan]},
+                Secondary = new Gene<int>() {Value = LifespanMapping[rawSecondary.Lifespan]}
             };
             
             var caveChromosome = new Chromosome<int>()
@@ -197,15 +199,15 @@ namespace BeeBreeder.WebAPI.Mapping
             var humidityChromosome = new Chromosome<Adaptation>()
             {
                 Property = StatNames.HumidTolerance,
-                Primary = new Gene<Adaptation>() {Value = _adaptationMapping[rawPrimary.HumidityTolerance]},
-                Secondary = new Gene<Adaptation>() {Value = _adaptationMapping[rawSecondary.HumidityTolerance]}
+                Primary = new Gene<Adaptation>() {Value = AdaptationMapping[rawPrimary.HumidityTolerance]},
+                Secondary = new Gene<Adaptation>() {Value = AdaptationMapping[rawSecondary.HumidityTolerance]}
             };
             
             var temperatureChromosome = new Chromosome<Adaptation>()
             {
                 Property = StatNames.TempTolerance,
-                Primary = new Gene<Adaptation>() {Value = _adaptationMapping[rawPrimary.TemperatureTolerance]},
-                Secondary = new Gene<Adaptation>() {Value = _adaptationMapping[rawSecondary.TemperatureTolerance]}
+                Primary = new Gene<Adaptation>() {Value = AdaptationMapping[rawPrimary.TemperatureTolerance]},
+                Secondary = new Gene<Adaptation>() {Value = AdaptationMapping[rawSecondary.TemperatureTolerance]}
             };
             
             

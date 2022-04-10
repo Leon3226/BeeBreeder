@@ -1,5 +1,3 @@
-using System;
-
 namespace BeeBreeder.Common.Model.Bees
 {
     public class BeeStack

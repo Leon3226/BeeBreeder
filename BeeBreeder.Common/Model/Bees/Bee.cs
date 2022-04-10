@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using BeeBreeder.Common.Model.Environment;
 using BeeBreeder.Common.Model.Genetics;
 using BeeBreeder.Common.Model.Genetics.Phenotype;
 using StatNames = BeeBreeder.Common.Data.Constants.StatNames;

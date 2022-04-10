@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BeeBreeder.Breeding.Analyzer;
+﻿using BeeBreeder.Breeding.Analyzer;
 using BeeBreeder.Breeding.Crossing;
 using BeeBreeder.Breeding.EnvironmentMatching;
 using BeeBreeder.Breeding.Flusher;
@@ -24,7 +19,7 @@ namespace BeeBreeder.Breeding
         {
             services.AddScoped<IBreedAnalyzer, ExtendedNaturalSelectionAnalyzer>();
             services.AddScoped<IBreedFlusher, ExtendedNaturalSelectionFlusher>();
-            services.AddScoped<MutationTree>(s => MutationTree.FromSpecieCombinations(s.GetRequiredService<ISpecieCombinationsRepository>().SpecieCombinations));
+            services.AddScoped(s => MutationTree.FromSpecieCombinations(s.GetRequiredService<ISpecieCombinationsRepository>().SpecieCombinations));
             services.AddScoped<IStrategyUtils, StrategyUtils>();
             services.AddScoped<IBreedingSimulator, BreedingSimulator>();
             services.AddScoped<ISpecieTargeter, BestGenesTargeter>();

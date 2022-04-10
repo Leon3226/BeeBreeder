@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BeeBreeder.Common.Data.Model;
 using BeeBreeder.Common.Model.Environment;
 using BeeBreeder.Common.Model.Genetics;
@@ -18,11 +16,11 @@ namespace BeeBreeder.Common.Data
         ISpecieClimateRepository,
         IBiomeClimateRepository
     {
-        public List<SpecieCombination> SpecieCombinations { get; private set; } = new();
+        public List<SpecieCombination> SpecieCombinations { get; } = new();
         public Dictionary<string, Type> StatTypes { get; private set; } = new();
-        public Dictionary<Biome, Climate> BiomeClimates { get; private set; } = new();
-        public Dictionary<Species, Climate> SpecieClimates { get; private set; } = new();
-        public Dictionary<Species, BeeInitialStats> SpecieStats { get; private set; } = new();
+        public Dictionary<Biome, Climate> BiomeClimates { get; } = new();
+        public Dictionary<Species, Climate> SpecieClimates { get; } = new();
+        public Dictionary<Species, BeeInitialStats> SpecieStats { get; } = new();
         public Dictionary<Species, int> DefaultSpeciePriorities { get; private set; } = new();
         public Dictionary<Flowers, int> DefaultFlowersPriorities { get; private set; } = new();
         public Dictionary<Effect, int> DefaultEffectPriorities { get; private set; } = new();

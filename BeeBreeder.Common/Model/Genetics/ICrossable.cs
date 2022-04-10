@@ -1,5 +1,3 @@
-using System;
-
 namespace BeeBreeder.Common.Model.Genetics
 {
     public interface ICrossable

@@ -15,6 +15,6 @@ namespace BeeBreeder.Common.Model.Genetics
     
     public interface IGene<out T> : IGene where T : struct
     {
-        T Value { get; }
+        new T Value { get; }
     }
 }

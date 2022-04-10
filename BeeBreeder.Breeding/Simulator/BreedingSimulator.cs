@@ -1,10 +1,6 @@
 ﻿using BeeBreeder.Breeding.Analyzer;
 using BeeBreeder.Common.Model.Bees;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BeeBreeder.Breeding.Crossing;
 using BeeBreeder.Breeding.Flusher;
 

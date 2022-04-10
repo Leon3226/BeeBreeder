@@ -1,8 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using BeeBreeder.Common.Data;
 using BeeBreeder.Common.Data.Model;
 using BeeBreeder.Common.Model.Genetics.Phenotype;
 

@@ -1,4 +1,5 @@
-﻿namespace BeeBreeder.WebAPI.Model.Auth
+﻿#nullable enable
+namespace BeeBreeder.WebAPI.Model.Auth
 {
     public class Response
     {
