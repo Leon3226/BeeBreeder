@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using BeeBreeder.Breeding.Generation;
 using BeeBreeder.Breeding.Positioning;
@@ -45,9 +46,16 @@ namespace BeeBreeder.WebAPI.Controllers
                     new(_beeGenerator.Generate(Species.Tropical, Gender.Princess),  1)
                 }
             };
+
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
                 
             _simulator.Pool = pool;
-            await Task.Run(() => _simulator.Breed(3000));
+            var breeds = 3000;
+            await Task.Run(() => _simulator.Breed(breeds));
+
+            sw.Stop();
+            _logger.Log(LogLevel.Debug, $"Breeded {breeds} breeds in {sw.Elapsed}");
 
             return pool;
         }

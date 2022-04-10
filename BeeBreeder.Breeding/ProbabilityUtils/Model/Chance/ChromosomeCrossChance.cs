@@ -33,7 +33,7 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Chance
             }
         }
 
-        private List<(Chromosome<T>, double)> _mutations = new();
+        private List<(Chromosome<T>, double)> _mutations;
 
         private double SumChance
         {

@@ -70,11 +70,6 @@ namespace BeeBreeder.Breeding.ProbabilityUtils.Model.Worth
             return IntComparers[property].Invoke(val1, val2);
         }
 
-        private static Comparison CompareInt(IGene gene1, IGene gene2, string property, BreedingTarget target = null)
-        {
-            return IntComparers[property].Invoke(((Gene<int>) gene1).Value, ((Gene<int>) gene2).Value);
-        }
-
         private static int ConvertSpecie(IGene gene, BreedingTarget target = null)
         {
             if (target == null || !target.PrioritizeSpecies || target.SpeciePriorities == null)

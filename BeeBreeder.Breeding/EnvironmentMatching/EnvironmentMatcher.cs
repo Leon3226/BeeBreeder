@@ -27,9 +27,6 @@ namespace BeeBreeder.Breeding.EnvironmentMatching
 
             var humidityTolerance = (Adaptation)bee.Genotype[Constants.StatNames.HumidTolerance].ResultantAttribute;
             var temperatureTolerance = (Adaptation)bee.Genotype[Constants.StatNames.TempTolerance].ResultantAttribute;
-             
-            var temps = Enum.GetValues(typeof(Temperature)).Cast<Temperature>();
-            var hums = Enum.GetValues(typeof(Humidity)).Cast<Humidity>();
 
             var temperatures = Enum.GetValues(typeof(Temperature)).Cast<Temperature>().Where(x =>
                 (int)x >= (int)specieClimate.Temperature - temperatureTolerance.Down &&

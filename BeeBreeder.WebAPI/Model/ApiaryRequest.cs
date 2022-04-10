@@ -12,8 +12,9 @@ namespace BeeBreeder.WebAPI.Model
         {
             var request = new ApiaryRequest();
             var bees = json["list"].Children();
-            foreach (JProperty bee in bees)
+            foreach (var jToken in bees)
             {
+                var bee = (JProperty) jToken;
                 var modelBee = bee.Value.ToObject<PlacedBee>();
                 request.List.Add(modelBee);
             }
