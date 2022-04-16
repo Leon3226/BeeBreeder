@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeeBreeder.Tests", "BeeBree
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeeBreeder.WebAPI", "BeeBreeder.WebAPI\BeeBreeder.WebAPI.csproj", "{A747A407-2609-468E-BF1A-F5B0F2C5D916}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeeBreeder.Data", "BeeBreeder.Data\BeeBreeder.Data.csproj", "{21C51E98-23F1-4A3F-94A4-40E1EE4E8632}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeeBreeder.Data", "BeeBreeder.Data\BeeBreeder.Data.csproj", "{21C51E98-23F1-4A3F-94A4-40E1EE4E8632}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeeBreeder.StatsCrawler", "BeeBreeder.StatsCrawler\BeeBreeder.StatsCrawler.csproj", "{2087F392-6990-41F8-82FC-9EB20F8B4B76}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{21C51E98-23F1-4A3F-94A4-40E1EE4E8632}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21C51E98-23F1-4A3F-94A4-40E1EE4E8632}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21C51E98-23F1-4A3F-94A4-40E1EE4E8632}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2087F392-6990-41F8-82FC-9EB20F8B4B76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2087F392-6990-41F8-82FC-9EB20F8B4B76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2087F392-6990-41F8-82FC-9EB20F8B4B76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2087F392-6990-41F8-82FC-9EB20F8B4B76}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

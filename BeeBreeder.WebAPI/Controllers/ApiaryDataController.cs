@@ -29,7 +29,7 @@ namespace BeeBreeder.WebAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<BeePool> AvaliableBeesAsync()
+        public async Task<BeePool> AvaliableBeesAsync(int iterations = 1000)
         {
             var pool = new BeePool
             {
@@ -51,11 +51,10 @@ namespace BeeBreeder.WebAPI.Controllers
             sw.Start();
                 
             _simulator.Pool = pool;
-            var breeds = 3000;
-            await Task.Run(() => _simulator.Breed(breeds));
+            await Task.Run(() => _simulator.Breed(iterations));
 
             sw.Stop();
-            _logger.Log(LogLevel.Debug, $"Breeded {breeds} breeds in {sw.Elapsed}");
+            _logger.Log(LogLevel.Debug, $"Breeded {iterations} breeds in {sw.Elapsed}");
 
             return pool;
         }

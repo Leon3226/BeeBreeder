@@ -1,444 +1,456 @@
-﻿++Решение "BeeBreeder" ‎(проекты: 6 из 6)
+﻿++Solution 'BeeBreeder' ‎(7 of 7 projects)
 i:{00000000-0000-0000-0000-000000000000}:BeeBreeder.sln
-++BeeBreeder.Common
-i:{00000000-0000-0000-0000-000000000000}:BeeBreeder.Common
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\beebreeder.common.csproj
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\beebreeder.common.csproj
-i:{5ecce8fb-04c5-4dba-8a8e-1a0b999beb46}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\beebreeder.common.csproj
-i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\beebreeder.common.csproj
-++Зависимости
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:>1068
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:>684
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:>1252
-i:{5ecce8fb-04c5-4dba-8a8e-1a0b999beb46}:>1069
-i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:>1070
-i:{21c51e98-23f1-4a3f-94a4-40e1ee4e8632}:>488
-++Data
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\data\
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\model\data\
-++Model
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\data\model\
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\model\
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.webapi\model\
-++BeeInitialStats.cs
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\data\model\beeinitialstats.cs
-++SpecieCombination.cs
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\data\model\speciecombination.cs
-++BeeGeneticDatabase.cs
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\data\beegeneticdatabase.cs
-++IBiomeInfoRepository.cs
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\data\ibiomeinforepository.cs
-++IGeneDominanceRepository.cs
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\data\igenedominancerepository.cs
-++ISpecieCombinationsRepository.cs
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\data\ispeciecombinationsrepository.cs
-++ISpecieStatsRepository.cs
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\data\ispeciestatsrepository.cs
-++StubBeeDataRepository.cs
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\data\stubbeedatarepository.cs
-++Bees
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\model\bees\
-++Bee.cs
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\model\bees\bee.cs
-++BeePool.cs
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\model\bees\beepool.cs
-++BeeStack.cs
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\model\bees\beestack.cs
-++Gender.cs
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\model\bees\gender.cs
-++IGenetical.cs
-++Slot.cs
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\model\bees\slot.cs
-++MutationLink.cs
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\model\data\mutationlink.cs
-++MutationNode.cs
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\model\data\mutationnode.cs
-++MutationTree.cs
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\model\data\mutationtree.cs
-++Environment
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\model\environment\
-++Biome.cs
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\model\environment\biome.cs
-++BiomeData.cs
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\model\environment\biomedata.cs
-++Humidity.cs
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\model\environment\humidity.cs
-++Temperature.cs
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\model\environment\temperature.cs
-++Extensions
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\model\extensions\
-++BeeStackExtensions.cs
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\model\extensions\beestackextensions.cs
-++Genetics
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\model\genetics\
-i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:c:\users\кристина\source\repos\beebreeder\beebreeder.tests\genetics\
-++Phenotype
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\model\genetics\phenotype\
-++Adaptation.cs
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\model\genetics\phenotype\adaptation.cs
-++Effect.cs
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\model\genetics\phenotype\effect.cs
-++Flowers.cs
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\model\genetics\phenotype\flowers.cs
-++Species.cs
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\model\genetics\phenotype\species.cs
-++Chromosome.cs
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\model\genetics\chromosome.cs
-++ChromosomeDictionary.cs
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\model\genetics\chromosomedictionary.cs
-++Gene.cs
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\model\genetics\gene.cs
-++GeneHelper.cs
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\model\genetics\genehelper.cs
-++Genotype.cs
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\model\genetics\genotype.cs
-++IChromosome.cs
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\model\genetics\ichromosome.cs
-++ICrossable.cs
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\model\genetics\icrossable.cs
-++IGene.cs
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\model\genetics\igene.cs
-++SpecieChromosome.cs
-++Positioning
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\model\positioning\
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\positioning\
-++RandomGenerator.cs
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\randomgenerator.cs
-++Анализаторы
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:анализаторы
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:анализаторы
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:анализаторы
-i:{5ecce8fb-04c5-4dba-8a8e-1a0b999beb46}:анализаторы
-i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:анализаторы
-i:{21c51e98-23f1-4a3f-94a4-40e1ee4e8632}:анализаторы
-++Пакеты
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:пакеты
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:пакеты
-i:{5ecce8fb-04c5-4dba-8a8e-1a0b999beb46}:пакеты
-i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:пакеты
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:пакеты
-++Платформы
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:платформы
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:платформы
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:платформы
-i:{5ecce8fb-04c5-4dba-8a8e-1a0b999beb46}:платформы
-i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:платформы
-i:{21c51e98-23f1-4a3f-94a4-40e1ee4e8632}:платформы
-++ApiaryPosition.cs
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\model\positioning\apiaryposition.cs
-++TransposerBiome.cs
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\model\positioning\transposerbiome.cs
+++BeeBreeder.StatsCrawler
+i:{00000000-0000-0000-0000-000000000000}:BeeBreeder.StatsCrawler
+++Dependencies
+i:{2087f392-6990-41f8-82fc-9eb20f8b4b76}:>2100
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:>1932
+i:{5ecce8fb-04c5-4dba-8a8e-1a0b999beb46}:>1666
+i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:>1667
+i:{21c51e98-23f1-4a3f-94a4-40e1ee4e8632}:>844
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:>889
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:>845
+++BeeParsingData.cs
+i:{2087f392-6990-41f8-82fc-9eb20f8b4b76}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.statscrawler\beeparsingdata.cs
+++Mutation.cs
+i:{2087f392-6990-41f8-82fc-9eb20f8b4b76}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.statscrawler\mutation.cs
+++Parser.cs
+i:{2087f392-6990-41f8-82fc-9eb20f8b4b76}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.statscrawler\parser.cs
+++ProductChance.cs
+i:{2087f392-6990-41f8-82fc-9eb20f8b4b76}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.statscrawler\productchance.cs
+++Program.cs
+i:{2087f392-6990-41f8-82fc-9eb20f8b4b76}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.statscrawler\program.cs
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.webapi\program.cs
+i:{5ecce8fb-04c5-4dba-8a8e-1a0b999beb46}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder\program.cs
+++Analyzers
+i:{2087f392-6990-41f8-82fc-9eb20f8b4b76}:analyzers
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:analyzers
+i:{5ecce8fb-04c5-4dba-8a8e-1a0b999beb46}:analyzers
+i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:analyzers
+i:{21c51e98-23f1-4a3f-94a4-40e1ee4e8632}:analyzers
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:analyzers
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:analyzers
+++Frameworks
+i:{2087f392-6990-41f8-82fc-9eb20f8b4b76}:frameworks
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:frameworks
+i:{5ecce8fb-04c5-4dba-8a8e-1a0b999beb46}:frameworks
+i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:frameworks
+i:{21c51e98-23f1-4a3f-94a4-40e1ee4e8632}:frameworks
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:frameworks
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:frameworks
+++Packages
+i:{2087f392-6990-41f8-82fc-9eb20f8b4b76}:packages
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:packages
+i:{5ecce8fb-04c5-4dba-8a8e-1a0b999beb46}:packages
+i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:packages
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:packages
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:packages
 ++Microsoft.CodeAnalysis.CSharp.NetAnalyzers
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
-i:{5ecce8fb-04c5-4dba-8a8e-1a0b999beb46}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
-i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
-i:{21c51e98-23f1-4a3f-94a4-40e1ee4e8632}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{2087f392-6990-41f8-82fc-9eb20f8b4b76}:c:\program files\dotnet\sdk\6.0.200\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\program files\dotnet\sdk\6.0.200\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{5ecce8fb-04c5-4dba-8a8e-1a0b999beb46}:c:\program files\dotnet\sdk\6.0.200\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:c:\program files\dotnet\sdk\6.0.200\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{21c51e98-23f1-4a3f-94a4-40e1ee4e8632}:c:\program files\dotnet\sdk\6.0.200\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\program files\dotnet\sdk\6.0.200\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\program files\dotnet\sdk\6.0.200\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
 ++Microsoft.CodeAnalysis.NetAnalyzers
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
-i:{5ecce8fb-04c5-4dba-8a8e-1a0b999beb46}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
-i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
-i:{21c51e98-23f1-4a3f-94a4-40e1ee4e8632}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{2087f392-6990-41f8-82fc-9eb20f8b4b76}:c:\program files\dotnet\sdk\6.0.200\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\program files\dotnet\sdk\6.0.200\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{5ecce8fb-04c5-4dba-8a8e-1a0b999beb46}:c:\program files\dotnet\sdk\6.0.200\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:c:\program files\dotnet\sdk\6.0.200\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{21c51e98-23f1-4a3f-94a4-40e1ee4e8632}:c:\program files\dotnet\sdk\6.0.200\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\program files\dotnet\sdk\6.0.200\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\program files\dotnet\sdk\6.0.200\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
 ++System.Text.Json.SourceGeneration
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
-i:{5ecce8fb-04c5-4dba-8a8e-1a0b999beb46}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
-i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
-i:{21c51e98-23f1-4a3f-94a4-40e1ee4e8632}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.0\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
-++Newtonsoft.Json (13.0.1)
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:>1296
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:>1311
+i:{2087f392-6990-41f8-82fc-9eb20f8b4b76}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.2\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.2\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+i:{5ecce8fb-04c5-4dba-8a8e-1a0b999beb46}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.2\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.2\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+i:{21c51e98-23f1-4a3f-94a4-40e1ee4e8632}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.2\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.2\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.2\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
 ++Microsoft.NETCore.App
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\microsoft.netcore.app
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\microsoft.netcore.app
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.webapi\microsoft.netcore.app
-i:{5ecce8fb-04c5-4dba-8a8e-1a0b999beb46}:c:\users\кристина\source\repos\beebreeder\beebreeder\microsoft.netcore.app
-i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:c:\users\кристина\source\repos\beebreeder\beebreeder.tests\microsoft.netcore.app
-i:{21c51e98-23f1-4a3f-94a4-40e1ee4e8632}:c:\users\кристина\source\repos\beebreeder\beebreeder.data\microsoft.netcore.app
-++BeeBreeder.Breeding
-i:{00000000-0000-0000-0000-000000000000}:BeeBreeder.Breeding
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\beebreeder.breeding.csproj
-i:{5ecce8fb-04c5-4dba-8a8e-1a0b999beb46}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\beebreeder.breeding.csproj
-i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\beebreeder.breeding.csproj
-++Analyzer
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\analyzer\
-++ExtendedNaturalSelectionAnalyzer.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\analyzer\extendednaturalselectionanalyzer.cs
-++IBreedAnalyzer.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\analyzer\ibreedanalyzer.cs
-++NaturalSelectionAnalyzer.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\analyzer\naturalselectionanalyzer.cs
-++Crossing
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\crossing\
-++BeeCrosser.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\crossing\beecrosser.cs
-++IBeeCrosser.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\crossing\ibeecrosser.cs
-++Flusher
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\flusher\
-++Generation
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\generation\
-++BeeGenerator.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\generation\beegenerator.cs
-++IPositionsController.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\positioning\ipositionscontroller.cs
-++PositionsController.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\positioning\positionscontroller.cs
-++ProbabilityUtils
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\probabilityutils\
-++Chance
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\chance\
-++Strategy
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\strategy\
-++Worth
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\worth\
-++Comparators
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\worth\comparators\
-++Functions
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\worth\comparators\functions\
-++GenomeComparator.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\worth\comparators\genomecomparator.cs
-++IGenomeComparator.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\worth\comparators\igenomecomparator.cs
-++IGenomeEvaluator.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\worth\comparators\igenomeevaluator.cs
-++SumGenomeEvaluator.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\worth\comparators\sumgenomeevaluator.cs
-++Pareto
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\worth\pareto\
-++ChromosomeComparsionExtensions.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\worth\pareto\chromosomecomparsionextensions.cs
-++ParetoExtensions.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\worth\pareto\paretoextensions.cs
-++Value
-++BreedingTarget.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\worth\breedingtarget.cs
-++Comparison.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\worth\comparison.cs
-++GeneComparisonExtensions.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\worth\genecomparisonextensions.cs
-++Simulator
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\simulator\
-++Targeter
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\targeter\
-++Проекты
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:проекты
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:проекты
-i:{5ecce8fb-04c5-4dba-8a8e-1a0b999beb46}:проекты
-i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:проекты
-++ExtendedNaturalSelectionFlusher.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\flusher\extendednaturalselectionflusher.cs
-++IBreedFlusher.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\flusher\ibreedflusher.cs
-++NaturalSelectionFlusher.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\flusher\naturalselectionflusher.cs
-++BeeChangeChanceModel.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\chance\beechangechancemodel.cs
-++BeeChangeComparison.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\chance\beechangecomparison.cs
-++BeeCrossChance.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\chance\beecrosschance.cs
-++Chance.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\chance\chance.cs
-++ChangeChance.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\chance\changechance.cs
-++ChromosomeCrossChance.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\chance\chromosomecrosschance.cs
-++ChromosomeCrossChanceHelper.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\chance\chromosomecrosschancehelper.cs
-++IChromosomeCrossChance.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\chance\ichromosomecrosschance.cs
-++IStrategyUtils.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\strategy\istrategyutils.cs
-++StrategyResult.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\strategy\strategyresult.cs
-++StrategyUtils.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\strategy\strategyutils.cs
-++IFunction.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\worth\comparators\functions\ifunction.cs
-++LinearFunction.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\worth\comparators\functions\linearfunction.cs
-++QuadraticFunction.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\worth\comparators\functions\quadraticfunction.cs
-++INumericConverter.cs
-++NumericConverter.cs
-++BreedingSimulator.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\simulator\breedingsimulator.cs
-++IBreedingSimulator.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\simulator\ibreedingsimulator.cs
-++BestGenesTargeter.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\targeter\bestgenestargeter.cs
-++ISpecieTargeter.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\targeter\ispecietargeter.cs
+i:{2087f392-6990-41f8-82fc-9eb20f8b4b76}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.statscrawler\microsoft.netcore.app
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.webapi\microsoft.netcore.app
+i:{5ecce8fb-04c5-4dba-8a8e-1a0b999beb46}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder\microsoft.netcore.app
+i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.tests\microsoft.netcore.app
+i:{21c51e98-23f1-4a3f-94a4-40e1ee4e8632}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.data\microsoft.netcore.app
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\microsoft.netcore.app
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\microsoft.netcore.app
+++HtmlAgilityPack (1.11.42)
+i:{2087f392-6990-41f8-82fc-9eb20f8b4b76}:>2153
 ++BeeBreeder.WebAPI
 i:{00000000-0000-0000-0000-000000000000}:BeeBreeder.WebAPI
 ++Connected Services 
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:>1253
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:>1933
 ++Properties
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.webapi\properties\
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.webapi\properties\
 ++Controllers
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.webapi\controllers\
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.webapi\controllers\
 ++Mapping
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.webapi\mapping\
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.webapi\mapping\
 ++Migrations
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.webapi\migrations\
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.webapi\migrations\
+++Model
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.webapi\model\
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\model\
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\data\model\
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\
 ++Serializing
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.webapi\serializing\
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.webapi\serializing\
 ++Utils
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.webapi\utils\
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.webapi\utils\
 ++appsettings.json
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.webapi\appsettings.json
-++Program.cs
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.webapi\program.cs
-i:{5ecce8fb-04c5-4dba-8a8e-1a0b999beb46}:c:\users\кристина\source\repos\beebreeder\beebreeder\program.cs
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.webapi\appsettings.json
 ++Startup.cs
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.webapi\startup.cs
-++Зависимости службы не обнаружены
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:>1254
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.webapi\startup.cs
+++No service dependencies discovered
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:>1934
+++Projects
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:projects
+i:{5ecce8fb-04c5-4dba-8a8e-1a0b999beb46}:projects
+i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:projects
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:projects
 ++launchSettings.json
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.webapi\properties\launchsettings.json
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.webapi\properties\launchsettings.json
 ++ApiaryDataController.cs
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.webapi\controllers\apiarydatacontroller.cs
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.webapi\controllers\apiarydatacontroller.cs
 ++AuthenticateController.cs
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.webapi\controllers\authenticatecontroller.cs
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.webapi\controllers\authenticatecontroller.cs
 ++BreederController.cs
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.webapi\controllers\breedercontroller.cs
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.webapi\controllers\breedercontroller.cs
 ++ApiaryRequestExtensions.cs
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.webapi\mapping\apiaryrequestextensions.cs
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.webapi\mapping\apiaryrequestextensions.cs
 ++BeeMapping.cs
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.webapi\mapping\beemapping.cs
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.webapi\mapping\beemapping.cs
 ++ResponseExtensions.cs
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.webapi\mapping\responseextensions.cs
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.webapi\mapping\responseextensions.cs
 ++20220401134906_Initial.cs
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.webapi\migrations\20220401134906_initial.cs
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.webapi\migrations\20220401134906_initial.cs
 ++ApplicationDbContextModelSnapshot.cs
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.webapi\migrations\applicationdbcontextmodelsnapshot.cs
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.webapi\migrations\applicationdbcontextmodelsnapshot.cs
 ++Auth
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.webapi\model\auth\
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.webapi\model\auth\
 ++ApiaryRequest.cs
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.webapi\model\apiaryrequest.cs
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.webapi\model\apiaryrequest.cs
 ++BreedResponse.cs
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.webapi\model\breedresponse.cs
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.webapi\model\breedresponse.cs
 ++GameBeeIndividual.cs
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.webapi\model\gamebeeindividual.cs
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.webapi\model\gamebeeindividual.cs
 ++GameBeeModel.cs
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.webapi\model\gamebeemodel.cs
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.webapi\model\gamebeemodel.cs
 ++GameGene.cs
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.webapi\model\gamegene.cs
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.webapi\model\gamegene.cs
 ++PlacedBee.cs
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.webapi\model\placedbee.cs
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.webapi\model\placedbee.cs
 ++LuaToJsonConverterExtensions.cs
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.webapi\serializing\luatojsonconverterextensions.cs
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.webapi\serializing\luatojsonconverterextensions.cs
 ++Json
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.webapi\utils\json\
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.webapi\utils\json\
 ++appsettings.Development.json
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.webapi\appsettings.development.json
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.webapi\appsettings.development.json
 ++Microsoft.AspNetCore.Analyzers
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.analyzers.dll
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\program files\dotnet\sdk\6.0.200\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.analyzers.dll
 ++Microsoft.AspNetCore.App.Analyzers
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\program files\dotnet\packs\microsoft.aspnetcore.app.ref\6.0.0\analyzers\dotnet\cs\microsoft.aspnetcore.app.analyzers.dll
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\program files\dotnet\packs\microsoft.aspnetcore.app.ref\6.0.2\analyzers\dotnet\cs\microsoft.aspnetcore.app.analyzers.dll
 ++Microsoft.AspNetCore.App.CodeFixes
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\program files\dotnet\packs\microsoft.aspnetcore.app.ref\6.0.0\analyzers\dotnet\cs\microsoft.aspnetcore.app.codefixes.dll
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\program files\dotnet\packs\microsoft.aspnetcore.app.ref\6.0.2\analyzers\dotnet\cs\microsoft.aspnetcore.app.codefixes.dll
 ++Microsoft.AspNetCore.Components.Analyzers
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.components.analyzers.dll
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\program files\dotnet\sdk\6.0.200\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.components.analyzers.dll
 ++Microsoft.AspNetCore.Mvc.Analyzers
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.mvc.analyzers.dll
-++Microsoft.AspNetCore.Razor.Internal.SourceGenerator.Transport
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk.razor\source-generators\microsoft.aspnetcore.razor.internal.sourcegenerator.transport.dll
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\program files\dotnet\sdk\6.0.200\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.mvc.analyzers.dll
+++Microsoft.AspNetCore.Razor.SourceGenerator.Tooling.Internal
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\program files\dotnet\sdk\6.0.200\sdks\microsoft.net.sdk.razor\source-generators\microsoft.aspnetcore.razor.sourcegenerator.tooling.internal.dll
 ++Microsoft.EntityFrameworkCore.Analyzers
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\.nuget\packages\microsoft.entityframeworkcore.analyzers\6.0.3\analyzers\dotnet\cs\microsoft.entityframeworkcore.analyzers.dll
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\.nuget\packages\microsoft.entityframeworkcore.analyzers\6.0.3\analyzers\dotnet\cs\microsoft.entityframeworkcore.analyzers.dll
 ++Microsoft.Extensions.Logging.Generators
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\program files\dotnet\packs\microsoft.aspnetcore.app.ref\6.0.0\analyzers\dotnet\roslyn4.0\cs\microsoft.extensions.logging.generators.dll
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\program files\dotnet\packs\microsoft.aspnetcore.app.ref\6.0.2\analyzers\dotnet\roslyn4.0\cs\microsoft.extensions.logging.generators.dll
 ++Microsoft.NET.Sdk.Razor.SourceGenerators
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\program files\dotnet\sdk\6.0.100\sdks\microsoft.net.sdk.razor\source-generators\microsoft.net.sdk.razor.sourcegenerators.dll
-++Microsoft.AspNet.Identity.Core (2.2.3)
-++Microsoft.AspNet.WebApi.Core (5.2.7)
-++Microsoft.AspNet.WebApi.WebHost (5.2.7)
-++Microsoft.AspNetCore.Authentication.JwtBearer (6.0.3)
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:>1319
-++Microsoft.AspNetCore.Identity.EntityFrameworkCore (6.0.3)
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:>1316
-++Microsoft.AspNetCore.Mvc.NewtonsoftJson (6.0.3)
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:>1315
-++Microsoft.AspNetCore.Routing (2.2.2)
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:>1307
-++Microsoft.EntityFrameworkCore.SqlServer (6.0.3)
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:>1308
-++Microsoft.EntityFrameworkCore.Tools (6.0.3)
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:>1320
-++Microsoft.Owin.Cors (4.2.0)
-++Microsoft.Owin.Host.SystemWeb (4.2.0)
-++Microsoft.Owin.Security.OAuth (4.2.0)
-++Swashbuckle.AspNetCore (5.6.3)
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:>1310
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\program files\dotnet\sdk\6.0.200\sdks\microsoft.net.sdk.razor\source-generators\microsoft.net.sdk.razor.sourcegenerators.dll
 ++Microsoft.AspNetCore.App
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.webapi\microsoft.aspnetcore.app
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.webapi\microsoft.aspnetcore.app
+++Microsoft.AspNetCore.Authentication.JwtBearer (6.0.3)
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:>2011
+++Microsoft.AspNetCore.Identity.EntityFrameworkCore (6.0.3)
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:>2008
+++Microsoft.AspNetCore.Mvc.NewtonsoftJson (6.0.3)
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:>2007
+++Microsoft.AspNetCore.Routing (2.2.2)
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:>1999
+++Microsoft.EntityFrameworkCore.SqlServer (6.0.3)
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:>2000
+++Microsoft.EntityFrameworkCore.Tools (6.0.3)
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:>2012
+++Newtonsoft.Json (13.0.1)
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:>2003
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:>1981
+++Swashbuckle.AspNetCore (5.6.3)
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:>2002
+++BeeBreeder.Breeding
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\bin\debug\net6.0\beebreeder.breeding.dll
+i:{5ecce8fb-04c5-4dba-8a8e-1a0b999beb46}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\bin\debug\net6.0\beebreeder.breeding.dll
+i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\bin\debug\net6.0\beebreeder.breeding.dll
+i:{00000000-0000-0000-0000-000000000000}:BeeBreeder.Breeding
+++BeeBreeder.Common
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\bin\debug\net6.0\beebreeder.common.dll
+i:{5ecce8fb-04c5-4dba-8a8e-1a0b999beb46}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\bin\debug\net6.0\beebreeder.common.dll
+i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\bin\debug\net6.0\beebreeder.common.dll
+i:{00000000-0000-0000-0000-000000000000}:BeeBreeder.Common
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\bin\debug\net6.0\beebreeder.common.dll
 ++20220401134906_Initial.Designer.cs
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.webapi\migrations\20220401134906_initial.designer.cs
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.webapi\migrations\20220401134906_initial.designer.cs
 ++ApplicationDbContext.cs
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.webapi\model\auth\applicationdbcontext.cs
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.webapi\model\auth\applicationdbcontext.cs
 ++LoginModel.cs
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.webapi\model\auth\loginmodel.cs
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.webapi\model\auth\loginmodel.cs
 ++RegisterModel.cs
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.webapi\model\auth\registermodel.cs
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.webapi\model\auth\registermodel.cs
 ++Response.cs
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.webapi\model\auth\response.cs
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.webapi\model\auth\response.cs
 ++UserRoles.cs
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.webapi\model\auth\userroles.cs
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.webapi\model\auth\userroles.cs
 ++DictionaryConverterFactory.cs
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.webapi\utils\json\dictionaryconverterfactory.cs
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.webapi\utils\json\dictionaryconverterfactory.cs
 ++JsonArrayDictionaryConverter.cs
-i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\кристина\source\repos\beebreeder\beebreeder.webapi\utils\json\jsonarraydictionaryconverter.cs
+i:{a747a407-2609-468e-bf1a-f5b0f2c5d916}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.webapi\utils\json\jsonarraydictionaryconverter.cs
 ++BeeBreeder
 i:{00000000-0000-0000-0000-000000000000}:BeeBreeder
-++DIConfig.cs
 ++Autofac (6.3.0)
-i:{5ecce8fb-04c5-4dba-8a8e-1a0b999beb46}:>1261
+i:{5ecce8fb-04c5-4dba-8a8e-1a0b999beb46}:>1959
+++Microsoft.Extensions.DependencyInjection (6.0.0)
+i:{5ecce8fb-04c5-4dba-8a8e-1a0b999beb46}:>2091
 ++BeeBreeder.Tests
 i:{00000000-0000-0000-0000-000000000000}:BeeBreeder.Tests
 ++Breeding
-i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:c:\users\кристина\source\repos\beebreeder\beebreeder.tests\breeding\
-++Manual
+i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.tests\breeding\
+++Genetics
+i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.tests\genetics\
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\model\genetics\
 ++ClimateTolerance.cs
-i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:c:\users\кристина\source\repos\beebreeder\beebreeder.tests\breeding\climatetolerance.cs
+i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.tests\breeding\climatetolerance.cs
 ++Pareto.cs
-i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:c:\users\кристина\source\repos\beebreeder\beebreeder.tests\breeding\pareto.cs
+i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.tests\breeding\pareto.cs
 ++GeneticsTests.cs
-i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:c:\users\кристина\source\repos\beebreeder\beebreeder.tests\genetics\geneticstests.cs
-++ManualTests.cs
+i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.tests\genetics\geneticstests.cs
 ++coverlet.collector (3.0.3)
-i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:>1287
+i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:>1964
 ++Microsoft.NET.Test.Sdk (16.11.0-release-20210626-04)
-i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:>1282
+i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:>1960
 ++NUnit (3.13.2)
-i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:>1283
+i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:>1962
 ++NUnit3TestAdapter (4.0.0)
-i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:>1284
+i:{7665be6a-6e26-4eb8-b67d-0997e593371b}:>1963
 ++BeeBreeder.Data
 i:{00000000-0000-0000-0000-000000000000}:BeeBreeder.Data
-++Новая папка
-++EnvironmentMatcher
-++EnvironmentMatching
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\environmentmatching\
-++IEnvironmentMatcher.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\environmentmatching\ienvironmentmatcher.cs
-++EnvironmentMatcher.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\environmentmatching\environmentmatcher.cs
-++ISpecieStatsRepository - Копировать.cs
-++ISpecieStatsBiomes.cs
-++ISpecieStatsClimates.cs
-++ISpecieClimateRepository.cs
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\data\ispecieclimaterepository.cs
+++Data
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\data\
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\model\data\
+++RandomGenerator.cs
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\randomgenerator.cs
+++BeeGeneticDatabase.cs
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\data\beegeneticdatabase.cs
 ++IBiomeClimateRepository.cs
-i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\кристина\source\repos\beebreeder\beebreeder.common\data\ibiomeclimaterepository.cs
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\data\ibiomeclimaterepository.cs
+++IBiomeInfoRepository.cs
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\data\ibiomeinforepository.cs
+++IGeneDominanceRepository.cs
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\data\igenedominancerepository.cs
+++ISpecieClimateRepository.cs
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\data\ispecieclimaterepository.cs
+++ISpecieCombinationsRepository.cs
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\data\ispeciecombinationsrepository.cs
+++ISpecieStatsRepository.cs
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\data\ispeciestatsrepository.cs
+++StubBeeDataRepository.cs
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\data\stubbeedatarepository.cs
+++Bees
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\model\bees\
+++Environment
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\model\environment\
+++Extensions
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\model\extensions\
+++Positioning
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\model\positioning\
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\positioning\
+++BeeInitialStats.cs
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\data\model\beeinitialstats.cs
+++SpecieCombination.cs
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\data\model\speciecombination.cs
+++Bee.cs
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\model\bees\bee.cs
+++BeePool.cs
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\model\bees\beepool.cs
+++BeeStack.cs
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\model\bees\beestack.cs
+++Gender.cs
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\model\bees\gender.cs
+++Slot.cs
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\model\bees\slot.cs
+++MutationLink.cs
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\model\data\mutationlink.cs
+++MutationNode.cs
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\model\data\mutationnode.cs
+++MutationTree.cs
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\model\data\mutationtree.cs
+++Biome.cs
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\model\environment\biome.cs
+++BiomeData.cs
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\model\environment\biomedata.cs
+++Humidity.cs
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\model\environment\humidity.cs
+++Temperature.cs
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\model\environment\temperature.cs
+++BeeStackExtensions.cs
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\model\extensions\beestackextensions.cs
+++Phenotype
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\model\genetics\phenotype\
+++Chromosome.cs
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\model\genetics\chromosome.cs
+++ChromosomeDictionary.cs
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\model\genetics\chromosomedictionary.cs
+++Gene.cs
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\model\genetics\gene.cs
+++GeneHelper.cs
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\model\genetics\genehelper.cs
+++Genotype.cs
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\model\genetics\genotype.cs
+++IChromosome.cs
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\model\genetics\ichromosome.cs
+++ICrossable.cs
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\model\genetics\icrossable.cs
+++IGene.cs
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\model\genetics\igene.cs
+++ApiaryPosition.cs
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\model\positioning\apiaryposition.cs
+++TransposerBiome.cs
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\model\positioning\transposerbiome.cs
+++Adaptation.cs
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\model\genetics\phenotype\adaptation.cs
+++Effect.cs
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\model\genetics\phenotype\effect.cs
+++Flowers.cs
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\model\genetics\phenotype\flowers.cs
+++Species.cs
+i:{10006e7e-47a2-417a-b1bd-4f0593c43a5a}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.common\model\genetics\phenotype\species.cs
+++Analyzer
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\analyzer\
+++Comparison
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\comparison\
+++Crossing
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\crossing\
+++EnvironmentMatching
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\environmentmatching\
+++Flusher
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\flusher\
+++GeneComparer
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\genecomparer\
+++Generation
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\generation\
+++ProbabilityUtils
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\probabilityutils\
+++Simulator
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\simulator\
+++Targeter
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\targeter\
 ++DIExtensions.cs
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\кристина\source\repos\beebreeder\beebreeder.breeding\diextensions.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\diextensions.cs
+++ExtendedNaturalSelectionAnalyzer.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\analyzer\extendednaturalselectionanalyzer.cs
+++IBreedAnalyzer.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\analyzer\ibreedanalyzer.cs
+++NaturalSelectionAnalyzer.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\analyzer\naturalselectionanalyzer.cs
+++Gene
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\comparison\gene\
+++Pareto
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\comparison\pareto\
+++BeeCrosser.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\crossing\beecrosser.cs
+++IBeeCrosser.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\crossing\ibeecrosser.cs
+++EnvironmentMatcher.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\environmentmatching\environmentmatcher.cs
+++IEnvironmentMatcher.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\environmentmatching\ienvironmentmatcher.cs
+++ExtendedNaturalSelectionFlusher.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\flusher\extendednaturalselectionflusher.cs
+++IBreedFlusher.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\flusher\ibreedflusher.cs
+++NaturalSelectionFlusher.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\flusher\naturalselectionflusher.cs
+++BeeGenerator.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\generation\beegenerator.cs
+++IPositionsController.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\positioning\ipositionscontroller.cs
+++PositionsController.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\positioning\positionscontroller.cs
+++BreedingSimulator.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\simulator\breedingsimulator.cs
+++IBreedingSimulator.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\simulator\ibreedingsimulator.cs
+++BestGenesTargeter.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\targeter\bestgenestargeter.cs
+++ISpecieTargeter.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\targeter\ispecietargeter.cs
 ++Microsoft.Extensions.DependencyInjection.Abstractions (6.0.0)
-i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:>2038
-++Microsoft.Extensions.DependencyInjection (6.0.0)
-i:{5ecce8fb-04c5-4dba-8a8e-1a0b999beb46}:>2041
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:>2090
+++GeneComparer.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\comparison\gene\genecomparer.cs
+++IGeneComparer.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\comparison\gene\igenecomparer.cs
+++IParetoComparer.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\comparison\pareto\iparetocomparer.cs
+++ParetoComparer.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\comparison\pareto\paretocomparer.cs
+++Chance
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\chance\
+++Strategy
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\strategy\
+++Worth
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\worth\
+++BeeChangeChanceModel.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\chance\beechangechancemodel.cs
+++BeeChangeComparison.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\chance\beechangecomparison.cs
+++BeeCrossChance.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\chance\beecrosschance.cs
+++Chance.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\chance\chance.cs
+++ChangeChance.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\chance\changechance.cs
+++ChromosomeCrossChance.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\chance\chromosomecrosschance.cs
+++ChromosomeCrossChanceHelper.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\chance\chromosomecrosschancehelper.cs
+++IChromosomeCrossChance.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\chance\ichromosomecrosschance.cs
+++IStrategyUtils.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\strategy\istrategyutils.cs
+++StrategyResult.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\strategy\strategyresult.cs
+++StrategyUtils.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\strategy\strategyutils.cs
+++Comparators
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\worth\comparators\
+++BreedingTarget.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\worth\breedingtarget.cs
+++Comparison.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\worth\comparison.cs
+++GeneComparisonExtensions.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\worth\genecomparisonextensions.cs
+++Functions
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\worth\comparators\functions\
+++GenomeComparator.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\worth\comparators\genomecomparator.cs
+++IGenomeComparator.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\worth\comparators\igenomecomparator.cs
+++IGenomeEvaluator.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\worth\comparators\igenomeevaluator.cs
+++SumGenomeEvaluator.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\worth\comparators\sumgenomeevaluator.cs
+++IFunction.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\worth\comparators\functions\ifunction.cs
+++LinearFunction.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\worth\comparators\functions\linearfunction.cs
+++QuadraticFunction.cs
+i:{c87d56c9-b4b8-462f-87ff-6aeb9a0ea4f5}:c:\users\golushko.rit\source\repos\beebreeder\beebreeder.breeding\probabilityutils\model\worth\comparators\functions\quadraticfunction.cs
