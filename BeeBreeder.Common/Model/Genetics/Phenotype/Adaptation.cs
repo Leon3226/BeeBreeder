@@ -4,6 +4,7 @@ namespace BeeBreeder.Common.Model.Genetics.Phenotype
     {
         public readonly int Up;
         public readonly int Down;
+        public int Summary => Up + Down;
 
         public Adaptation(int up = 0, int down = 0)
         {

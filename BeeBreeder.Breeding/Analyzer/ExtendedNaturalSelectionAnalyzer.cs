@@ -78,7 +78,7 @@ namespace BeeBreeder.Breeding.Analyzer
             return GetSpeciePartners(bees, bee, bee.SpecieChromosome.ResultantAttribute);
         }
 
-        private List<BeeStack> GetSpeciePartners(BeePool bees, Bee bee, Species targetSpecies)
+        private List<BeeStack> GetSpeciePartners(BeePool bees, Bee bee, string targetSpecies)
         {
             var partners = bee.Gender == Gender.Princess ? bees.Drones : bees.Princesses;
 
@@ -133,22 +133,22 @@ namespace BeeBreeder.Breeding.Analyzer
 
             void ExcludeParetoEqualWithDifferentSpecies()
             {
-                var specie1 = (Chromosome<Species>)bee[Constants.StatNames.Specie];
+                var specie1 = (Chromosome<string>)bee[Constants.StatNames.Specie];
                 for (int i = 0; i < partners.Count; i++)
                 {
                     var partner = partners[i];
 
-                    var specie2 = (Chromosome<Species>)partner.Bee[Constants.StatNames.Specie];
+                    var specie2 = (Chromosome<string>)partner.Bee[Constants.StatNames.Specie];
                     if (((specie1.Clean &&
                           specie2.Clean) ||
                          !(specie1.Primary.Value == specie2.Primary.Value &&
                            specie1.Secondary.Value == specie2.Secondary.Value &&
                            specie1.Primary.Value == specie2.Primary.Value)) &&
-                        !_mutationTree.PossibleResults(new List<Species>()
+                        !_mutationTree.PossibleResults(new List<string>()
                             {specie1.Primary.Value, specie2.Primary.Value}).Any() &&
-                        !_mutationTree.PossibleResults(new List<Species>()
+                        !_mutationTree.PossibleResults(new List<string>()
                             {specie1.Primary.Value, specie2.Secondary.Value}).Any() &&
-                        !_mutationTree.PossibleResults(new List<Species>()
+                        !_mutationTree.PossibleResults(new List<string>()
                             {specie1.Secondary.Value, specie2.Secondary.Value}).Any()
                     )
                     {

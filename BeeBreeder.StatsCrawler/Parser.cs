@@ -13,7 +13,6 @@ namespace BeeBreeder.StatsCrawler
     {
         public static List<BeeParsingData> GetAllBees()
         {
-            string urlRegex = "https?:\\/\\/(?:www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b(?:[-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*)";
             string url = "https://ftb.fandom.com";
             string mainPath = "/wiki/Forestry";
             HtmlWeb webDoc = new HtmlWeb();

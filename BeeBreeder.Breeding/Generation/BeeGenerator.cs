@@ -17,7 +17,7 @@ namespace BeeBreeder.Breeding.Generation
             _geneDominanceRepository = geneDominanceRepository;
         }
 
-        public Bee Generate(Species specie, Gender gender = Gender.Drone)
+        public Bee Generate(string specie, Gender gender = Gender.Drone)
         {
             return new()
             {

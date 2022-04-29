@@ -6,6 +6,6 @@ namespace BeeBreeder.Common.Data
 {
     public interface ISpecieClimateRepository
     {
-        Dictionary<Species, Climate> SpecieClimates { get; }
+        Dictionary<string, Climate> SpecieClimates { get; }
     }
 }

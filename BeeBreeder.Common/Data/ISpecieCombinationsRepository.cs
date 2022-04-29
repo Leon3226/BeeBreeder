@@ -8,7 +8,7 @@ namespace BeeBreeder.Common.Data
     public interface ISpecieCombinationsRepository
     {
         List<SpecieCombination> SpecieCombinations { get; }
-        IEnumerable<SpecieCombination> GetPossibleMutations(Species first, Species second);
-        public (Species?, Species?) Mutations(Chromosome<Species> first, Chromosome<Species> second);
+        IEnumerable<SpecieCombination> GetPossibleMutations(string first, string second);
+        public (string, string) Mutations(Chromosome<string> first, Chromosome<string> second);
     }
 }

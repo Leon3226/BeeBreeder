@@ -6,6 +6,6 @@ namespace BeeBreeder.Common.Data
 {
     public interface ISpecieStatsRepository
     {
-        Dictionary<Species, BeeInitialStats> SpecieStats { get; }
+        Dictionary<string, BeeInitialStats> SpecieStats { get; }
     }
 }

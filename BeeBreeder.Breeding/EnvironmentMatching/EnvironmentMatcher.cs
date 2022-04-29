@@ -23,7 +23,7 @@ namespace BeeBreeder.Breeding.EnvironmentMatching
         {
             Climate specieClimate =
                 _specieClimateRepository.SpecieClimates[
-                    (Species)bee.Genotype[Constants.StatNames.Specie].ResultantAttribute];
+                    (string)bee.Genotype[Constants.StatNames.Specie].ResultantAttribute];
 
             var humidityTolerance = (Adaptation)bee.Genotype[Constants.StatNames.HumidTolerance].ResultantAttribute;
             var temperatureTolerance = (Adaptation)bee.Genotype[Constants.StatNames.TempTolerance].ResultantAttribute;
@@ -50,7 +50,7 @@ namespace BeeBreeder.Breeding.EnvironmentMatching
         {
             Climate specieClimate =
                 _specieClimateRepository.SpecieClimates[
-                    (Species)bee.Genotype[Constants.StatNames.Specie].ResultantAttribute];
+                    (string)bee.Genotype[Constants.StatNames.Specie].ResultantAttribute];
             if (specieClimate == climate)
                 return true;
 

@@ -13,7 +13,7 @@ namespace BeeBreeder.Common.Model.Genetics
         bool Dominant { get; set; }
     }
     
-    public interface IGene<out T> : IGene where T : struct
+    public interface IGene<out T> : IGene
     {
         new T Value { get; }
     }

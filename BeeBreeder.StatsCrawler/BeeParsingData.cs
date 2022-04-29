@@ -33,6 +33,6 @@ namespace BeeBreeder.StatsCrawler
         public List<ProductChance> Products { get; set; } = new();
         public List<ProductChance> SpecialtyProducts { get; set; } = new();
         public List<Mutation> Mutations { get; set; } = new();
-        public List<string?> Notes { get; set; } = new();
+        public List<string> Notes { get; set; } = new();
     }
 }

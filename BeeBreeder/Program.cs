@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using BeeBreeder.Breeding;
+using BeeBreeder.Breeding.Comparison.Gene.Comparators;
 using BeeBreeder.Breeding.Generation;
 using BeeBreeder.Breeding.Simulator;
 using BeeBreeder.Common.Model.Bees;
@@ -21,7 +22,7 @@ namespace BeeBreeder
             var generator = servideProvider.GetService<BeeGenerator>();
             var sim = servideProvider.GetService<IBreedingSimulator>();
 
-            var forestFlyer = new BeeStack(generator.Generate(Species.Forest), 1)
+            var forestFlyer = new BeeStack(generator.Generate("Forest"), 1)
             {
                 Bee =
                 {
@@ -32,15 +33,15 @@ namespace BeeBreeder
             {
                 Bees = new List<BeeStack>
                 {
-                    new(generator.Generate(Species.Forest, Gender.Princess), 8),
-                    new(generator.Generate(Species.Forest), 8),
-                    new(generator.Generate(Species.Meadows, Gender.Princess), 8),
-                    new(generator.Generate(Species.Meadows), 8),
-                    new(generator.Generate(Species.Steadfast), 1),
-                    new(generator.Generate(Species.Tropical), 1),
-                    new(generator.Generate(Species.Modest), 1),
-                    new(generator.Generate(Species.Modest, Gender.Princess),  1),
-                    new(generator.Generate(Species.Tropical, Gender.Princess),  1),
+                    new(generator.Generate("Forest", Gender.Princess), 8),
+                    new(generator.Generate("Forest"), 8),
+                    new(generator.Generate("Meadows", Gender.Princess), 8),
+                    new(generator.Generate("Meadows"), 8),
+                    new(generator.Generate("Steadfast"), 1),
+                    new(generator.Generate("Tropical"), 1),
+                    new(generator.Generate("Modest"), 1),
+                    new(generator.Generate("Modest", Gender.Princess),  1),
+                    new(generator.Generate("Tropical", Gender.Princess),  1),
                     forestFlyer
                 }
             };
@@ -48,11 +49,8 @@ namespace BeeBreeder
             var sw = new Stopwatch();
             sw.Start();
 
-            var breedIterations = 1000;
-            for (int j = 0; j < breedIterations; j++)
-            {
-                sim.Breed(1);
-            }
+            var breedIterations = 4000;
+            sim.Breed(breedIterations);
             sw.Stop();
             Console.WriteLine(sw.Elapsed);
         }

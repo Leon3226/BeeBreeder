@@ -10,12 +10,12 @@ namespace BeeBreeder.Common.Model.Data
         public List<MutationNode> Nodes;
         public List<MutationLink> Links;
 
-        public MutationNode this[Species specie] => Nodes.FirstOrDefault(x => x.Specie == specie);
+        public MutationNode this[string specie] => Nodes.FirstOrDefault(x => x.Specie == specie);
 
-        public List<Species> PossibleResults(List<Species> existingSpecies)
+        public List<string> PossibleResults(IEnumerable<string> existingSpecies)
         {
-            List<Species> possible = existingSpecies.ToList();
-            List<Species> toAdd = new List<Species>();
+            List<string> possible = existingSpecies.ToList();
+            List<string> toAdd = new List<string>();
 
             do
             {
@@ -29,7 +29,7 @@ namespace BeeBreeder.Common.Model.Data
             return possible.Except(existingSpecies).ToList();
         }
 
-        public bool IsEssentialForGetting(List<Species> targets, List<Species> existing, Species inspectable)
+        public bool IsEssentialForGetting(IEnumerable<string> targets, IEnumerable<string> existing, string inspectable)
         {
             var include = existing.ToList();
             include.Add(inspectable);
@@ -79,9 +79,9 @@ namespace BeeBreeder.Common.Model.Data
             return tree;
         }
 
-        public List<Species> OnlyNecessaryForGettingIfPossible(List<Species> targets, List<Species> existing)
+        public List<string> OnlyNecessaryForGettingIfPossible(IEnumerable<string> targets, IEnumerable<string> existing)
         {
-            List<Species> necessary = new List<Species>();
+            List<string> necessary = new List<string>();
 
             MutationNode RecursiveNecessary(MutationNode current)
             {
@@ -121,10 +121,10 @@ namespace BeeBreeder.Common.Model.Data
             return result;
         }
 
-        public List<Species> OnlyNecessaryForGettingIfPossibleAndHaveEnough(List<Species> targets,
-            Dictionary<Species, int> existing, int threshold = 20)
+        public List<string> OnlyNecessaryForGettingIfPossibleAndHaveEnough(IEnumerable<string> targets,
+            Dictionary<string, int> existing, int threshold = 20)
         {
-            List<Species> necessary = new List<Species>();
+            List<string> necessary = new List<string>();
 
             MutationNode RecursiveNecessary(MutationNode current)
             {

@@ -52,14 +52,14 @@ namespace BeeBreeder.Breeding.Crossing
                 throw new Exception("Genotypes doesnt match");
 
             var mutations = _specieCombinationsRepository.Mutations(
-                (Chromosome<Species>)first[Constants.StatNames.Specie],
-                (Chromosome<Species>)second[Constants.StatNames.Specie]);
+                (Chromosome<string>)first[Constants.StatNames.Specie],
+                (Chromosome<string>)second[Constants.StatNames.Specie]);
 
             if (mutations.Item1 != null)
-                first = _beeGenerator.GenotypeFromInitialStats(_specieStatsRepository.SpecieStats[mutations.Item1.Value]);
+                first = _beeGenerator.GenotypeFromInitialStats(_specieStatsRepository.SpecieStats[mutations.Item1]);
 
             if (mutations.Item2 != null)
-                second = _beeGenerator.GenotypeFromInitialStats(_specieStatsRepository.SpecieStats[mutations.Item2.Value]);
+                second = _beeGenerator.GenotypeFromInitialStats(_specieStatsRepository.SpecieStats[mutations.Item2]);
 
             foreach (var gene in first.Chromosomes)
             {

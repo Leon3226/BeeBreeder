@@ -1,6 +1,6 @@
 namespace BeeBreeder.Common.Model.Genetics
 {
-    public interface IChromosome<T> : IChromosome  where T: struct
+    public interface IChromosome<T> : IChromosome
     {
         new IGene<T> Primary { get; set; }
         new IGene<T> Secondary { get; set; }

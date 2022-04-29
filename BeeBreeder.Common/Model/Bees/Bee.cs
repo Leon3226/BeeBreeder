@@ -19,9 +19,9 @@ namespace BeeBreeder.Common.Model.Bees
             set => Genotype[index] = value;
         }
 
-        public Chromosome<Species> SpecieChromosome => ChromosomeOf<Species>(StatNames.Specie);
+        public Chromosome<string> SpecieChromosome => ChromosomeOf<string>(StatNames.Specie);
 
-        public Chromosome<T> ChromosomeOf<T>(string property = null) where T : struct
+        public Chromosome<T> ChromosomeOf<T>(string property = null)
         {
             return Genotype.Chromosomes.FirstOrDefault(x =>
                     (property == null || property == x.Key) && x.Value.Primary.Value.GetType() == typeof(T))

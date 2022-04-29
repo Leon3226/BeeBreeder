@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using BeeBreeder.Breeding.ProbabilityUtils.Model.Strategy;
+using BeeBreeder.Breeding.Strategy;
 using BeeBreeder.Common.Model.Bees;
 using BeeBreeder.Common.Model.Data;
 using BeeBreeder.Common.Model.Extensions;
@@ -10,23 +10,23 @@ namespace BeeBreeder.Breeding.Targeter
 {
     public class BestGenesTargeter : ISpecieTargeter
     {
-        private readonly IStrategyUtils _strategyUtils;
+        private readonly IStrategySolver _strategyUtils;
         private readonly MutationTree _tree;
-        public BestGenesTargeter(IStrategyUtils strategyUtils, MutationTree tree)
+        public BestGenesTargeter(IStrategySolver strategyUtils, MutationTree tree)
         {
             _strategyUtils = strategyUtils;
             _tree = tree;
         }
 
         public BeePool Bees { private get; set; }
-        public IEnumerable<Species> ManualTargets { get; set; } = new List<Species>() {Species.Exotic};
+        public IEnumerable<string> ManualTargets { get; set; } = new List<string>() { "Exotic"};
 
-        public IEnumerable<Species> CalculatedTargets
+        public IEnumerable<string> CalculatedTargets
         {
             get
             {
                 var strategy = _strategyUtils.ImportantTargets(Bees);
-                List<Species> statNecessarySpecies = new List<Species>();
+                List<string> statNecessarySpecies = new List<string>();
                 statNecessarySpecies.AddRange(strategy.Species);
                 statNecessarySpecies = statNecessarySpecies.Distinct().ToList();
 

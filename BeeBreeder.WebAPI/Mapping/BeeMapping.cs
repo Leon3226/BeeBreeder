@@ -10,6 +10,7 @@ using StatNames = BeeBreeder.Common.Data.Constants.StatNames;
 namespace BeeBreeder.WebAPI.Mapping
 {
     //TODO: Make NonStatic
+    //TODO: Move TO Separate Project
     public static class BeeMapping
     {
         private static Dictionary<string, string> _statNames;
@@ -105,18 +106,19 @@ namespace BeeBreeder.WebAPI.Mapping
             };
             var rawPrimary = raw.Individual.Active;
             var rawSecondary = raw.Individual.Inactive;
-            Enum.TryParse(rawPrimary.Species, out Species speciePrimary);
-            Enum.TryParse(rawSecondary.Species, out Species specieSecondary);
-            Enum.TryParse(rawPrimary.Effect, out Effect effectPrimary);
-            Enum.TryParse(rawSecondary.Effect, out Effect effectSecondary);
-            Enum.TryParse(rawPrimary.FlowerProvider, out Flowers flowerPrimary);
-            Enum.TryParse(rawSecondary.FlowerProvider, out Flowers flowerSecondary);
-            
-            var specieChromosome = new Chromosome<Species>()
+            var speciePrimary = rawPrimary.Species;
+            var specieSecondary = rawSecondary.Species;
+            var effectPrimary = rawPrimary.Effect;
+            var effectSecondary = rawSecondary.Effect;
+            var flowerPrimary = rawPrimary.FlowerProvider;
+            var flowerSecondary = rawSecondary.FlowerProvider;
+
+
+            var specieChromosome = new Chromosome<string>()
             {
                 Property = StatNames.Specie,
-                Primary = new Gene<Species>() {Value = speciePrimary},
-                Secondary = new Gene<Species>() {Value = specieSecondary}
+                Primary = new Gene<string>() {Value = speciePrimary},
+                Secondary = new Gene<string>() {Value = specieSecondary}
             };
             
             var speedChromosome = new Chromosome<int>()
@@ -182,18 +184,18 @@ namespace BeeBreeder.WebAPI.Mapping
                 Secondary = new Gene<int>() {Value = rawSecondary.Fertility}
             };
             
-            var flowerChromosome = new Chromosome<Flowers>()
+            var flowerChromosome = new Chromosome<string>()
             {
                 Property = StatNames.Flowers,
-                Primary = new Gene<Flowers>() {Value = flowerPrimary},
-                Secondary = new Gene<Flowers>() {Value = flowerSecondary}
+                Primary = new Gene<string>() {Value = flowerPrimary},
+                Secondary = new Gene<string>() {Value = flowerSecondary}
             };
             
-            var effectChromosome = new Chromosome<Effect>()
+            var effectChromosome = new Chromosome<string>()
             {
                 Property = StatNames.Effect,
-                Primary = new Gene<Effect>() {Value = effectPrimary},
-                Secondary = new Gene<Effect>() {Value = effectSecondary}
+                Primary = new Gene<string>() {Value = effectPrimary},
+                Secondary = new Gene<string>() {Value = effectSecondary}
             };
             
             var humidityChromosome = new Chromosome<Adaptation>()

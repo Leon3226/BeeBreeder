@@ -17,8 +17,8 @@ namespace BeeBreeder.Tests.Breeding
         public void Setup(BeeGenerator generator)
         {
             _generator = generator;
-            _bee1 = _generator.Generate(Species.Forest, Gender.Princess);
-            _bee2 = _generator.Generate(Species.Forest, Gender.Princess);
+            _bee1 = _generator.Generate("Forest", Gender.Princess);
+            _bee2 = _generator.Generate("Forest", Gender.Princess);
 
         }
         //TODO: Fix

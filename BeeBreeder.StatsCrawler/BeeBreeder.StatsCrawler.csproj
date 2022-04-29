@@ -11,4 +11,9 @@
     <PackageReference Include="HtmlAgilityPack" Version="1.11.42" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BeeBreeder.Common\BeeBreeder.Common.csproj" />
+    <ProjectReference Include="..\BeeBreeder.Data\BeeBreeder.Data.csproj" />
+  </ItemGroup>
+
 </Project>

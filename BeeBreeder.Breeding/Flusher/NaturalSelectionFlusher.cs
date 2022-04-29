@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using BeeBreeder.Breeding.Comparison.Pareto;
-using BeeBreeder.Breeding.ProbabilityUtils.Model.Worth;
 using BeeBreeder.Breeding.Targeter;
 using BeeBreeder.Common.Data;
 using BeeBreeder.Common.Model.Bees;
@@ -53,14 +52,13 @@ namespace BeeBreeder.Breeding.Flusher
             var paretoBees = new List<BeeStack>();
             foreach (var specie in necessarySpecies)
             {
-                var target = new BreedingTarget { SpeciePriorities = { [specie] = 100 } };
                 await Task.Run(async () =>
                 {
                     var result = bees.Drones.Except(paretoBees).Where(x =>
                         x.Bee[Constants.StatNames.Specie].Primary.Value.Equals(specie) ||
                         x.Bee[Constants.StatNames.Specie].Secondary.Value.Equals(specie)).ToList();
 
-                    var pareto = await ParetoComparer.ParetoOptimalAsync(result.Select(x => x.Bee), target);
+                    var pareto = await ParetoComparer.ParetoOptimalAsync(result.Select(x => x.Bee));
 
                     paretoBees.AddRange(result.Where(x => pareto.Contains(x.Bee)));
                 });
@@ -76,7 +74,7 @@ namespace BeeBreeder.Breeding.Flusher
 
             var dirtyToCheck = new List<BeeStack>();
             var toRemove = new List<BeeStack>();
-            var cleanSpecies = new Dictionary<Species, int>();
+            var cleanSpecies = new Dictionary<string, int>();
 
             bees.Drones.ExtractSpecies().Select(x => x.Key).ToList().ForEach(x => cleanSpecies.Add(x, 0));
 

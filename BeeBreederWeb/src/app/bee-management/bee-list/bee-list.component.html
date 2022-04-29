@@ -1,14 +1,13 @@
 <ul>
   <li *ngFor="let bee of bees" (click)="onBeeSelection(bee.bee)" [class.li-selected]="bee.bee == selectedBee">
     <div class="bee-image-container">
-      <img src="../../../assets/images/bee/blankBee.png" class="bee-image"/>
-      <div class="bee-image bee-belly" style="background: gold"></div>
-      <div class="bee-image bee-outline" style="background: red"></div>
+        <img src="../../../assets/images/bee/blankBee.png" class="bee-image"/>
+        <div class="bee-image bee-belly" style="background: gold"></div>
+        <div class="bee-image bee-outline" style="background: red"></div>
     </div>
     <div class="bee-specie-text">
       <div>{{bee.bee.specieChromosome.stringResultantAttribute  }}</div>
       <div>({{bee.count}})</div>
     </div>
-
   </li>
 </ul>

@@ -13,7 +13,7 @@ namespace BeeBreeder.Common.Model.Extensions
             return stack.Sum(x => x.Count);
         }
 
-        public static Dictionary<Species, int> ExtractSpecies(this List<BeeStack> bees)
+        public static Dictionary<string, int> ExtractSpecies(this List<BeeStack> bees)
         {
             var species = bees.Select(x => x.Bee.SpecieChromosome.Primary.Value)
                 .Concat(bees.Select(x => x.Bee.SpecieChromosome.Secondary.Value)).Distinct()

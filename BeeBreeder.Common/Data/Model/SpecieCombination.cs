@@ -4,12 +4,12 @@ namespace BeeBreeder.Common.Data.Model
 {
     public class SpecieCombination
     {
-        public readonly Species Parent1;
-        public readonly Species Parent2;
+        public readonly string Parent1;
+        public readonly string Parent2;
         public readonly double MutationChance;
-        public readonly Species MutationResult;
+        public readonly string MutationResult;
 
-        public SpecieCombination(Species parent1, Species parent2, double mutationChance, Species mutationResult)
+        public SpecieCombination(string parent1, string parent2, double mutationChance, string mutationResult)
         {
             Parent1 = parent1;
             Parent2 = parent2;

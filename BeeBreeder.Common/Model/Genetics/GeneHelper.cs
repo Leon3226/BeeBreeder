@@ -11,17 +11,13 @@ namespace BeeBreeder.Common.Model.Genetics
 
         static GeneHelper()
         {
-            GeneGenerators.Add(typeof(int), GetIntGene);
-            GeneGenerators.Add(typeof(Species), GetSpecieGene);
-            GeneGenerators.Add(typeof(Flowers), GetFlowerGene);           
-            GeneGenerators.Add(typeof(Effect), GetEffectGene);
+            GeneGenerators.Add(typeof(int), GetIntGene);        
+            GeneGenerators.Add(typeof(string), GetStringGene);
             GeneGenerators.Add(typeof(Adaptation), GetAdaptationGene);
 
             
             ChromosomeGenerators.Add(typeof(int), GetIntChromosome);
-            ChromosomeGenerators.Add(typeof(Species), GetSpecieChromosome);
-            ChromosomeGenerators.Add(typeof(Flowers), GetFlowerChromosome);
-            ChromosomeGenerators.Add(typeof(Effect), GetEffectChromosome);
+            ChromosomeGenerators.Add(typeof(string), GetStringChromosome);
             ChromosomeGenerators.Add(typeof(Adaptation), GetAdaptationChromosome);
         }
         
@@ -43,37 +39,19 @@ namespace BeeBreeder.Common.Model.Genetics
         {
             return new Chromosome<int> {Primary = (Gene<int>)primary, Secondary = (Gene<int>)secondary};
         }
-        static IChromosome GetFlowerChromosome(IGene primary, IGene secondary)
-        {
-            return new Chromosome<Flowers> {Primary = (Gene<Flowers>)primary, Secondary = (Gene<Flowers>)secondary};
-        }
-        static IChromosome GetSpecieChromosome(IGene primary, IGene secondary)
-        {
-            return new Chromosome<Species> { Primary = (Gene<Species>)primary, Secondary = (Gene<Species>)secondary};
-        }
         
-        static IChromosome GetEffectChromosome(IGene primary, IGene secondary)
+        static IChromosome GetStringChromosome(IGene primary, IGene secondary)
         {
-            return new Chromosome<Effect> {Primary = (Gene<Effect>)primary, Secondary = (Gene<Effect>)secondary};
+            return new Chromosome<string> {Primary = (Gene<string>)primary, Secondary = (Gene<string>)secondary};
         }
         
         static IChromosome GetAdaptationChromosome(IGene primary, IGene secondary)
         {
             return new Chromosome<Adaptation> {Primary = (Gene<Adaptation>)primary, Secondary = (Gene<Adaptation>)secondary};
         }
-        static IGene GetFlowerGene(object value)
+        static IGene GetStringGene(object value)
         {
-            return new Gene<Flowers> {Value = (Flowers)value};
-        }
-        
-        static IGene GetSpecieGene(object value)
-        {
-            return new Gene<Species> {Value = (Species)value};
-        }
-        
-        static IGene GetEffectGene(object value)
-        {
-            return new Gene<Effect> {Value = (Effect)value};
+            return new Gene<string> {Value = (string)value};
         }
 
         static IGene GetIntGene(object value)

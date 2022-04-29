@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace BeeBreeder.Common.Model.Genetics
 {
-    public struct Gene<T> : IGene<T> where T: struct
+    public struct Gene<T> : IGene<T>
     {
         [JsonIgnore]
         public Type Type => typeof(T);

@@ -35,15 +35,15 @@ namespace BeeBreeder.WebAPI.Controllers
             {
                 Bees = new List<BeeStack>
                 {
-                    new(_beeGenerator.Generate(Species.Forest, Gender.Princess), 8),
-                    new(_beeGenerator.Generate(Species.Forest), 8),
-                    new(_beeGenerator.Generate(Species.Meadows, Gender.Princess), 8),
-                    new(_beeGenerator.Generate(Species.Meadows), 8),
-                    new(_beeGenerator.Generate(Species.Steadfast), 1),
-                    new(_beeGenerator.Generate(Species.Tropical), 1),
-                    new(_beeGenerator.Generate(Species.Modest), 1),
-                    new(_beeGenerator.Generate(Species.Modest, Gender.Princess),  1),
-                    new(_beeGenerator.Generate(Species.Tropical, Gender.Princess),  1)
+                    new(_beeGenerator.Generate("Forest", Gender.Princess), 8),
+                    new(_beeGenerator.Generate("Forest"), 8),
+                    new(_beeGenerator.Generate("Meadows", Gender.Princess), 8),
+                    new(_beeGenerator.Generate("Meadows"), 8),
+                    new(_beeGenerator.Generate("Steadfast"), 1),
+                    new(_beeGenerator.Generate("Tropical"), 1),
+                    new(_beeGenerator.Generate("Modest"), 1),
+                    new(_beeGenerator.Generate("Modest", Gender.Princess),  1),
+                    new(_beeGenerator.Generate("Tropical", Gender.Princess),  1)
                 }
             };
 
