@@ -17,6 +17,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeeBreeder.Data", "BeeBreed
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeeBreeder.StatsCrawler", "BeeBreeder.StatsCrawler\BeeBreeder.StatsCrawler.csproj", "{2087F392-6990-41F8-82FC-9EB20F8B4B76}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeeBreeder.Property", "BeeBreeder.Property\BeeBreeder.Property.csproj", "{59E80C41-1A98-47A1-88CC-39DB627740B1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeeBreeder.Extensions", "BeeBreeder.Extensions\BeeBreeder.Extensions.csproj", "{9084E162-5B6C-4C9F-9788-C0E96104A30A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{22F31591-D016-448E-BE67-317AC73E4E0B}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeeBreeder.Management", "BeeBreeder.Management\BeeBreeder.Management.csproj", "{39C95E84-73A6-441F-BB0D-031FC6393135}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +62,18 @@ Global
 		{2087F392-6990-41F8-82FC-9EB20F8B4B76}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2087F392-6990-41F8-82FC-9EB20F8B4B76}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2087F392-6990-41F8-82FC-9EB20F8B4B76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59E80C41-1A98-47A1-88CC-39DB627740B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59E80C41-1A98-47A1-88CC-39DB627740B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59E80C41-1A98-47A1-88CC-39DB627740B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59E80C41-1A98-47A1-88CC-39DB627740B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9084E162-5B6C-4C9F-9788-C0E96104A30A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9084E162-5B6C-4C9F-9788-C0E96104A30A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9084E162-5B6C-4C9F-9788-C0E96104A30A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9084E162-5B6C-4C9F-9788-C0E96104A30A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39C95E84-73A6-441F-BB0D-031FC6393135}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39C95E84-73A6-441F-BB0D-031FC6393135}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39C95E84-73A6-441F-BB0D-031FC6393135}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39C95E84-73A6-441F-BB0D-031FC6393135}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

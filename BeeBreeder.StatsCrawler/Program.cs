@@ -10,7 +10,8 @@ using BeeBreeder.Data.Models;
 using BeeBreeder.StatsCrawler;
 using HtmlAgilityPack;
 
-
+var connection1 = new BeeBreederContext();
+var items = connection1.Items;
 string text = File.ReadAllText(@"C:\beeParseData.json");
 
 var data = JsonSerializer.Deserialize<List<BeeParsingData>>(text);

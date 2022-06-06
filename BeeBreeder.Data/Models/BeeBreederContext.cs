@@ -16,6 +16,12 @@ namespace BeeBreeder.Data.Models
         {
         }
 
+        public virtual DbSet<Apiary> Apiaries { get; set; } = null!;
+        public virtual DbSet<ApiaryComputer> ApiaryComputers { get; set; } = null!;
+        public virtual DbSet<BiomeInfo> BiomeInfos { get; set; } = null!;
+        public virtual DbSet<ComputerBindRequest> ComputerBindRequests { get; set; } = null!;
+        public virtual DbSet<Flower> Flowers { get; set; } = null!;
+        public virtual DbSet<Inventory> Inventories { get; set; } = null!;
         public virtual DbSet<Item> Items { get; set; } = null!;
         public virtual DbSet<ItemDropChance> ItemDropChances { get; set; } = null!;
         public virtual DbSet<Mod> Mods { get; set; } = null!;
@@ -23,18 +29,112 @@ namespace BeeBreeder.Data.Models
         public virtual DbSet<Specie> Species { get; set; } = null!;
         public virtual DbSet<SpecieNote> SpecieNotes { get; set; } = null!;
         public virtual DbSet<SpecieStat> SpecieStats { get; set; } = null!;
+        public virtual DbSet<Transposer> Transposers { get; set; } = null!;
+        public virtual DbSet<TransposerFlower> TransposerFlowers { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=RIT-W45\\SQLEXPRESS;Database=BeeBreeder;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=IVAN-DARKHOLME\\SQLEXPRESS;Database=BeeBreeder;Trusted_Connection=True;");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Apiary>(entity =>
+            {
+                entity.ToTable("Apiary");
+
+                entity.Property(e => e.Description).HasColumnType("text");
+
+                entity.Property(e => e.Name).HasMaxLength(50);
+
+                entity.Property(e => e.UserId).HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<ApiaryComputer>(entity =>
+            {
+                entity.ToTable("ApiaryComputer");
+
+                entity.Property(e => e.Description).HasColumnType("text");
+
+                entity.Property(e => e.InGameIdentifier).HasMaxLength(50);
+
+                entity.Property(e => e.Name).HasMaxLength(50);
+
+                entity.Property(e => e.OpenComputersIdentifier).HasMaxLength(50);
+
+                entity.Property(e => e.UserId).HasMaxLength(50);
+
+                entity.HasOne(d => d.Apiary)
+                    .WithMany(p => p.ApiaryComputers)
+                    .HasForeignKey(d => d.ApiaryId)
+                    .HasConstraintName("FK_ApiaryComputer_Apiary");
+            });
+
+            modelBuilder.Entity<BiomeInfo>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("BiomeInfo");
+
+                entity.Property(e => e.Name).HasMaxLength(20);
+            });
+
+            modelBuilder.Entity<ComputerBindRequest>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("ComputerBindRequest");
+
+                entity.Property(e => e.Code).HasMaxLength(10);
+
+                entity.Property(e => e.ComputerId).HasMaxLength(50);
+
+                entity.Property(e => e.Created).HasColumnType("datetime");
+
+                entity.Property(e => e.UserId).HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<Flower>(entity =>
+            {
+                entity.ToTable("Flower");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Name).HasMaxLength(15);
+            });
+
+            modelBuilder.Entity<Inventory>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("Inventory");
+
+                entity.Property(e => e.Description).HasColumnType("text");
+
+                entity.Property(e => e.InGameId).HasMaxLength(70);
+
+                entity.Property(e => e.InGameLabel).HasMaxLength(70);
+
+                entity.Property(e => e.Name).HasMaxLength(70);
+
+                entity.Property(e => e.TransposerId).HasMaxLength(50);
+
+                entity.HasOne(d => d.ItemUnder)
+                    .WithMany()
+                    .HasForeignKey(d => d.ItemUnderId)
+                    .HasConstraintName("FK_Inventory_Item");
+
+                entity.HasOne(d => d.Transposer)
+                    .WithMany()
+                    .HasForeignKey(d => d.TransposerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Inventory_Transposer");
+            });
+
             modelBuilder.Entity<Item>(entity =>
             {
                 entity.ToTable("Item");
@@ -45,6 +145,10 @@ namespace BeeBreeder.Data.Models
             modelBuilder.Entity<ItemDropChance>(entity =>
             {
                 entity.ToTable("ItemDropChance");
+
+                entity.HasIndex(e => e.ItemId, "IX_ItemDropChance_ItemId");
+
+                entity.HasIndex(e => e.SpecieId, "IX_ItemDropChance_SpecieId");
 
                 entity.HasOne(d => d.Item)
                     .WithMany(p => p.ItemDropChances)
@@ -70,6 +174,12 @@ namespace BeeBreeder.Data.Models
             {
                 entity.ToTable("MutationChance");
 
+                entity.HasIndex(e => e.FirstId, "IX_MutationChance_FirstId");
+
+                entity.HasIndex(e => e.ResultId, "IX_MutationChance_ResultId");
+
+                entity.HasIndex(e => e.SecondId, "IX_MutationChance_SecondId");
+
                 entity.HasOne(d => d.First)
                     .WithMany(p => p.MutationChanceFirsts)
                     .HasForeignKey(d => d.FirstId)
@@ -90,6 +200,8 @@ namespace BeeBreeder.Data.Models
             modelBuilder.Entity<Specie>(entity =>
             {
                 entity.ToTable("Specie");
+
+                entity.HasIndex(e => e.ModId, "IX_Specie_ModId");
 
                 entity.Property(e => e.Branch).HasMaxLength(30);
 
@@ -113,6 +225,8 @@ namespace BeeBreeder.Data.Models
             {
                 entity.ToTable("SpecieNote");
 
+                entity.HasIndex(e => e.SpecieId, "IX_SpecieNote_SpecieId");
+
                 entity.Property(e => e.Text).HasColumnType("text");
 
                 entity.HasOne(d => d.Specie)
@@ -124,6 +238,8 @@ namespace BeeBreeder.Data.Models
 
             modelBuilder.Entity<SpecieStat>(entity =>
             {
+                entity.HasIndex(e => e.SpecieId, "IX_SpecieStats_SpecieId");
+
                 entity.Property(e => e.Fertility).HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.Flowers)
@@ -159,6 +275,38 @@ namespace BeeBreeder.Data.Models
                     .HasForeignKey(d => d.SpecieId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_SpecieStats_Specie");
+            });
+
+            modelBuilder.Entity<Transposer>(entity =>
+            {
+                entity.ToTable("Transposer");
+
+                entity.Property(e => e.Id).HasMaxLength(50);
+
+                entity.Property(e => e.Biome).HasMaxLength(20);
+
+                entity.Property(e => e.Description).HasColumnType("text");
+
+                entity.Property(e => e.Name).HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<TransposerFlower>(entity =>
+            {
+                entity.ToTable("TransposerFlower");
+
+                entity.Property(e => e.Id)
+                    .HasMaxLength(10)
+                    .IsFixedLength();
+
+                entity.Property(e => e.Flower).HasMaxLength(15);
+
+                entity.Property(e => e.TransposerId).HasMaxLength(50);
+
+                entity.HasOne(d => d.Transposer)
+                    .WithMany(p => p.TransposerFlowers)
+                    .HasForeignKey(d => d.TransposerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_TransposerFlower_Transposer");
             });
 
             OnModelCreatingPartial(modelBuilder);

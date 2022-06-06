@@ -10,6 +10,8 @@
     <app-bee-list (selectedBeeChanged)="onBeeSelected($event)" [bees]="bees"></app-bee-list>
   </div>
   <div class="column left">
+    <app-apiaries-selector></app-apiaries-selector>
+    <app-computers-list></app-computers-list>
     <app-bee-data [bee]="selectedBee"></app-bee-data>
   </div>
 </div>

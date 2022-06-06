@@ -1,14 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\BeeBreeder.Common",
-    "\\BeeBreeder.Common\\AlleleDatabase",
-    "\\BeeBreeder.Common\\AlleleDatabase\\Bee",
-    "\\BeeBreeder.Common\\Model",
-    "\\BeeBreeder.Common\\Model\\Genetics",
-    "\\BeeBreeder.Common\\Model\\Genetics\\Fenotype",
-    "\\BeeBreeder.Tests"
+    "\\BeeBreeder.WebAPI\\Mapping"
   ],
-  "SelectedNode": "\\BeeBreeder.Common\\Model\\Genetics\\Gene.cs",
+  "SelectedNode": "\\BeeBreeder.sln",
   "PreviewInSolutionExplorer": false
 }

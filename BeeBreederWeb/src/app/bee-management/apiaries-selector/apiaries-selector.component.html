@@ -1,0 +1,26 @@
+<div class="apiaries-selector-container">
+  <label (click)="updateApiaries()">  REFRESH </label>
+
+  <ul>
+    <li *ngFor="let apiary of apiaries">
+      <h3>{{apiary.name}}</h3>
+      <label>  E  </label>
+      <label (click)="deleteApiary(apiary.id)">  X  </label>
+      <div>{{apiary.description}}</div>
+      <ul>
+        <li *ngFor="let computer of apiary.computers">
+          <label>{{computer}}</label>
+        </li>
+      </ul>
+    </li>
+    <li>+ Add New</li>
+    <div>
+      <div>New Apiary Name</div>
+      <input [(ngModel)]="newName"/>
+      <div>New Apiary Description</div>
+      <input [(ngModel)]="newDescription"/>
+      <div (click)="addApiary()">ADD</div>
+    </div>
+  </ul>
+
+</div>

@@ -16,8 +16,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {RouterModule} from "@angular/router";
 import { BeeControlPanelComponent } from './bee-management/bee-control-panel/bee-control-panel.component';
-import {FormBuilder, ReactiveFormsModule} from "@angular/forms";
+import {FormBuilder, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {JwtModule} from "@auth0/angular-jwt";
+import { ApiariesSelectorComponent } from './bee-management/apiaries-selector/apiaries-selector.component';
+import { ComputersListComponent } from './bee-management/computers-list/computers-list.component';
+import { TransposerInventoriesDisplayComponent } from './bee-management/bee-control-panel/transposer-inventories-display/transposer-inventories-display.component';
+import { TrasposerInventoriesDisplayComponent } from './bee-management/trasposer-inventories-display/trasposer-inventories-display.component';
 
 @NgModule({
   declarations: [
@@ -30,12 +34,17 @@ import {JwtModule} from "@auth0/angular-jwt";
     RegisterComponent,
     SecureComponent,
     NotFoundComponent,
-    BeeControlPanelComponent
+    BeeControlPanelComponent,
+    ApiariesSelectorComponent,
+    ComputersListComponent,
+    TransposerInventoriesDisplayComponent,
+    TrasposerInventoriesDisplayComponent
   ],
   imports: [
     ReactiveFormsModule,
     AppRoutingModule,
     BrowserModule,
+    FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
     JwtModule.forRoot({

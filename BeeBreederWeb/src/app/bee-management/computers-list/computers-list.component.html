@@ -1,0 +1,7 @@
+<div class="computers-list-container">
+  <div (click)="updateComputers()">REFRESH</div>
+  <ul>
+    <li *ngFor="let computer of computers" [class]="computer.active ? 'computer-active' : 'computer-inactive' ">{{computer.identifier}}</li>
+    <li>+ Add new</li>
+  </ul>
+</div>

@@ -1,7 +1,11 @@
+using System.Collections.Generic;
+using System.Net;
 using System.Text;
 using System.Text.Json.Serialization;
 using BeeBreeder.Breeding;
+using BeeBreeder.Extensions;
 using BeeBreeder.WebAPI.Model.Auth;
+using BeeBreeder.WebAPI.Sockets;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -13,6 +17,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 
 namespace BeeBreeder.WebAPI
 {
@@ -34,6 +39,7 @@ namespace BeeBreeder.WebAPI
             }).AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
             });
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConnStr")));
             services.AddIdentity<IdentityUser, IdentityRole>()
@@ -59,10 +65,40 @@ namespace BeeBreeder.WebAPI
             });
 
             services.AddCors();
-            services.AddBeeBreeder();
+            services.AddBeeBreeder().AddSocketManaging(new IPEndPoint(IPAddress.Any, int.Parse(Configuration["Socket:Port"])));
+            services.AddAutoMapper(c => { });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BeeBreeder.WebAPI", Version = "v1" });
+
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = @"JWT Authorization header using the Bearer scheme. \r\n\r\n 
+                      Enter 'Bearer' [space] and then your token in the text input below.
+                      \r\n\r\nExample: 'Bearer 12345abcdef'",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                {
+                    {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                            },
+                            Scheme = "oauth2",
+                            Name = "Bearer",
+                            In = ParameterLocation.Header
+                        },
+                    new List<string>()
+                    }
+                });
             });
         }
 

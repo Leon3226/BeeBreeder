@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BeeBreeder.Breeding\BeeBreeder.Breeding.csproj" />
+    <ProjectReference Include="..\BeeBreeder.Common\BeeBreeder.Common.csproj" />
+    <ProjectReference Include="..\BeeBreeder.Data\BeeBreeder.Data.csproj" />
+    <ProjectReference Include="..\BeeBreeder.Management\BeeBreeder.Management.csproj" />
+    <ProjectReference Include="..\BeeBreeder.Property\BeeBreeder.Property.csproj" />
+  </ItemGroup>
+
+</Project>

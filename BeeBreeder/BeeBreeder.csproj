@@ -6,6 +6,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Include="..\.editorconfig" Link=".editorconfig" />
+    </ItemGroup>
+
+    <ItemGroup>
       <PackageReference Include="Autofac" Version="6.3.0" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     </ItemGroup>
@@ -13,6 +17,7 @@
     <ItemGroup>
       <ProjectReference Include="..\BeeBreeder.Breeding\BeeBreeder.Breeding.csproj" />
       <ProjectReference Include="..\BeeBreeder.Common\BeeBreeder.Common.csproj" />
+      <ProjectReference Include="..\BeeBreeder.Extensions\BeeBreeder.Extensions.csproj" />
     </ItemGroup>
 
 </Project>

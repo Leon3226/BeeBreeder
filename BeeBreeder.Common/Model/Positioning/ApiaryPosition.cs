@@ -4,7 +4,7 @@ namespace BeeBreeder.Common.Model.Positioning
 {
     public struct ApiaryPosition
     {
-        public Guid Trans;
+        public string Trans;
         public int Side;
         public int Slot;
 
