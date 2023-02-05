@@ -2,7 +2,7 @@
 
 namespace BeeBreeder.Common.Data
 {
-    public interface IGeneDominanceRepository
+    public interface IGeneDominanceProvider
     {
         Dictionary<string, Dictionary<object, bool>> GenesDominance { get; }
     }

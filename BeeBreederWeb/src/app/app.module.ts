@@ -22,6 +22,9 @@ import { ApiariesSelectorComponent } from './bee-management/apiaries-selector/ap
 import { ComputersListComponent } from './bee-management/computers-list/computers-list.component';
 import { TransposerInventoriesDisplayComponent } from './bee-management/bee-control-panel/transposer-inventories-display/transposer-inventories-display.component';
 import { TrasposerInventoriesDisplayComponent } from './bee-management/trasposer-inventories-display/trasposer-inventories-display.component';
+import { MaterialModule } from './material.module';
+import { HeaderLessTabsDirective } from './directives/headerless-tab-directive';
+import { TransposerInventoryIconComponent } from './bee-management/transposer-inventory-icon/transposer-inventory-icon.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +41,9 @@ import { TrasposerInventoriesDisplayComponent } from './bee-management/trasposer
     ApiariesSelectorComponent,
     ComputersListComponent,
     TransposerInventoriesDisplayComponent,
-    TrasposerInventoriesDisplayComponent
+    TrasposerInventoriesDisplayComponent,
+    TransposerInventoryIconComponent,
+    HeaderLessTabsDirective
   ],
   imports: [
     ReactiveFormsModule,
@@ -46,6 +51,7 @@ import { TrasposerInventoriesDisplayComponent } from './bee-management/trasposer
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    MaterialModule,
     BrowserAnimationsModule,
     JwtModule.forRoot({
       config: {

@@ -2,7 +2,7 @@ using System;
 
 namespace BeeBreeder.Common.Model.Positioning
 {
-    public struct ApiaryPosition
+    public struct InventoryPosition
     {
         public string Trans;
         public int Side;

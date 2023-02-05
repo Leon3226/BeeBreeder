@@ -1,1 +1,23 @@
-<p>trasposer-inventories-display works!</p>
+<div class="container">
+  <button class="load-button" mat-raised-button color="primary">Load ALL data</button>
+  <ul>
+    <li class="transposer-display-container" *ngFor="let trans of transposers">
+        <table>
+            <tr *ngFor="let row of [0,1,2]">
+              <td *ngFor="let column of [0,1,2]">
+                <ng-container *ngIf="places[column][row] !== undefined">
+                  <ng-container *ngIf="places[column][row] == -1; else containerIcon">
+                    <button mat-icon-button><mat-icon class="edit-button">edit</mat-icon></button>
+
+                    {{trans.id}}
+                  </ng-container>
+                  <ng-template #containerIcon>
+                    <app-transposer-inventory-icon *ngIf="trans.inventories[places[column][row]] != null" [inventory]="trans.inventories[places[column][row]]"></app-transposer-inventory-icon>
+                  </ng-template>
+                </ng-container>
+              </td>
+            </tr>
+        </table>
+    </li>
+  </ul>
+</div>

@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BeeBreeder.Common\BeeBreeder.Common.csproj" />
     <ProjectReference Include="..\BeeBreeder.Property\BeeBreeder.Property.csproj" />
   </ItemGroup>
 

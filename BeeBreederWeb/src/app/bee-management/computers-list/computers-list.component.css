@@ -1,13 +1,15 @@
-.computer-active{
-  font-weight: bold;
+.computer-active-icon{
   color: limegreen;
 }
 
-.computer-inactive{
+.computer-inactive-icon{
   color: red;
-  font-weight: bold;
 }
 
 .computers-list-container{
   outline: black auto thin;
 }
+
+.mat-form-field {width: 100%;}
+
+.modify-computer-container { width: 90%; padding-left: 5%; }

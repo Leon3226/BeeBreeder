@@ -9,5 +9,10 @@ namespace BeeBreeder.Common.Model.Positioning
         public Biome Biome;
         public bool IsRoofed;
         public string[] Flowers;
+
+        public override string ToString()
+        {
+            return Transposer;
+        }
     }
 }

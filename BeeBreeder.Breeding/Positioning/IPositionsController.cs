@@ -6,6 +6,6 @@ namespace BeeBreeder.Breeding.Positioning
 {
     public interface IPositionsController
     {
-        List<(ApiaryPosition position, (Bee Princess, Bee Drone))> Assign(IEnumerable<(Bee Princess, Bee Drone)> pairs, IEnumerable<TransposerData> transposerData, IEnumerable<ApiaryPosition> avaliablePositions);
+        List<(InventoryPosition position, (Bee Princess, Bee Drone))> Assign(IEnumerable<(Bee Princess, Bee Drone)> pairs, IEnumerable<TransposerData> transposerData, IEnumerable<InventoryPosition> avaliablePositions);
     }
 }

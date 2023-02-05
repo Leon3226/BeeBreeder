@@ -21,6 +21,7 @@ namespace BeeBreeder.Data.Models
         public string HumidTolerance { get; set; } = null!;
         public int SpecieId { get; set; }
         public bool? IsDefault { get; set; }
+        public string? Effect { get; set; }
 
         public virtual Specie Specie { get; set; } = null!;
     }

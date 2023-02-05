@@ -4,13 +4,13 @@
 
 <div class="row">
   <div class="column right">
-    <h2>Column 1</h2>
+    <app-trasposer-inventories-display [transposers]="transposers"></app-trasposer-inventories-display>
   </div>
   <div class="column middle">
     <app-bee-list (selectedBeeChanged)="onBeeSelected($event)" [bees]="bees"></app-bee-list>
   </div>
   <div class="column left">
-    <app-apiaries-selector></app-apiaries-selector>
+    <app-apiaries-selector (switchApiaryEvent)="OnApiarySwitched($event)"></app-apiaries-selector>
     <app-computers-list></app-computers-list>
     <app-bee-data [bee]="selectedBee"></app-bee-data>
   </div>

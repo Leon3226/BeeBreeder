@@ -6,13 +6,26 @@
 .bee-image-container{
   width: 60px;
   height: 60px;
-  border: 1px solid grey;
-
-  align-self: center;
 }
 
 .bee-specie-text{
   position: relative;
+  font-weight: 500;
+}
+
+.bee-cell{
+  width: 120px;
+  height: 120px;
+}
+
+.bee-count-text{
+  position: relative;
+  top: 60%;
+  left: 70%;
+  font-size: 20px;
+  font-weight: 800;
+  z-index: 1;
+  text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
 }
 
 .bee-image{
@@ -36,14 +49,16 @@
 * {
   box-sizing: border-box;
 }
+
 ul {
   list-style-type: none;
   width: 100%;
   display: flex;
   flex-wrap: wrap;
 }
+
 li {
-  flex: 0 0 20%;
-  border: 1px solid grey;
-  padding: 1em;
+  flex: 0 0 10%;
+  /* border: 1px solid grey; */
+  padding: 0.4em;
 }

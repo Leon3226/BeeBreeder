@@ -6,5 +6,10 @@
         public string Label { get; set; }
         public int MaxSize { get; set; }
         public int Size { get; set; }
+
+        public override string ToString()
+        {
+            return Label;
+        }
     }
 }

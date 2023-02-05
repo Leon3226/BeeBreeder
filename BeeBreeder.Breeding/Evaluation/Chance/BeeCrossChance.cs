@@ -33,11 +33,11 @@ namespace BeeBreeder.Breeding.Evaluation.Chance
         }
         public readonly List<IChromosomeCrossChance> Chances = new();
 
-        private readonly ISpecieCombinationsRepository _specieCombinationsRepository;
+        private readonly ISpecieCombinationsProvider _specieCombinationsRepository;
         private readonly BeeGenerator _beeGenerator;
-        private readonly ISpecieStatsRepository _specieStatsRepository;
+        private readonly ISpecieStatsProvider _specieStatsRepository;
 
-        public BeeCrossChance(ISpecieCombinationsRepository specieCombinationsRepository, BeeGenerator beeGenerator, ISpecieStatsRepository specieStatsRepository)
+        public BeeCrossChance(ISpecieCombinationsProvider specieCombinationsRepository, BeeGenerator beeGenerator, ISpecieStatsProvider specieStatsRepository)
         {
             _specieCombinationsRepository = specieCombinationsRepository;
             _beeGenerator = beeGenerator;

@@ -10,12 +10,12 @@ namespace BeeBreeder.Breeding.Crossing
 {
     public class BeeCrosser : IBeeCrosser
     {
-        private readonly ISpecieStatsRepository _specieStatsRepository;
-        private readonly IGeneDominanceRepository _geneDominanceRepository;
-        private readonly ISpecieCombinationsRepository _specieCombinationsRepository;
+        private readonly ISpecieStatsProvider _specieStatsRepository;
+        private readonly IGeneDominanceProvider _geneDominanceRepository;
+        private readonly ISpecieCombinationsProvider _specieCombinationsRepository;
         private readonly BeeGenerator _beeGenerator;
 
-        public BeeCrosser(ISpecieStatsRepository specieStatsRepository, IGeneDominanceRepository geneDominanceRepository, ISpecieCombinationsRepository specieCombinationsRepository, BeeGenerator beeGenerator)
+        public BeeCrosser(ISpecieStatsProvider specieStatsRepository, IGeneDominanceProvider geneDominanceRepository, ISpecieCombinationsProvider specieCombinationsRepository, BeeGenerator beeGenerator)
         {
             _specieStatsRepository = specieStatsRepository;
             _geneDominanceRepository = geneDominanceRepository;

@@ -6,7 +6,9 @@ using BeeBreeder.Breeding.Generation;
 using BeeBreeder.Breeding.Positioning;
 using BeeBreeder.Breeding.Simulator;
 using BeeBreeder.Common.Model.Bees;
+using BeeBreeder.Common.Model.Environment;
 using BeeBreeder.Common.Model.Genetics.Phenotype;
+using BeeBreeder.Management.Manager;
 using BeeBreeder.Management.Model;
 using BeeBreeder.Management.Repository;
 using BeeBreeder.Property.Model;
@@ -21,39 +23,39 @@ using Microsoft.Extensions.Logging;
 namespace BeeBreeder.WebAPI.Controllers
 {
     //TODO: Rewrite to match REST architecture
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
-    public class ApiaryDataController : ControllerBase
+    public class InGameDataController : ControllerBase
     {
-        private readonly ILogger<ApiaryDataController> _logger;
-        private readonly IBreedingSimulator _simulator;
-        private readonly IPositionsController _positionsController;
+        //TODO: There is too much things here
+        private readonly IComputerRepository _computerRepository;
         private readonly BeeGenerator _beeGenerator;
         private readonly IGameApiariesDataRepository _gameApiariesDataRepository;
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly IApiaryRepository _apiaryDataRepository;
+        private readonly SimpleManager _manager;
 
-        public ApiaryDataController(ILogger<ApiaryDataController> logger, 
-            IBreedingSimulator simulator, 
-            IPositionsController positionsController,
+        public InGameDataController(
             BeeGenerator beeGenerator,
             IGameApiariesDataRepository gameApiariesDataRepository, 
             UserManager<IdentityUser> userManager, 
-            IApiaryRepository apiaryDataRepository)
+            SimpleManager manager, 
+            IComputerRepository computerRepository)
         {
-            _logger = logger;
-            _simulator = simulator;
-            _positionsController = positionsController;
             _beeGenerator = beeGenerator;
             _gameApiariesDataRepository = gameApiariesDataRepository;
             _userManager = userManager;
-            _apiaryDataRepository = apiaryDataRepository;
+            _manager = manager;
+            _computerRepository = computerRepository;
         }
 
         [HttpGet]
-        public async Task<BeePool> AvaliableBeesAsync(int iterations = 1000)
+        public async Task<ActionResult<BeePool>> AvaliableBeesAsync()
         {
-            var pool = new BeePool
+            var userId = _userManager.GetUserId(HttpContext.User);
+            if (userId == null)
+                return Unauthorized();
+
+            return new BeePool
             {
                 Bees = new List<BeeStack>
                 {
@@ -61,36 +63,29 @@ namespace BeeBreeder.WebAPI.Controllers
                     new(_beeGenerator.Generate("Forest"), 8),
                     new(_beeGenerator.Generate("Meadows", Gender.Princess), 8),
                     new(_beeGenerator.Generate("Meadows"), 8),
-                    new(_beeGenerator.Generate("Steadfast"), 1),
-                    new(_beeGenerator.Generate("Tropical"), 1),
-                    new(_beeGenerator.Generate("Modest"), 1),
-                    new(_beeGenerator.Generate("Modest", Gender.Princess),  1),
-                    new(_beeGenerator.Generate("Tropical", Gender.Princess),  1)
+                    new(_beeGenerator.Generate("Steadfast"), 1)
                 }
             };
 
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
+            _manager.ComputerNames = (await _computerRepository.GetComputersAsync(userId)).Select(x => x.Identifier).ToArray();
+            await _manager.LoadData();
 
-            _simulator.Pool = pool;
-            await Task.Run(() => _simulator.Breed(iterations));
+            var allBees = _manager.Computers
+                .SelectMany(x => x?.Trasposers)
+                .Where(x => x != null && x.Inventories != null)
+                .SelectMany(x => x?.Inventories)
+                .Where(x => x != null && x.Items != null)
+                .SelectMany(x => x?.Items)
+                .Where(x => x != null && x is BeeItem)
+                .Cast<BeeItem>()
+                .Select(x => x.BeeData)
+                .ToList();
+            var pool = new BeePool
+            {
+                Bees = allBees
+            };
 
-            sw.Stop();
-            _logger.Log(LogLevel.Debug, $"Breeded {iterations} breeds in {sw.Elapsed}");
-
-            var user = await _userManager.GetUserAsync((System.Security.Claims.ClaimsPrincipal)HttpContext.User.Claims);
             return pool;
-        }
-
-        [Route("[action]")]
-        [HttpGet]
-        public async Task<ActionResult<Apiary[]>> Apiaries()
-        {
-            var userId = _userManager.GetUserId(HttpContext.User);
-            if (userId == null)
-                return Unauthorized();
-            var apiaries = await _apiaryDataRepository.GetApiariesAsync(userId);
-            return apiaries;
         }
 
         [Route("{apiaryComputer}")]
@@ -102,7 +97,7 @@ namespace BeeBreeder.WebAPI.Controllers
 
         [Route("{apiaryComputer}/{transposer}")]
         [HttpGet]
-        public async Task<Inventory[]> Inventories(string apiaryComputer, string transposer)
+        public async Task<GameInventory[]> Inventories(string apiaryComputer, string transposer)
         {
             return await _gameApiariesDataRepository.InventoriesAsync(apiaryComputer, transposer);
         }

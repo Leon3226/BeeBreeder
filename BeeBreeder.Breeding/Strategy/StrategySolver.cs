@@ -15,13 +15,13 @@ namespace BeeBreeder.Breeding.Strategy
     public class StrategySolver : IStrategySolver
     {
         private readonly MutationTree _mutationTree;
-        private readonly ISpecieStatsRepository _specieStatsRepository;
+        private readonly ISpecieStatsProvider _specieStatsRepository;
         private readonly BeeGenerator _beeGenerator;
         private readonly IParetoComparer _paretoComparer;
         private readonly IGeneComparator _geneComparator;
 
 
-        public StrategySolver(MutationTree tree, ISpecieStatsRepository specieStatsRepository, BeeGenerator beeGenerator, IParetoComparer paretoComparer, IGeneComparator geneComparator)
+        public StrategySolver(MutationTree tree, ISpecieStatsProvider specieStatsRepository, BeeGenerator beeGenerator, IParetoComparer paretoComparer, IGeneComparator geneComparator)
         {
             _mutationTree = tree;
             _specieStatsRepository = specieStatsRepository;

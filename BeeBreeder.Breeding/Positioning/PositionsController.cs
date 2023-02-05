@@ -16,9 +16,9 @@ namespace BeeBreeder.Breeding.Positioning
             _environmentMatcher = environmentMatcher;
         }
 
-        public List<(ApiaryPosition position, (Bee Princess, Bee Drone))> Assign(IEnumerable<(Bee Princess, Bee Drone)> pairs, IEnumerable<TransposerData> transposersData, IEnumerable<ApiaryPosition> avaliablePositions)
+        public List<(InventoryPosition position, (Bee Princess, Bee Drone))> Assign(IEnumerable<(Bee Princess, Bee Drone)> pairs, IEnumerable<TransposerData> transposersData, IEnumerable<InventoryPosition> avaliablePositions)
         {
-            var positions = new List<(ApiaryPosition position, (Bee Princess, Bee Drone))>();
+            var positions = new List<(InventoryPosition position, (Bee Princess, Bee Drone))>();
             var avaliablePairs = new List<(Bee Princess, Bee Drone)>(pairs);
             foreach (var avaliablePosition in avaliablePositions)
             {

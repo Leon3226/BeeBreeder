@@ -1,7 +1,86 @@
 <div class="computers-list-container">
   <div (click)="updateComputers()">REFRESH</div>
-  <ul>
-    <li *ngFor="let computer of computers" [class]="computer.active ? 'computer-active' : 'computer-inactive' ">{{computer.identifier}}</li>
-    <li>+ Add new</li>
-  </ul>
 </div>
+
+<mat-tab-group header-less-tab mat-align-tabs="start" selectedIndex="{{openedTab}}">
+   <mat-tab label="First">
+    <button mat-icon-button (click)="backToList()" ><mat-icon>keyboard_backspace</mat-icon></button>
+    <div class="modify-computer-container">
+    <mat-progress-bar mode="indeterminate" *ngIf="addInProgress"></mat-progress-bar>
+
+      <h3 class="form-header-label">Add new computer</h3>
+    <form class="example-form" (ngSubmit)="submitAdd()" [formGroup]="addCompForm" >
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" placeholder="Jungle computer">
+      </mat-form-field>
+
+      <mat-label>{{connectedCheck.responseText}}</mat-label>
+      <mat-progress-bar mode="indeterminate" *ngIf="checkingComputerInProgress"></mat-progress-bar>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Computer Identifier</mat-label>
+        <input matInput formControlName="identifier" placeholder="kNbToSgV">
+      </mat-form-field> 
+    
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" placeholder="Computer for breeding Jungle bees"></textarea>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit">Create</button>
+      
+    </form> 
+    </div>
+  </mat-tab> 
+  <mat-tab label="Second">
+    <button mat-icon-button (click)="addComputer()" ><mat-icon>add</mat-icon></button>
+    <mat-accordion>
+      <mat-expansion-panel hideToggle *ngFor="let computer of computers">
+        <mat-expansion-panel-header> 
+          <mat-panel-title>
+            {{computer.name}}
+          </mat-panel-title>
+          <mat-icon [class]="computer.active ? 'computer-active-icon' : 'computer-inactive-icon' ">circle</mat-icon>
+          <button mat-icon-button (click)="editComputer(computer)"><mat-icon>edit</mat-icon></button>
+          <button mat-icon-button (click)="deleteComputer(computer.id)"><mat-icon>delete</mat-icon></button>
+          <mat-panel-description>
+            {{computer.identifier}} 
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        {{computer.description}}
+        <!-- <mat-list role="list">
+          <mat-list-item role="listitem" *ngFor="let computer of apiary.computers">{{computer}}</mat-list-item>
+        </mat-list> -->
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-tab> 
+  <mat-tab label="Third">
+    <button mat-icon-button (click)="backToList()" ><mat-icon>keyboard_backspace</mat-icon></button>
+    <div class="modify-computer-container">
+    <mat-progress-bar mode="indeterminate" *ngIf="editInProgress"></mat-progress-bar>
+
+      <h3 class="form-header-label">Edit computer</h3>
+    <form class="example-form" (ngSubmit)="submitEdit()" [formGroup]="editCompForm" >
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" placeholder="Jungle computer">
+      </mat-form-field>
+
+      <mat-label>{{connectedCheck.responseText}}</mat-label>
+      <mat-progress-bar mode="indeterminate" *ngIf="checkingComputerInProgress"></mat-progress-bar>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Computer Identifier</mat-label>
+        <input matInput formControlName="identifier" placeholder="kNbToSgV">
+      </mat-form-field> 
+    
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" placeholder="Computer for breeding Jungle bees"></textarea>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit">Update</button>
+      
+    </form> 
+    </div>
+  </mat-tab>
+</mat-tab-group>

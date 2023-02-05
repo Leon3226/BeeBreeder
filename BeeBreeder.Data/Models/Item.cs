@@ -7,12 +7,14 @@ namespace BeeBreeder.Data.Models
     {
         public Item()
         {
+            Inventories = new HashSet<Inventory>();
             ItemDropChances = new HashSet<ItemDropChance>();
         }
 
         public int Id { get; set; }
         public string Name { get; set; } = null!;
 
+        public virtual ICollection<Inventory> Inventories { get; set; }
         public virtual ICollection<ItemDropChance> ItemDropChances { get; set; }
     }
 }

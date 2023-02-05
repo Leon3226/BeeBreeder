@@ -8,10 +8,10 @@ namespace BeeBreeder.Breeding.Generation
 {
     public class BeeGenerator
     {
-        private readonly ISpecieStatsRepository _specieStatsRepository;
-        private readonly IGeneDominanceRepository _geneDominanceRepository;
+        private readonly ISpecieStatsProvider _specieStatsRepository;
+        private readonly IGeneDominanceProvider _geneDominanceRepository;
 
-        public BeeGenerator(ISpecieStatsRepository specieStatsRepository, IGeneDominanceRepository geneDominanceRepository)
+        public BeeGenerator(ISpecieStatsProvider specieStatsRepository, IGeneDominanceProvider geneDominanceRepository)
         {
             _specieStatsRepository = specieStatsRepository;
             _geneDominanceRepository = geneDominanceRepository;
@@ -32,7 +32,8 @@ namespace BeeBreeder.Breeding.Generation
 
             foreach (var stat in stats.Characteristics)
             {
-                var gene = GeneHelper.GetGene(stat.Key, stat.Value, _geneDominanceRepository.GenesDominance[stat.Key][stat.Value]);
+                var foundDominance = _geneDominanceRepository.GenesDominance[stat.Key].TryGetValue(stat.Value, out bool dominant);
+                var gene = GeneHelper.GetGene(stat.Key, stat.Value, foundDominance ? dominant : false);
                 var chromosome = GeneHelper.GetChromosome(stat.Key, stat.Value.GetType(), gene, gene);
                 newGenotype.Chromosomes.Add(stat.Key, chromosome);
             }

@@ -14,6 +14,6 @@ namespace BeeBreeder.Data.Models
         public int? ItemUnderId { get; set; }
 
         public virtual Item? ItemUnder { get; set; }
-        public virtual Transposer Transposer { get; set; } = null!;
+        public virtual TransposerDatum Transposer { get; set; } = null!;
     }
 }

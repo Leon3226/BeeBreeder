@@ -1,0 +1,32 @@
+* {
+    box-sizing: border-box;
+    font-size: 9px;
+    text-align: center;
+  }
+  ul {
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .edit-button{
+    font-size: 25px;
+  }
+
+  .load-button{
+    font-size: 30px;
+  }
+
+  li {
+    border: 1px solid grey;
+    padding: 1em;
+  }
+
+  tr{
+    height: 60px;
+  }
+
+  td {
+    border: 1px solid grey;
+    width: 60px;
+  }

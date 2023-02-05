@@ -10,10 +10,10 @@ namespace BeeBreeder.Breeding.EnvironmentMatching
 {
     public class EnvironmentMatcher : IEnvironmentMatcher
     {
-        private readonly ISpecieClimateRepository _specieClimateRepository;
-        private readonly IBiomeInfoRepository _biomeInfoRepository;
+        private readonly ISpecieClimateProvider _specieClimateRepository;
+        private readonly IBiomeInfoProvider _biomeInfoRepository;
 
-        public EnvironmentMatcher(ISpecieClimateRepository specieClimateRepository, IBiomeInfoRepository biomeInfoRepository)
+        public EnvironmentMatcher(ISpecieClimateProvider specieClimateRepository, IBiomeInfoProvider biomeInfoRepository)
         {
             _specieClimateRepository = specieClimateRepository;
             _biomeInfoRepository = biomeInfoRepository;

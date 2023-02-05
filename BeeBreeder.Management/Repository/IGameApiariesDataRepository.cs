@@ -4,7 +4,7 @@ namespace BeeBreeder.Management.Repository
 {
     public interface IGameApiariesDataRepository
     {
-        Task<Inventory[]> InventoriesAsync(string apiary, string transposer);
+        Task<GameInventory[]> InventoriesAsync(string apiary, string transposer);
         bool IsActive(string apiary);
         Task<Item[]> ItemsAsync(string apiary, string transposer, int side);
         Task<int> MoveAsync(string apiary, string transposer, MoveRequest move);

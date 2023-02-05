@@ -2,7 +2,10 @@
   float: left;
 }
 
-.left, .right {
+.left{
+  width: 25%;
+}
+.right {
   width: 25%;
 }
 

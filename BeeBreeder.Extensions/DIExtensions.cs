@@ -13,8 +13,10 @@ using BeeBreeder.Breeding.Strategy;
 using BeeBreeder.Breeding.Targeter;
 using BeeBreeder.Common.Data;
 using BeeBreeder.Common.Model.Data;
+using BeeBreeder.Data.Providers;
 using BeeBreeder.Data.Repositories;
 using BeeBreeder.Management.Identifiers;
+using BeeBreeder.Management.Manager;
 using BeeBreeder.Management.Parser;
 using BeeBreeder.Management.Repository;
 using BeeBreeder.Management.Sockets;
@@ -32,7 +34,7 @@ namespace BeeBreeder.Extensions
         {
             services.AddScoped<IBreedAnalyzer, ExtendedNaturalSelectionAnalyzer>();
             services.AddScoped<IBreedFlusher, ExtendedNaturalSelectionFlusher>();
-            services.AddScoped(s => MutationTree.FromSpecieCombinations(s.GetRequiredService<ISpecieCombinationsRepository>().SpecieCombinations));
+            services.AddScoped(s => MutationTree.FromSpecieCombinations(s.GetRequiredService<ISpecieCombinationsProvider>().SpecieCombinations));
             services.AddScoped<IStrategySolver, StrategySolver>();
             services.AddScoped<IBreedingSimulator, BreedingSimulator>();
             services.AddScoped<ISpecieTargeter, BestGenesTargeter>();
@@ -45,15 +47,19 @@ namespace BeeBreeder.Extensions
             services.AddScoped<CodeGenerator>();
             services.AddScoped<IComputerBindRequestRepository, ComputerBindRequestRepository>();
             services.AddScoped<IComputerRepository, ComputerRepository>();
+            services.AddScoped<ITransposerRepository, TransposerRepository>();
+            services.AddScoped<IInventoryRepository, InventoryRepository>();
             services.AddScoped<BeeGenerator>();
+            services.AddScoped<SimpleManager>();
 
-            var repo = new StubBeeDataRepository();
-            services.AddSingleton<IGeneDominanceRepository>(repo);
-            services.AddSingleton<ISpecieCombinationsRepository>(repo);
-            services.AddSingleton<ISpecieStatsRepository>(repo);
-            services.AddSingleton<IBiomeInfoRepository>(repo);
-            services.AddSingleton<ISpecieClimateRepository>(repo);
-            services.AddSingleton<IBiomeClimateRepository>(repo);
+            var repo = new StubBeeDataProvider();
+            services.AddSingleton<IGeneDominanceProvider>(repo);
+            services.AddScoped<ISpecieCombinationsProvider, SpecieCombinationsProvider>();
+            services.AddScoped<ISpecieStatsProvider, SpecieStatsProvider>(); 
+            services.AddScoped<IModsProvider, ModsProvider>(); 
+            services.AddSingleton<IBiomeInfoProvider>(repo);
+            services.AddSingleton<ISpecieClimateProvider>(repo);
+            services.AddSingleton<IBiomeClimateProvider>(repo);
 
             return services;
         }

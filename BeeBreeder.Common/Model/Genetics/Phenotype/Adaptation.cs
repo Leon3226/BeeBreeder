@@ -12,6 +12,33 @@ namespace BeeBreeder.Common.Model.Genetics.Phenotype
             Down = down;
         }
 
+        public Adaptation(string dataString)
+        {
+            if (dataString.StartsWith("+-")) 
+            {
+                var value = int.Parse(dataString.Replace("+-", ""));
+                Up = Down = value;
+                return;
+            }
+            if (dataString.StartsWith("+"))
+            {
+                var value = int.Parse(dataString.Replace("+", ""));
+                Up = value;
+                Down = 0;
+                return;
+            }
+            if (dataString.StartsWith("-"))
+            {
+                var value = int.Parse(dataString.Replace("-", ""));
+                Up = 0;
+                Down = value;
+                return;
+            }
+
+            Up = 0;
+            Down = 0;
+        }
+
         public override string ToString() 
         {
             if (Up == Down)
@@ -24,8 +51,8 @@ namespace BeeBreeder.Common.Model.Genetics.Phenotype
             }
 
             var up = Up == 0 ? "" : $"+{Up}";
-                var down = Down == 0 ? "" : $"-{Down}";
-                return $"{up}{down}";
+            var down = Down == 0 ? "" : $"-{Down}";
+            return $"{up}{down}";
             }
         }
     }

@@ -51,7 +51,8 @@ namespace BeeBreeder.Data.Repositories
                         Identifier = x.InGameIdentifier,
                         Description = x.Description,
                         Name = x.Name,
-                        UserId = x.UserId
+                        UserId = x.UserId,
+                        ApiaryId = x.ApiaryId
                     }).ToArray();
                 });
             }
@@ -69,7 +70,8 @@ namespace BeeBreeder.Data.Repositories
                         Identifier = x.InGameIdentifier,
                         Description = x.Description,
                         Name = x.Name,
-                        UserId = x.UserId
+                        UserId = x.UserId,
+                        ApiaryId = x.ApiaryId
                     }).SingleOrDefault();
                 });
             }
@@ -87,7 +89,8 @@ namespace BeeBreeder.Data.Repositories
                         Identifier = x.InGameIdentifier,
                         Description = x.Description,
                         Name = x.Name,
-                        UserId = x.UserId
+                        UserId = x.UserId,
+                        ApiaryId = x.ApiaryId
                     }).SingleOrDefault();
                 });
             }
@@ -121,6 +124,17 @@ namespace BeeBreeder.Data.Repositories
             }
         }
 
-
+        public async Task DetachApiary(int computerId)
+        {
+            using (var context = new Context())
+            {
+                var dbComputer = context.ApiaryComputers.SingleOrDefault(x => x.Id == computerId);
+                if (dbComputer != null)
+                {
+                    dbComputer.ApiaryId = null;
+                }
+                await context.SaveChangesAsync();
+            }
+        }
     }
 }

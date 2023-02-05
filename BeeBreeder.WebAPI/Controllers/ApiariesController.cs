@@ -1,7 +1,6 @@
 ﻿using BeeBreeder.Management.Repository;
 using BeeBreeder.Property.Model;
 using BeeBreeder.Property.Repository;
-using BeeBreeder.WebAPI.Management;
 using BeeBreeder.WebAPI.Sockets;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -19,15 +18,18 @@ namespace BeeBreeder.WebAPI.Controllers
     public class ApiariesController : ControllerBase
     {
         private readonly IApiaryRepository _apiaryDataRepository;
+        private readonly IComputerRepository _computerRepository;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IGameApiariesDataRepository _gameApiariesDataRepository;
 
 
         public ApiariesController(IApiaryRepository apiaryDataRepository,
+            IComputerRepository computerRepository,
             UserManager<IdentityUser> userManager,
             IGameApiariesDataRepository gameApiariesDataRepository)
         {
             _apiaryDataRepository = apiaryDataRepository;
+            _computerRepository = computerRepository;
             _userManager = userManager;
             _gameApiariesDataRepository = gameApiariesDataRepository;
         }
@@ -53,6 +55,50 @@ namespace BeeBreeder.WebAPI.Controllers
             return apiary;
         }
 
+        // GET api/<ApiariesController>/5
+        [HttpPost("{apiaryId}/{computerId}")]
+        public async Task<ActionResult<bool>> AttachComputer(int apiaryId, int computerId)
+        {
+            var userId = _userManager.GetUserId(HttpContext.User);
+            if (userId == null)
+                return Unauthorized();
+
+            var computer = await _computerRepository.GetComputerAsync(userId, computerId);
+            if (computer.UserId != userId)
+                return false;
+
+            var apiary = await _apiaryDataRepository.GetApiaryAsync(userId, apiaryId);
+            if (apiary == null)
+            {
+                return false;
+            }
+
+            await _computerRepository.SetApiary(computerId, apiaryId);
+            return true;
+        }
+
+        // GET api/<ApiariesController>/5
+        [HttpDelete("{apiaryId}/{computerId}")]
+        public async Task<ActionResult<bool>> DetachComputer(int apiaryId, int computerId)
+        {
+            var userId = _userManager.GetUserId(HttpContext.User);
+            if (userId == null)
+                return Unauthorized();
+
+            var computer = await _computerRepository.GetComputerAsync(userId, computerId);
+            if (computer.UserId != userId)
+                return false;
+
+            var apiary = await _apiaryDataRepository.GetApiaryAsync(userId, apiaryId);
+            if (apiary == null)
+            {
+                return false;
+            }
+
+            await _computerRepository.DetachApiary(computerId);
+            return true;
+        }
+
         // POST api/<ApiariesController>
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] Apiary value)
@@ -61,6 +107,18 @@ namespace BeeBreeder.WebAPI.Controllers
             if (userId == null)
                 return Unauthorized();
             await _apiaryDataRepository.AddApiaryAsync(userId, value);
+            return Ok();
+        }
+
+        // POST api/<ApiariesController>
+        [HttpPost("computers/{identifier}")]
+        public async Task<ActionResult> Post([FromBody] string value)
+        {
+            var userId = _userManager.GetUserId(HttpContext.User);
+            if (userId == null)
+                return Unauthorized();
+
+            //await _computerRepository.SetApiary(userId, value);
             return Ok();
         }
 

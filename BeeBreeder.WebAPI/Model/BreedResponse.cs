@@ -5,7 +5,7 @@ namespace BeeBreeder.WebAPI.Model
 {
     public class BreedResponse
     {
-        public List<ApiaryPosition> Flush;
-        public List<(ApiaryPosition, ApiaryPosition)> Breed;
+        public List<InventoryPosition> Flush;
+        public List<(InventoryPosition, InventoryPosition)> Breed;
     }
 }

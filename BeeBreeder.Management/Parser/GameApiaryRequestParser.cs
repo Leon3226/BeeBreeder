@@ -12,54 +12,80 @@ namespace BeeBreeder.Management.Parser
             return int.Parse(raw);
         }
 
-        public Inventory[] ToInventories(string raw)
+        public GameInventory[] ToInventories(string raw)
         {
-            var inventories = new Inventory[6];
-            var parsed = JObject.Parse(raw);
-            parsed.Children().ToList().ForEach(x =>
+            try
             {
-                var index = int.Parse(x.Path);
-                var token = x.Last.SelectToken("");
-                if (token.HasValues)
+                var inventories = new GameInventory[6];
+                var parsed = JObject.Parse(raw);
+                parsed.Children().ToList().ForEach(x =>
                 {
-                    var value = token.ToObject<Inventory>();
-                    inventories[index] = value;
-                }
-            });
-            return inventories;
+                    var index = int.Parse(x.Path);
+                    var token = x.Last.SelectToken("");
+                    if (token.HasValues)
+                    {
+                        var value = token.ToObject<GameInventory>();
+                        inventories[index] = value;
+                    }
+                });
+                return inventories;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
 
         public Item[] ToItems(string raw)
         {
-            var parsed = JArray.Parse(raw);
-            var items = new Item[parsed.Count];
-            var child = parsed.Children().ToList();
-            child.ForEach(x =>
+            try
             {
-                var index = int.Parse(x.Path.Replace("[", "").Replace("]", ""));
-                if (x.HasValues)
+                var parsed = JArray.Parse(raw);
+                var items = new Item[parsed.Count];
+                var child = parsed.Children().ToList();
+                child.ForEach(x =>
                 {
-                    Item item;
-                    var beeData = x.SelectToken("individual");
-                    if (beeData != null)
+                    var index = int.Parse(x.Path.Replace("[", "").Replace("]", ""));
+                    if (x.HasValues)
                     {
-                        var beeItem = x.ToObject<BeeItem>();
-                        beeItem.BeeData = x.ToObject<GameBeeModel>().ToModelBee();
-                        item = beeItem;
+                        Item item;
+                        var beeData = x.SelectToken("individual");
+                        if (beeData != null)
+                        {
+                            try
+                            {
+                                var beeItem = x.ToObject<BeeItem>();
+                                var beeObject = x.ToObject<GameBeeModel>();
+                                if (!beeObject.Individual.IsAnalyzed)
+                                {
+                                    throw new Exception("Bee is not analyzed");
+                                }
+                                beeItem.BeeData = beeObject.ToModelBee();
+                                item = beeItem;
+                            }
+                            catch (Exception e)
+                            {
+                                item = x.ToObject<Item>();
+                            }
+                        }
+                        else
+                        {
+                            item = x.ToObject<Item>();
+                        }
+
+                        items[index] = item;
                     }
                     else
                     {
-                        item = x.ToObject<Item>();
+                        items[index] = null;
                     }
-
-                    items[index] = item;
-                }
-                else
-                {
-                    items[index] = null;
-                }
-            });
-            return items;
+                });
+                return items;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
 
         public string[] ToTransposers(string raw)

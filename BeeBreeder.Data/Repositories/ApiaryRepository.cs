@@ -14,20 +14,29 @@ namespace BeeBreeder.Data.Repositories
     {
         public ApiaryRepository()
         {
-            
+
         }
 
         public async Task AddApiaryAsync(string userId, Property.Model.Apiary apiary)
         {
             using (var context = new Context())
             {
-                await context.AddAsync(new Apiary
+                using (var transaction = context.Database.BeginTransaction())
                 {
-                    Name = apiary.Name,
-                    Description = apiary.Description,
-                    UserId = userId
-                });
-                await context.SaveChangesAsync();
+                    var newApiary = await context.AddAsync(new Apiary
+                    {
+                        Name = apiary.Name,
+                        Description = apiary.Description,
+                        UserId = userId
+                    });
+
+                    await context.SaveChangesAsync();
+
+                    context.ApiaryMods.AddRange(apiary.Mods.Select(x => new ApiaryMod { ApiaryId = newApiary.Entity.Id, ModId = x }));
+
+                    await context.SaveChangesAsync();
+                    await transaction.CommitAsync();
+                }
             }
         }
 
@@ -55,7 +64,15 @@ namespace BeeBreeder.Data.Repositories
                         Id = x.Id,
                         Name = x.Name,
                         Description = x.Description,
-                        Computers = x.ApiaryComputers.Select(x => x.InGameIdentifier).ToArray()
+                        Computers = x.ApiaryComputers.Select(x => new BeeBreeder.Property.Model.ApiaryComputer
+                        {
+                            Identifier = x.InGameIdentifier,
+                            Id = x.Id,
+                            ApiaryId = x.ApiaryId,
+                            Description = x.Description,
+                            Name = x.Name
+                        }).ToArray(),
+                        Mods = x.ApiaryMods.Select(x => x.ModId).ToArray()
                     }).ToArray();
                 });
             }
@@ -72,7 +89,15 @@ namespace BeeBreeder.Data.Repositories
                         Id = x.Id,
                         Name = x.Name,
                         Description = x.Description,
-                        Computers = x.ApiaryComputers.Select(x => x.InGameIdentifier).ToArray()
+                        Computers = x.ApiaryComputers.Select(x => new BeeBreeder.Property.Model.ApiaryComputer
+                        {
+                            Identifier = x.InGameIdentifier,
+                            Id = x.Id,
+                            ApiaryId = x.ApiaryId,
+                            Description = x.Description,
+                            Name = x.Name
+                        }).ToArray(),
+                        Mods = x.ApiaryMods.Select(x => x.ModId).ToArray()
                     }).SingleOrDefault();
                 });
             }
@@ -87,8 +112,16 @@ namespace BeeBreeder.Data.Repositories
                 {
                     dbApiary.Name = apiary.Name;
                     dbApiary.Description = apiary.Description;
+
+                    foreach (var mod in context.ApiaryMods)
+                    {
+                        context.Remove(mod);
+                    }
+                    context.ApiaryMods.AddRange(apiary.Mods.Select(x => new ApiaryMod { ApiaryId = dbApiary.Id, ModId = x }));
+
                     await context.SaveChangesAsync();
                 }
+
             }
         }
     }

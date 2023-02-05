@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AccountService} from "../services/auth/account.service";
-import {AccountData} from "../../model/auth/account-data";
+import {AccountData} from "../model/auth/account-data";
 
 @Component({
   selector: 'app-header',

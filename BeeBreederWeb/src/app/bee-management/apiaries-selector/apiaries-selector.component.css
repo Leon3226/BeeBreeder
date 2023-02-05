@@ -1,3 +1,21 @@
 .apiaries-selector-container{
   outline: black auto thin;
 }
+
+.modify-apiary-container { width: 90%; padding-left: 5%; }
+
+.mat-form-field {width: 100%;}
+
+.form-header-label {padding-top: 5px; padding-bottom: 6px;}
+
+.mat-list-item-hoverable:hover{
+  background: gray;
+}
+
+.computer-active-icon{
+  color: limegreen;
+}
+
+.computer-inactive-icon{
+  color: red;
+}

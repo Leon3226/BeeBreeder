@@ -78,7 +78,6 @@ namespace BeeBreeder.Common.Model.Data
 
             return tree;
         }
-
         public List<string> OnlyNecessaryForGettingIfPossible(IEnumerable<string> targets, IEnumerable<string> existing)
         {
             List<string> necessary = new List<string>();

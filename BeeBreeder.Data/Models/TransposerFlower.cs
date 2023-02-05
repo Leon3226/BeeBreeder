@@ -5,10 +5,11 @@ namespace BeeBreeder.Data.Models
 {
     public partial class TransposerFlower
     {
-        public string Id { get; set; } = null!;
+        public int Id { get; set; }
         public string TransposerId { get; set; } = null!;
-        public string Flower { get; set; } = null!;
+        public int FlowerId { get; set; }
 
-        public virtual Transposer Transposer { get; set; } = null!;
+        public virtual Flower Flower { get; set; } = null!;
+        public virtual TransposerDatum Transposer { get; set; } = null!;
     }
 }

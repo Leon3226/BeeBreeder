@@ -2,7 +2,6 @@
 using BeeBreeder.Management.Repository;
 using BeeBreeder.Property.Model;
 using BeeBreeder.Property.Repository;
-using BeeBreeder.WebAPI.Management;
 using BeeBreeder.WebAPI.Model;
 using BeeBreeder.WebAPI.Sockets;
 using Microsoft.AspNetCore.Identity;
@@ -45,6 +44,7 @@ namespace BeeBreeder.WebAPI.Controllers
                 Name = x.Name,
                 Description = x.Description,
                 Identifier = x.Identifier,
+                ApiaryId = x.ApiaryId,
                 Active = _gameApiariesDataRepository.IsActive(x.Identifier)
             }).ToArray();
         }
@@ -56,6 +56,7 @@ namespace BeeBreeder.WebAPI.Controllers
             var userId = _userManager.GetUserId(HttpContext.User);
             if (userId == null)
                 return Unauthorized();
+
             var dbComputer = await _computerRepository.GetComputerAsync(userId, id);
             return new Computer
             {
@@ -63,8 +64,62 @@ namespace BeeBreeder.WebAPI.Controllers
                 Name = dbComputer.Name,
                 Description = dbComputer.Description,
                 Identifier = dbComputer.Identifier,
+                ApiaryId = dbComputer.ApiaryId,
                 Active = _gameApiariesDataRepository.IsActive(dbComputer.Identifier)
             };
+        }
+
+        [HttpGet("connect_check/{identifier}")]
+        public async Task<ActionResult<ConnectionCheckResponse>> GetConnected(string identifier)
+        {
+            var userId = _userManager.GetUserId(HttpContext.User);
+            if (userId == null)
+                return Unauthorized();
+
+            var dbComputer = await _computerRepository.GetComputerAsync(identifier);
+            if (dbComputer == null)
+            {
+                var isConnected = _gameApiariesDataRepository.IsActive(identifier);
+                if (!isConnected)
+                {
+                    return new ConnectionCheckResponse()
+                    {
+                        Connected = false,
+                        AllowedToAdd = true,
+                        ResponseText = "This computer do not exist, or not yet connected to the server. You can add it and turn on later, but it's highly recommended to have it turned on and connected when you're adding it."
+                    };
+                }
+                else
+                {
+                    return new ConnectionCheckResponse()
+                    {
+                        Connected = true,
+                        AllowedToAdd = true,
+                        ResponseText = "This computer is connected, free, and ready to be added."
+                    };
+                }
+            }
+            else
+            {
+                if (dbComputer.UserId == userId)
+                {
+                    return new ConnectionCheckResponse()
+                    {
+                        Connected = false,
+                        AllowedToAdd = false,
+                        ResponseText = "This computer already belongs to you and connected to your account. If you don't see it, probably something fucked up, try to change it's identifier in the Minecraft and try adding it again."
+                    };
+                }
+                else
+                {
+                    return new ConnectionCheckResponse()
+                    {
+                        Connected = false,
+                        AllowedToAdd = false,
+                        ResponseText = "This computer belongs to somebody else. If it is yours, try to change it's identifier in the Minecraft and try adding it again."
+                    };
+                }
+            }
         }
 
         // POST api/<ApiariesController>
@@ -86,7 +141,7 @@ namespace BeeBreeder.WebAPI.Controllers
 
         // PUT api/<ApiariesController>/5
         [HttpPut("{id}")]
-        public async Task<ActionResult> Put(int id, [FromBody]Computer value)
+        public async Task<ActionResult> Put(int id, [FromBody] Computer value)
         {
             var userId = _userManager.GetUserId(HttpContext.User);
             if (userId == null)

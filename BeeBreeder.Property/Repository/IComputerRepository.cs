@@ -16,5 +16,6 @@ namespace BeeBreeder.Property.Repository
         Task UpdateComputerAsync(ApiaryComputer computer);
         Task DeleteComputerAsync(int id);
         Task SetApiary(int computerId, int? apiaryId);
+        Task DetachApiary(int computerId);
     }
 }

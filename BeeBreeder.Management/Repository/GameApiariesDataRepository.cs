@@ -33,7 +33,7 @@ namespace BeeBreeder.Management.Repository
             return _apiaryRequestConverter.ToTransposers(raw);
         }
 
-        public async Task<Inventory[]> InventoriesAsync(string apiary, string transposer)
+        public async Task<GameInventory[]> InventoriesAsync(string apiary, string transposer)
         {
             var raw = await _socketManager.RequestToApiaryAsync(apiary, $"{inventoriesRequest} {transposer}");
             return _apiaryRequestConverter.ToInventories(raw);

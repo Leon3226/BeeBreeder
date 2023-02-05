@@ -5,6 +5,6 @@ namespace BeeBreeder.WebAPI.Model
     public class PlacedBee
     {
         public GameBeeModel Bee;
-        public ApiaryPosition BeePosition;
+        public InventoryPosition BeePosition;
     }
 }
