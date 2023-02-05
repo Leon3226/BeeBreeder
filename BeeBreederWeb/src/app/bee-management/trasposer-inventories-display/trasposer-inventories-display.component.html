@@ -10,6 +10,7 @@
                     <button mat-icon-button><mat-icon class="edit-button">edit</mat-icon></button>
 
                     {{trans.id}}
+                    {{trans.name}}
                   </ng-container>
                   <ng-template #containerIcon>
                     <app-transposer-inventory-icon *ngIf="trans.inventories[places[column][row]] != null" [inventory]="trans.inventories[places[column][row]]"></app-transposer-inventory-icon>

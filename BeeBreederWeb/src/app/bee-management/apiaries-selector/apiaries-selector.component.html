@@ -1,74 +1,121 @@
 <div class="apiaries-selector-container">
   <!-- <label (click)="updateApiaries()">  REFRESH </label> -->
 
-
-  <mat-tab-group header-less-tab mat-align-tabs="start" selectedIndex="{{openedTab}}">
+  <mat-tab-group
+    header-less-tab
+    mat-align-tabs="start"
+    selectedIndex="{{ openedTab }}"
+  >
     <mat-tab label="First">
-      <button mat-icon-button (click)="backToList()" ><mat-icon>keyboard_backspace</mat-icon></button>
+      <button mat-icon-button (click)="backToList()">
+        <mat-icon>keyboard_backspace</mat-icon>
+      </button>
       <div class="modify-apiary-container">
-      <mat-progress-bar mode="indeterminate" *ngIf="addInProgress"></mat-progress-bar>
+        <mat-progress-bar
+          mode="indeterminate"
+          *ngIf="addInProgress"
+        ></mat-progress-bar>
 
         <h3 class="form-header-label">Add new apiary</h3>
-      <form class="example-form"  (ngSubmit)="submitAdd()" [formGroup]="addModForm" >
-        <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Name</mat-label>
-          <input matInput formControlName="name" placeholder="My New Apiary">
-        </mat-form-field>
+        <form
+          class="example-form"
+          (ngSubmit)="submitAdd()"
+          [formGroup]="addModForm"
+        >
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Name</mat-label>
+            <input
+              matInput
+              formControlName="name"
+              placeholder="My New Apiary"
+            />
+          </mat-form-field>
 
-        <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Description</mat-label>
-          <textarea matInput formControlName="description" placeholder="Most beautiful apiary"></textarea>
-        </mat-form-field>
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Description</mat-label>
+            <textarea
+              matInput
+              formControlName="description"
+              placeholder="Most beautiful apiary"
+            ></textarea>
+          </mat-form-field>
 
-        <mat-form-field appearance="fill">
-          <mat-label>Mods</mat-label>
-          <mat-select formControlName="mods" multiple>
-            <mat-option *ngFor="let mod of modOptions" [value]="mod.id">{{mod.name}}</mat-option>
-          </mat-select>
-        </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Mods</mat-label>
+            <mat-select formControlName="mods" multiple>
+              <mat-option *ngFor="let mod of modOptions" [value]="mod.id">{{
+                mod.name
+              }}</mat-option>
+            </mat-select>
+          </mat-form-field>
 
-        <button mat-raised-button color="primary" type="submit">Create</button>
-
-      </form>
+          <button mat-raised-button color="primary" type="submit">
+            Create
+          </button>
+        </form>
       </div>
     </mat-tab>
     <mat-tab label="Second">
-      <button mat-icon-button (click)="addApiary()" ><mat-icon>add</mat-icon></button>
+      <button mat-icon-button (click)="addApiary()">
+        <mat-icon>add</mat-icon>
+      </button>
       <mat-accordion>
         <mat-expansion-panel hideToggle *ngFor="let apiary of apiaries">
           <mat-expansion-panel-header>
             <mat-panel-title>
-              {{apiary.name}}
+              {{ apiary.name }}
             </mat-panel-title>
-            <button mat-icon-button (click)="editApary(apiary)"><mat-icon>edit</mat-icon></button>
-            <button mat-icon-button (click)="deleteApiary(apiary.id)"><mat-icon>delete</mat-icon></button>
+            <button mat-icon-button (click)="editApary(apiary)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="deleteApiary(apiary.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
             <mat-panel-description>
-              {{apiary.description}}
+              {{ apiary.description }}
             </mat-panel-description>
           </mat-expansion-panel-header>
           <mat-list role="list">
-            <button mat-raised-button (click)="switchToThisApiary(apiary.id)" color="primary">Switch to this Apiary</button>
-            <mat-list-item role="listitem" *ngFor="let computer of apiary.computers">
-              {{computer.identifier}}
+            <button
+              mat-raised-button
+              (click)="switchToThisApiary(apiary.id)"
+              color="primary"
+            >
+              Switch to this Apiary
+            </button>
+            <mat-list-item
+              role="listitem"
+              *ngFor="let computer of apiary.computers"
+            >
+              {{ computer.identifier }}
               <!-- <mat-icon (click)="onSelectAddComputer(apiary.id, computer.id)">delete</mat-icon> -->
               <!-- TODO : Add later -->
             </mat-list-item>
-            <mat-list-item role="listitem" class="mat-list-item-hoverable" (click)="switchSelectionListEnabled()">
+            <mat-list-item
+              role="listitem"
+              class="mat-list-item-hoverable"
+              (click)="switchSelectionListEnabled()"
+            >
               <div *ngIf="!selectionListEnabled">
                 <mat-icon>add</mat-icon>
                 Add New
               </div>
-              <div *ngIf="selectionListEnabled">
-                ..Or not
-              </div>
+              <div *ngIf="selectionListEnabled">..Or not</div>
             </mat-list-item>
 
             <mat-form-field appearance="fill" *ngIf="selectionListEnabled">
               <mat-label>Computer</mat-label>
               <mat-select>
-                <mat-optgroup *ngFor="let group of computersOptions" [label]="group.name">
-                  <mat-option *ngFor="let computer of group.computers" [value]="computer.id" (click)="onSelectAddComputer(apiary.id, computer.id)">
-                    {{computer.name}} <i>{{computer.identifier}}</i>
+                <mat-optgroup
+                  *ngFor="let group of computersOptions"
+                  [label]="group.name"
+                >
+                  <mat-option
+                    *ngFor="let computer of group.computers"
+                    [value]="computer.id"
+                    (click)="onSelectAddComputer(apiary.id, computer.id)"
+                  >
+                    {{ computer.name }} <i>{{ computer.identifier }}</i>
                   </mat-option>
                 </mat-optgroup>
               </mat-select>
@@ -78,34 +125,44 @@
       </mat-accordion>
     </mat-tab>
     <mat-tab label="Third">
-      <button mat-icon-button (click)="backToList()" ><mat-icon>keyboard_backspace</mat-icon></button>
+      <button mat-icon-button (click)="backToList()">
+        <mat-icon>keyboard_backspace</mat-icon>
+      </button>
       <div class="modify-apiary-container">
         <h3 class="form-header-label">Edit apiary</h3>
-      <form class="example-form"  (ngSubmit)="submitEdit()" [formGroup]="editModForm" >
-        <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Name</mat-label>
-          <input matInput formControlName="name" placeholder="My Apiary">
-        </mat-form-field>
+        <form
+          class="example-form"
+          (ngSubmit)="submitEdit()"
+          [formGroup]="editModForm"
+        >
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" placeholder="My Apiary" />
+          </mat-form-field>
 
-        <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Description</mat-label>
-          <textarea matInput formControlName="description" placeholder="Most beautiful apiary"></textarea>
-        </mat-form-field>
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Description</mat-label>
+            <textarea
+              matInput
+              formControlName="description"
+              placeholder="Most beautiful apiary"
+            ></textarea>
+          </mat-form-field>
 
-        <mat-form-field appearance="fill">
-          <mat-label>Mods</mat-label>
-          <mat-select formControlName="mods" multiple>
-            <mat-option *ngFor="let mod of modOptions" [value]="mod.id">{{mod.name}}</mat-option>
-          </mat-select>
-        </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Mods</mat-label>
+            <mat-select formControlName="mods" multiple>
+              <mat-option *ngFor="let mod of modOptions" [value]="mod.id">{{
+                mod.name
+              }}</mat-option>
+            </mat-select>
+          </mat-form-field>
 
-        <button mat-raised-button color="primary" type="submit">Update</button>
-      </form>
+          <button mat-raised-button color="primary" type="submit">
+            Update
+          </button>
+        </form>
       </div>
     </mat-tab>
   </mat-tab-group>
-
-
-
-
 </div>

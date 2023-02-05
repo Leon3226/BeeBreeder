@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Inventory } from '../model/apiary/inventory';
 import { Transposer } from '../model/apiary/transposer';
 import { TransposerWithInventories } from '../model/apiary/transposer-with-inventories';
 
@@ -15,7 +16,7 @@ export class TransposersService {
     return this.http.get<any>(`http://localhost:5001/api/InGameData/${computer}`)
   }
 
-  public getGameTransposer(computer: string, transposer: string) : Observable<TransposerWithInventories[]> {
+  public getGameTransposer(computer: string, transposer: string) : Observable<Inventory[]> {
     return this.http.get<any>(`http://localhost:5001/api/InGameData/${computer}/${transposer}`)
   }
 

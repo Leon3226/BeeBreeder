@@ -1,5 +1,6 @@
 <div class="container" (mouseenter) ="mouseEnter()" (mouseleave) ="mouseLeave()">
   <div [hidden]="!hovering" class="text nameText">{{inventory?.name}}</div>
   <div class="text slotsText">?/{{inventory?.size}}</div>
+  <div>{{inventory?.description}}</div>
   <img [src]="getImageLink(inventory?.name)" class="container-image"/>
 </div>

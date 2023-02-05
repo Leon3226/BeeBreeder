@@ -10,6 +10,7 @@ import { ApiaryService } from 'src/app/services/apiary.service';
 import { TransposerWithInventories } from 'src/app/model/apiary/transposer-with-inventories';
 import { Inventory } from 'src/app/model/apiary/inventory';
 import { combineLatest, forkJoin } from 'rxjs';
+import { InventoriesService } from 'src/app/services/inventories.service';
 
 @Component({
   selector: 'app-bee-control-panel',
@@ -18,7 +19,11 @@ import { combineLatest, forkJoin } from 'rxjs';
 })
 export class BeeControlPanelComponent implements OnInit {
 
-  constructor(private http: HttpClient,private apiaryService: ApiaryService, private computersService: ComputersService, private transposersService: TransposersService) { }
+  constructor(private http: HttpClient,
+    private apiaryService: ApiaryService,
+    private computersService: ComputersService,
+    private inventoriesService: InventoriesService,
+    private transposersService: TransposersService) { }
 
   computers: Computer[] = [];
   transposers: TransposerWithInventories[] = [];
@@ -51,13 +56,28 @@ export class BeeControlPanelComponent implements OnInit {
 
             data.forEach(transposer => {
               let transposerInfo = info.find(x => x.id === transposer) ?? {biome: '', flowers: [], id: transposer, name:'', roofed:false};
-              this.transposersService.getGameTransposer(computer.identifier, transposer).subscribe(result => {
-                this.transposers.push({ ...transposerInfo,
-                  inventories: (result as unknown as Inventory[])})
+              let inventoriesDataObservable = this.transposersService.getGameTransposer(computer.identifier, transposer);
+              let inventoriesInfoObservable = this.inventoriesService.getInventories(computer.id, transposer);
+
+              combineLatest([inventoriesDataObservable, inventoriesInfoObservable]).subscribe((inventoriesResult) => {
+              let inventoriesData = inventoriesResult[0];
+              let inventoriesInfo = inventoriesResult[1];
+
+              inventoriesData.forEach((inventoryData, index) => {
+                let inventoryInfo = inventoriesInfo.find(x => x.side == index);
+                if (inventoryInfo != null) {
+                  inventoriesData[index] = {...inventoryInfo, ...inventoryData};
+                }
               })
+
+              this.transposers.push({
+                ...transposerInfo,
+                inventories: inventoriesData})
+
             });
           });
       });
-    })
+    });
+  })
   }
 }
